@@ -1,0 +1,22 @@
+{% from "composants/sceau.njk" import sceau %}
+<header class="header">
+  <div class="header__conteneur conteneur">
+    <a href="/" class="header__logo">
+      {{ sceau(40) }}
+      <span class="header__nom">Soly'bat</span>
+    </a>
+    <button class="header__menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="header-nav">
+      <span class="sr-only">Menu</span>
+      <span class="header__menu-icone" aria-hidden="true"></span>
+    </button>
+    <nav class="header__nav" id="header-nav" data-nav-principale>
+      <a href="/renovation-location/">Notre service</a>
+      <a href="/realisations/">Réalisations</a>
+      <a href="/process/">Process</a>
+      <a href="/espace-pro/">Espace pro</a>
+      <a href="/a-propos/">À propos</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/devis/" class="header__cta">Demander un devis</a>
+    </nav>
+  </div>
+</header>
