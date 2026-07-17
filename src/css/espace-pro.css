@@ -1,0 +1,9 @@
+.plaquette-a-venir {
+  display: inline-block;
+  padding: var(--espace-xs) var(--espace-sm);
+  background: var(--couleur-creme-claire);
+  color: var(--couleur-bois-brule);
+  border: 1px dashed var(--couleur-bois-brule);
+  border-radius: 4px;
+  cursor: not-allowed;
+}
