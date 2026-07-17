@@ -1,0 +1,10 @@
+{% macro sceau(taille=48, avecTexte=false) %}
+<svg class="sceau" width="{{ taille }}" height="{{ taille }}" viewBox="0 0 100 100" role="img" aria-label="Sceau Soly'bat">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="var(--couleur-terracotta)" stroke-width="2"/>
+  {% if avecTexte %}
+  <text x="50" y="14" text-anchor="middle" font-size="5" letter-spacing="1" fill="var(--couleur-bois-brule)">RÉNOVATION &amp; MISE EN LOCATION</text>
+  {% endif %}
+  <circle cx="50" cy="68" r="9" fill="none" stroke="var(--couleur-anthracite)" stroke-width="1.5"/>
+  <circle cx="50" cy="68" r="2.5" fill="var(--couleur-vert-olivier)"/>
+</svg>
+{% endmacro %}
