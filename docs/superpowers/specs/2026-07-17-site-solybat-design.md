@@ -28,7 +28,7 @@ Ce spec couvre la totalité des 9 pages listées au BRAND.md §4, plus une page 
 
 ```
 Solybat/
-├── .eleventy.js
+├── eleventy.config.cjs
 ├── package.json
 ├── src/
 │   ├── _data/
