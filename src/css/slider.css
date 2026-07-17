@@ -1,0 +1,35 @@
+.slider-avant-apres {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.slider-avant-apres__calque {
+  position: absolute;
+  inset: 0;
+}
+
+.slider-avant-apres__curseur {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: var(--couleur-terracotta);
+  cursor: ew-resize;
+  transform: translateX(-2px);
+}
+
+.projet__meta {
+  display: flex;
+  gap: var(--espace-md);
+  flex-wrap: wrap;
+  margin: var(--espace-md) 0;
+}
+
+.projet__meta dt {
+  font-weight: 600;
+  color: var(--couleur-bois-brule);
+}

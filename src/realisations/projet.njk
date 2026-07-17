@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: realisations
+  size: 1
+  alias: projet
+permalink: "/realisations/{{ projet.slug }}/"
+eleventyComputed:
+  titre: "{{ projet.titre }}"
+  description: "{{ projet.resume }}"
+---
+<section class="conteneur">
+  <p><a href="/realisations/">← Retour aux réalisations</a></p>
+  <h1>{{ projet.titre }}</h1>
+
+  {% if projet.photos.avant and projet.photos.apres %}
+  <div class="slider-avant-apres" data-slider-avant-apres>
+    <img class="slider-avant-apres__calque" src="/images/realisations/{{ projet.photos.avant }}" alt="{{ projet.titre }} — avant">
+    <img class="slider-avant-apres__calque" data-slider-apres src="/images/realisations/{{ projet.photos.apres }}" alt="{{ projet.titre }} — après" style="clip-path: inset(0 0 0 50%);">
+    <div class="slider-avant-apres__curseur" data-slider-curseur></div>
+  </div>
+  {% else %}
+  <div class="placeholder-photo">
+    <span>{{ projet.titre }}</span>
+    <span>photos avant/après à venir</span>
+  </div>
+  {% endif %}
+
+  <dl class="projet__meta">
+    <div><dt>Surface</dt><dd>{{ projet.surface }}</dd></div>
+    <div><dt>Durée</dt><dd>{{ projet.duree }}</dd></div>
+    <div><dt>Corps de métier</dt><dd>{{ projet.corpsDeMetier | join(", ") }}</dd></div>
+  </dl>
+
+  <p>{{ projet.resume }}</p>
+</section>
