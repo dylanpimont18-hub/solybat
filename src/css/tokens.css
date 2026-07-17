@@ -1,0 +1,20 @@
+:root {
+  --couleur-terracotta: #B5502E;
+  --couleur-bois-brule: #6B4A32;
+  --couleur-creme-sable: #EDE4D3;
+  --couleur-creme-claire: #F6F1E7;
+  --couleur-anthracite: #2B2723;
+  --couleur-vert-olivier: #7A8560;
+
+  --police-display: 'Fraunces', serif;
+  --police-texte: 'Inter', sans-serif;
+
+  --espace-xs: 0.5rem;
+  --espace-sm: 1rem;
+  --espace-md: 2rem;
+  --espace-lg: 4rem;
+  --espace-xl: 6rem;
+
+  --rayon-badge: 50%;
+  --largeur-max-contenu: 1200px;
+}

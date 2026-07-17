@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--couleur-creme-sable);
+  color: var(--couleur-anthracite);
+  font-family: var(--police-texte);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--police-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 var(--espace-sm);
+}
+
+p {
+  margin: 0 0 var(--espace-sm);
+}
+
+a {
+  color: var(--couleur-terracotta);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.conteneur {
+  max-width: var(--largeur-max-contenu);
+  margin: 0 auto;
+  padding: 0 var(--espace-md);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.bouton {
+  display: inline-block;
+  padding: var(--espace-xs) var(--espace-md);
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.bouton--principal {
+  background: var(--couleur-terracotta);
+  color: var(--couleur-creme-claire);
+}
+
+.bouton--secondaire {
+  background: transparent;
+  color: var(--couleur-anthracite);
+  border-color: var(--couleur-anthracite);
+}
+
+section {
+  padding: var(--espace-xl) 0;
+}
