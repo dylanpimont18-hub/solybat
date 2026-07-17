@@ -1,0 +1,14 @@
+.faq details {
+  border-bottom: 1px solid var(--couleur-bois-brule);
+  padding: var(--espace-sm) 0;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-family: var(--police-display);
+}
+
+.faq details p {
+  margin-top: var(--espace-xs);
+}
