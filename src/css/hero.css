@@ -1,0 +1,46 @@
+.hero {
+  padding: var(--espace-xl) 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero__sous-titre {
+  max-width: 600px;
+  margin: var(--espace-sm) auto var(--espace-md);
+}
+
+.pour-qui {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espace-md);
+}
+
+.pour-qui__colonne {
+  background: var(--couleur-creme-claire);
+  padding: var(--espace-md);
+  border-radius: 4px;
+}
+
+.garanties {
+  text-align: center;
+  background: var(--couleur-creme-claire);
+}
+
+.realisations-apercu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espace-md);
+}
+
+@media (max-width: 768px) {
+  .pour-qui,
+  .realisations-apercu {
+    grid-template-columns: 1fr;
+  }
+}

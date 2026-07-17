@@ -1,0 +1,59 @@
+---
+layout: layouts/base.njk
+titre: "Accueil"
+description: "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés."
+---
+{% from "composants/sceau.njk" import sceau %}
+{% from "composants/frise-process.njk" import friseProcess %}
+{% from "composants/carte-realisation.njk" import carteRealisation %}
+
+<section class="hero conteneur">
+  {{ sceau(72, true) }}
+  <h1>Un bien à rénover. Un bien loué. Un seul interlocuteur.</h1>
+  <p class="hero__sous-titre">Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.</p>
+  <a href="/devis/" class="bouton bouton--principal">Demander un devis</a>
+</section>
+
+<section class="conteneur">
+  <h2>Notre process</h2>
+  {{ friseProcess() }}
+</section>
+
+<section class="conteneur">
+  <h2>Nos dernières réalisations</h2>
+  <div class="realisations-apercu">
+    {% for projet in realisations | reverse %}
+      {% if loop.index <= 4 %}{{ carteRealisation(projet) }}{% endif %}
+    {% endfor %}
+  </div>
+  <p><a href="/realisations/">Voir toutes les réalisations</a></p>
+</section>
+
+<section class="conteneur">
+  <h2>Pour qui</h2>
+  <div class="pour-qui">
+    <div class="pour-qui__colonne">
+      <h3>Agences &amp; gestionnaires</h3>
+      <p>Un prestataire fiable et réactif pour vos biens à remettre en location, avec un interlocuteur unique du diagnostic à la livraison.</p>
+    </div>
+    <div class="pour-qui__colonne">
+      <h3>Investisseurs locatifs</h3>
+      <p>Un bien rentable, rénové rapidement, sans gérer dix corps de métier différents.</p>
+    </div>
+    <div class="pour-qui__colonne">
+      <h3>Particuliers</h3>
+      <p>La rénovation de votre résidence ou de votre bien locatif, expliquée simplement, sans jargon.</p>
+    </div>
+  </div>
+</section>
+
+<section class="garanties conteneur">
+  {{ sceau(56) }}
+  <h2>Chantier garanti</h2>
+  <p>Assurance décennale, responsabilité civile professionnelle, suivi de chantier à chaque étape.</p>
+</section>
+
+<section class="conteneur" style="text-align: center;">
+  <h2>Un projet de rénovation ?</h2>
+  <a href="/devis/" class="bouton bouton--principal">Demander un devis</a>
+</section>
