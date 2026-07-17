@@ -1,0 +1,29 @@
+.footer {
+  background: var(--couleur-bois-brule);
+  color: var(--couleur-creme-claire);
+  padding: var(--espace-lg) 0;
+}
+
+.footer__grille {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--espace-md);
+}
+
+.footer__nom {
+  font-family: var(--police-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: var(--espace-xs);
+}
+
+.footer__liens {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-xs);
+}
+
+.footer__liens a {
+  color: var(--couleur-creme-claire);
+}
