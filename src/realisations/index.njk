@@ -1,0 +1,38 @@
+---
+layout: layouts/base.njk
+titre: "Réalisations"
+description: "Découvrez les chantiers de rénovation réalisés par Soly'bat."
+---
+{% from "composants/carte-realisation.njk" import carteRealisation %}
+<section class="conteneur">
+  <h1>Nos réalisations</h1>
+
+  <div class="galerie__filtres">
+    <label>
+      Type de bien
+      <select data-filtre-type>
+        <option value="tous">Tous</option>
+        <option value="appartement">Appartement</option>
+        <option value="maison">Maison</option>
+        <option value="immeuble">Immeuble</option>
+      </select>
+    </label>
+    <label>
+      Ampleur du chantier
+      <select data-filtre-ampleur>
+        <option value="tous">Toutes</option>
+        <option value="renovation-complete">Rénovation complète</option>
+        <option value="renovation-partielle">Rénovation partielle</option>
+        <option value="remise-en-etat">Remise en état</option>
+      </select>
+    </label>
+  </div>
+
+  <p class="galerie__vide" data-galerie-vide hidden>Aucune réalisation ne correspond à ces filtres.</p>
+
+  <div class="galerie__grille" data-galerie>
+    {% for projet in realisations %}
+      {{ carteRealisation(projet) }}
+    {% endfor %}
+  </div>
+</section>

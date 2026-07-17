@@ -1,0 +1,30 @@
+.galerie__filtres {
+  display: flex;
+  gap: var(--espace-md);
+  margin-bottom: var(--espace-md);
+}
+
+.galerie__filtres select {
+  padding: var(--espace-xs);
+  border: 1px solid var(--couleur-bois-brule);
+  border-radius: 4px;
+  background: var(--couleur-creme-claire);
+  color: var(--couleur-anthracite);
+}
+
+.galerie__grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espace-md);
+}
+
+.galerie__vide {
+  text-align: center;
+  color: var(--couleur-bois-brule);
+}
+
+@media (max-width: 768px) {
+  .galerie__grille {
+    grid-template-columns: 1fr;
+  }
+}
