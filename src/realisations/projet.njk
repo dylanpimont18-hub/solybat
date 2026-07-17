@@ -6,8 +6,8 @@ pagination:
   alias: projet
 permalink: "/realisations/{{ projet.slug }}/"
 eleventyComputed:
-  titre: "{{ projet.titre }}"
-  description: "{{ projet.resume }}"
+  titre: "{{ projet.titre | safe }}"
+  description: "{{ projet.resume | safe }}"
 ---
 <section class="conteneur">
   <p><a href="/realisations/">← Retour aux réalisations</a></p>
