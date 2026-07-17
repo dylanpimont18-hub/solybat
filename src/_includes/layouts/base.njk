@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ titre }} — Soly'bat</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="icon" href="/images/logo-solybat.png" type="image/png">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  {% include "composants/header.njk" %}
+  <main>
+    {{ content | safe }}
+  </main>
+  {% include "composants/footer.njk" %}
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
