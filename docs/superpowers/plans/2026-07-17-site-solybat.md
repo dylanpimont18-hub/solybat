@@ -25,7 +25,7 @@
 
 **Files:**
 - Create: `package.json`
-- Create: `.eleventy.js`
+- Create: `eleventy.config.cjs`
 - Create: `.gitignore`
 - Create: `src/images/logo-solybat.png` (copy of existing root `logo-solybat.png`)
 
@@ -44,7 +44,7 @@
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
-    "test": "node --test tests/"
+    "test": "node --test"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1"
@@ -52,10 +52,12 @@
 }
 ```
 
-- [ ] **Step 2: Write `.eleventy.js`**
+Note: `"test": "node --test"` (no path argument) relies on Node's built-in test runner default discovery of `**/*.test.js`. Verified against the actual toolchain in this project (Node v24.7.0): passing an explicit path argument (`node --test tests/` or `node --test ./tests`) makes Node try to `require()` that path as the entry script instead of treating it as a test-file filter, and fails with `MODULE_NOT_FOUND`. `node --test` with no argument correctly auto-discovers and runs every `tests/*.test.js` file. Every later task's `Run: npm test` step relies on this working form.
+
+- [ ] **Step 2: Write `eleventy.config.cjs`**
 
 ```js
-export default function (eleventyConfig) {
+module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/images": "images" });
@@ -70,12 +72,14 @@ export default function (eleventyConfig) {
       data: "_data",
     },
   };
-}
+};
 ```
 
-Note: `package.json` sets `"type": "module"`, so `.eleventy.js` must use `export default` (ESM), not `module.exports`.
+Note: this plan originally specified `.eleventy.js` with `export default` (ESM), reasoning that `package.json`'s `"type": "module"` required it. **That combination was tested against the actual toolchain (11ty 2.0.1 on Node v24.7.0) and does not work**: 11ty's ESM config loader receives the module namespace object instead of invoking the default-exported function, so the returned `dir` overrides are silently dropped and `dir.input` stays at 11ty's default (`.`, the project root) — it then attempts to render every markdown/template-like file in the whole project (including `docs/`) instead of only `src/`. Verified fix: name the config file `eleventy.config.cjs` (always loaded as CommonJS by Node regardless of `package.json`'s `"type"` field — this is why the `.cjs` extension is required, not `.eleventy.js` or `eleventy.config.js`) and use `module.exports`. This does not conflict with `"type": "module"` staying set for `src/js/*.js` and `tests/*.test.js`, which still load as ES modules via `import`/`export` under Node's test runner and the browser's `<script type="module">`.
 
 - [ ] **Step 3: Write `.gitignore`**
+
+If `.gitignore` already exists at the project root (e.g. from worktree setup with entries like `.worktrees/`, `.superpowers/`), append these two lines rather than overwriting the file:
 
 ```
 node_modules/
@@ -92,12 +96,12 @@ cp logo-solybat.png src/images/logo-solybat.png
 - [ ] **Step 5: Install dependencies and verify an empty build runs**
 
 Run: `npm install && npx eleventy`
-Expected: no errors; it prints something like `Wrote 0 files in X seconds` (no templates exist yet, that's expected). A `_site/` directory is created.
+Expected: no errors; it prints something like `Wrote 0 files in X seconds` (no templates exist yet, that's expected). A `_site/` directory is created. Confirm no `.eleventyignore` file is needed — with `dir.input: "src"` correctly applied, 11ty never scans `docs/`, `BRAND.md`, or `CLAUDE.md` in the first place, since they sit outside the configured input directory.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add package.json package-lock.json .eleventy.js .gitignore src/images/logo-solybat.png
+git add package.json package-lock.json eleventy.config.cjs .gitignore src/images/logo-solybat.png
 git commit -m "chore: scaffold 11ty project"
 ```
 
