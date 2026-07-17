@@ -482,12 +482,12 @@ test('un menu ouvert doit se fermer', () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [ ] **Step 4: Run test to verify it fails**
 
 Run: `npm test`
 Expected: FAIL — `nav.js` does not exist yet, `Cannot find module '../src/js/nav.js'`.
 
-- [ ] **Step 3: Write `src/js/nav.js`**
+- [ ] **Step 5: Write `src/js/nav.js`**
 
 ```js
 export function calculerProchainEtat(etatOuvert) {
@@ -508,12 +508,12 @@ export function initNav() {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [ ] **Step 6: Run test to verify it passes**
 
 Run: `npm test`
 Expected: PASS — both `nav.test.js` assertions succeed.
 
-- [ ] **Step 5: Write `src/js/main.js`**
+- [ ] **Step 7: Write `src/js/main.js`**
 
 ```js
 import { initNav } from './nav.js';
@@ -521,15 +521,15 @@ import { initNav } from './nav.js';
 initNav();
 ```
 
-- [ ] **Step 6: Wire `header.css` into `styles.css`**
+- [ ] **Step 8: Wire `header.css` into `styles.css`**
 
-Edit `src/css/styles.css`, add after `sceau.css`:
+Edit `src/css/styles.css`, add after `sceau.css` (if not already present — Task 2 pre-populated `styles.css` with the full eventual `@import` list, so this may already be a no-op; verify rather than duplicate):
 
 ```css
 @import url('header.css');
 ```
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 9: Commit**
 
 ```bash
 git add src/_includes/composants/header.njk src/css/header.css src/css/styles.css src/js/main.js src/js/nav.js tests/nav.test.js
