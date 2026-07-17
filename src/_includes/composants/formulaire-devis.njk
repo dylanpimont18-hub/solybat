@@ -1,0 +1,45 @@
+<form class="formulaire-devis" data-formulaire-devis method="POST" action="/traiter-devis.php" novalidate>
+  <p class="formulaire-devis__erreurs" data-formulaire-erreurs hidden></p>
+
+  <fieldset class="formulaire-devis__profil">
+    <legend>Vous êtes :</legend>
+    <button type="button" class="formulaire-devis__profil-bouton" data-profil-bouton="agence" aria-pressed="false">Une agence</button>
+    <button type="button" class="formulaire-devis__profil-bouton" data-profil-bouton="investisseur" aria-pressed="false">Un investisseur</button>
+    <button type="button" class="formulaire-devis__profil-bouton" data-profil-bouton="particulier" aria-pressed="true">Un particulier</button>
+  </fieldset>
+  <input type="hidden" name="profil" data-profil-input value="particulier">
+
+  <label for="devis-nom">Nom</label>
+  <input type="text" id="devis-nom" name="nom" required>
+
+  <label for="devis-email">Email</label>
+  <input type="email" id="devis-email" name="email" required>
+
+  <label for="devis-telephone">Téléphone (facultatif)</label>
+  <input type="tel" id="devis-telephone" name="telephone">
+
+  <label for="devis-message">Votre projet</label>
+  <textarea id="devis-message" name="message" required></textarea>
+
+  <div data-profil-bloc="agence" hidden>
+    <label for="devis-volume">Nombre de biens à traiter par an (estimation)</label>
+    <input type="text" id="devis-volume" name="volume_estime">
+  </div>
+
+  <div data-profil-bloc="investisseur" hidden>
+    <label for="devis-delai">Délai souhaité de mise en location</label>
+    <input type="text" id="devis-delai" name="delai_souhaite">
+  </div>
+
+  <div data-profil-bloc="particulier">
+    <label for="devis-adresse">Adresse du bien</label>
+    <input type="text" id="devis-adresse" name="adresse_bien">
+  </div>
+
+  <div style="display:none" aria-hidden="true">
+    <label for="devis-site-web">Laisser ce champ vide</label>
+    <input type="text" id="devis-site-web" name="site_web" tabindex="-1" autocomplete="off">
+  </div>
+
+  <button type="submit" class="bouton bouton--principal">Envoyer ma demande</button>
+</form>

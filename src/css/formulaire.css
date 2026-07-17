@@ -1,0 +1,47 @@
+.formulaire-devis {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-sm);
+  max-width: 600px;
+}
+
+.formulaire-devis label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 600;
+}
+
+.formulaire-devis input,
+.formulaire-devis textarea {
+  padding: var(--espace-xs);
+  border: 1px solid var(--couleur-bois-brule);
+  border-radius: 4px;
+  font: inherit;
+}
+
+.formulaire-devis__profil {
+  display: flex;
+  gap: var(--espace-xs);
+  border: none;
+  padding: 0;
+}
+
+.formulaire-devis__profil-bouton {
+  padding: var(--espace-xs) var(--espace-sm);
+  border: 2px solid var(--couleur-bois-brule);
+  border-radius: 4px;
+  background: var(--couleur-creme-claire);
+  cursor: pointer;
+}
+
+.formulaire-devis__profil-bouton[aria-pressed="true"] {
+  background: var(--couleur-terracotta);
+  color: var(--couleur-creme-claire);
+  border-color: var(--couleur-terracotta);
+}
+
+.formulaire-devis__erreurs {
+  color: var(--couleur-terracotta);
+  font-weight: 600;
+}
