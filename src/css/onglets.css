@@ -1,0 +1,21 @@
+.onglets__boutons {
+  display: flex;
+  gap: var(--espace-sm);
+  border-bottom: 1px solid var(--couleur-bois-brule);
+  margin-bottom: var(--espace-md);
+}
+
+.onglets__bouton {
+  background: none;
+  border: none;
+  padding: var(--espace-xs) var(--espace-sm);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--couleur-anthracite);
+  border-bottom: 3px solid transparent;
+}
+
+.onglets__bouton[aria-selected="true"] {
+  border-bottom-color: var(--couleur-terracotta);
+  color: var(--couleur-terracotta);
+}
