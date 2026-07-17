@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "appartement-t3-vierzon-centre",
+    "titre": "Appartement T3 — Vierzon Centre",
+    "typeDeBien": "appartement",
+    "ampleurChantier": "renovation-complete",
+    "surface": "62 m²",
+    "duree": "6 semaines",
+    "corpsDeMetier": ["plomberie", "électricité", "peinture", "sol"],
+    "resume": "Appartement vétuste transformé en T3 prêt à louer, livré avec cuisine équipée.",
+    "photos": { "avant": null, "apres": null }
+  },
+  {
+    "slug": "maison-individuelle-bourges",
+    "titre": "Maison individuelle — Bourges",
+    "typeDeBien": "maison",
+    "ampleurChantier": "renovation-partielle",
+    "surface": "95 m²",
+    "duree": "4 semaines",
+    "corpsDeMetier": ["peinture", "sol", "électricité"],
+    "resume": "Rafraîchissement complet des pièces de vie avant remise en location.",
+    "photos": { "avant": null, "apres": null }
+  },
+  {
+    "slug": "immeuble-rapport-vierzon",
+    "titre": "Immeuble de rapport — Vierzon",
+    "typeDeBien": "immeuble",
+    "ampleurChantier": "renovation-complete",
+    "surface": "4 lots — 210 m²",
+    "duree": "12 semaines",
+    "corpsDeMetier": ["plomberie", "électricité", "chauffage", "peinture", "sol"],
+    "resume": "Rénovation complète de 4 lots d'un immeuble de rapport, livrés prêts à louer.",
+    "photos": { "avant": null, "apres": null }
+  },
+  {
+    "slug": "studio-remise-en-location",
+    "titre": "Studio — remise en location",
+    "typeDeBien": "appartement",
+    "ampleurChantier": "remise-en-etat",
+    "surface": "28 m²",
+    "duree": "2 semaines",
+    "corpsDeMetier": ["peinture", "nettoyage", "petites réparations"],
+    "resume": "Remise en état rapide entre deux locataires : peinture, sols, petites réparations.",
+    "photos": { "avant": null, "apres": null }
+  }
+]
