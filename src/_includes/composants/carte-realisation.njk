@@ -11,6 +11,13 @@
     </div>
     <h3 class="carte-realisation__titre">{{ projet.titre }}</h3>
     <p class="carte-realisation__meta">{{ projet.surface }} — {{ projet.duree }}</p>
+    {% if projet.corpsDeMetier %}
+    <ul class="carte-realisation__corps-de-metier">
+      {% for corpsDeMetier in projet.corpsDeMetier %}
+      <li>{{ corpsDeMetier }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </a>
 </article>
 {% endmacro %}

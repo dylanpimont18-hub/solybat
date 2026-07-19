@@ -41,7 +41,24 @@
 }
 
 .carte-realisation__meta {
-  margin: var(--espace-xs) var(--espace-sm) var(--espace-sm);
+  margin: var(--espace-xs) var(--espace-sm) 0;
   color: var(--couleur-bois-brule);
   font-size: 0.9rem;
+}
+
+.carte-realisation__corps-de-metier {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-xs);
+  margin: var(--espace-xs) var(--espace-sm) var(--espace-sm);
+  padding: 0;
+  list-style: none;
+}
+
+.carte-realisation__corps-de-metier li {
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--rayon-controle);
+  background: var(--couleur-creme-sable);
+  color: var(--couleur-anthracite);
+  font-size: 0.78rem;
 }

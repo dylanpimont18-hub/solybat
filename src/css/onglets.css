@@ -25,3 +25,32 @@
   border-bottom-color: var(--couleur-terracotta);
   color: var(--couleur-terracotta);
 }
+
+.liste-corps-de-metier {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espace-sm) var(--espace-md);
+  margin: var(--espace-md) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste-corps-de-metier li {
+  padding-left: var(--espace-sm);
+  border-left: 3px solid var(--couleur-terracotta);
+  font-weight: 600;
+  color: var(--couleur-anthracite);
+}
+
+.liste-corps-de-metier li span {
+  display: block;
+  font-weight: 400;
+  color: var(--couleur-bois-brule);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 560px) {
+  .liste-corps-de-metier {
+    grid-template-columns: 1fr;
+  }
+}
