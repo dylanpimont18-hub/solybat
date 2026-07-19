@@ -2,11 +2,17 @@
 layout: layouts/base.njk
 titre: "Réalisations"
 description: "Découvrez les chantiers de rénovation réalisés par Soly'bat."
+heroPhotos:
+  - image: "chantier-en-cours.jpg"
+    alt: "Aperçu des réalisations Soly'bat"
 ---
 {% from "composants/carte-realisation.njk" import carteRealisation %}
-<section class="conteneur">
-  <h1>Nos réalisations</h1>
+{% from "composants/hero-photos.njk" import heroPhotos as afficherHeroPhotos %}
 
+{{ afficherHeroPhotos("Nos réalisations", null, heroPhotos, null, null, true) }}
+
+<section class="conteneur">
+  <h2 class="sr-only">Toutes les réalisations</h2>
   <div class="galerie__filtres">
     <label>
       Type de bien

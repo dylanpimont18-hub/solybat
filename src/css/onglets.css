@@ -1,5 +1,6 @@
 .onglets__boutons {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--espace-sm);
   border-bottom: 1px solid var(--couleur-bois-brule);
   margin-bottom: var(--espace-md);
@@ -13,6 +14,11 @@
   font-weight: 600;
   color: var(--couleur-anthracite);
   border-bottom: 3px solid transparent;
+  transition: color var(--transition-douce), border-color var(--transition-douce);
+}
+
+.onglets__bouton:hover {
+  color: var(--couleur-terracotta);
 }
 
 .onglets__bouton[aria-selected="true"] {

@@ -1,0 +1,24 @@
+{% from "composants/placeholder-photo.njk" import placeholderPhoto %}
+{% macro heroPhotos(titre, sousTitre, photos, ctaTexte=none, ctaLien=none, compact=false) %}
+<section class="hero-photos {% if compact %}hero-photos--compacte{% endif %}">
+  <div class="hero-photos__grille hero-photos__grille--{{ photos.length }}">
+    {% for photo in photos %}
+    <div class="hero-photos__panneau">
+      {% if photo.image %}
+      <img src="{{ ('/images/realisations/' + photo.image) | url }}" alt="{{ photo.alt }}" class="hero-photos__photo" {% if loop.first %}fetchpriority="high"{% endif %} decoding="async">
+      {% else %}
+      {{ placeholderPhoto(loop.index0 * 11) }}
+      {% endif %}
+      {% if loop.first %}
+      <div class="hero-photos__voile" aria-hidden="true"></div>
+      <div class="hero-photos__texte">
+        <h1>{{ titre }}</h1>
+        {% if sousTitre %}<p class="hero-photos__sous-titre">{{ sousTitre }}</p>{% endif %}
+        {% if ctaTexte %}<a href="{{ ctaLien | url }}" class="bouton bouton--principal">{{ ctaTexte }}</a>{% endif %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endmacro %}

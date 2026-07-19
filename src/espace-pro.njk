@@ -2,14 +2,22 @@
 layout: layouts/base.njk
 titre: "Espace pro"
 description: "Soly'bat, un prestataire réactif pour les agences et gestionnaires de biens."
+heroPhotos:
+  - image: "immeuble-rapport-renove.jpg"
+    alt: "Hall d'immeuble rénové"
+  - image: "lot-renove-pret-a-louer.jpg"
+    alt: "Lot rénové prêt à louer"
+  - image: "chantier-coordination.jpg"
+    alt: "Chantier en cours de coordination"
 ---
-<section class="conteneur">
-  <h1>Un prestataire réactif pour vos biens à remettre en location</h1>
-  <p>Agences immobilières et gestionnaires de biens : Soly'bat intervient sur vos chantiers de remise en location avec une réactivité adaptée à vos volumes. Un interlocuteur unique par chantier, un reporting régulier, une facturation simplifiée pour les prestataires récurrents.</p>
+{% from "composants/hero-photos.njk" import heroPhotos as afficherHeroPhotos %}
 
+{{ afficherHeroPhotos("Un prestataire réactif pour vos biens à remettre en location", "Agences immobilières et gestionnaires de biens : Soly'bat intervient sur vos chantiers de remise en location avec une réactivité adaptée à vos volumes. Un interlocuteur unique par chantier, un reporting régulier, une facturation simplifiée pour les prestataires récurrents.", heroPhotos) }}
+
+<section class="conteneur">
   <h2>Plaquette de présentation</h2>
-  <span class="plaquette-a-venir" aria-disabled="true">Plaquette PDF — à venir</span>
+  <p class="plaquette-a-venir">Notre plaquette PDF est en préparation. En attendant, <a href="{{ '/devis/' | url }}">contactez-nous</a> pour recevoir nos conditions par email.</p>
 
   <h2>Un chantier à nous confier ?</h2>
-  <a href="/devis/" class="bouton bouton--principal">Demander un devis</a>
+  <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
 </section>

@@ -2,17 +2,20 @@
 layout: layouts/base.njk
 titre: "Accueil"
 description: "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés."
+heroPhotos:
+  - image: "cuisine-renovee.jpg"
+    alt: "Cuisine rénovée par Soly'bat"
+  - image: "sejour-renove.jpg"
+    alt: "Séjour rénové par Soly'bat"
+  - image: "piece-a-renover.jpg"
+    alt: "Pièce prête à rénover"
 ---
 {% from "composants/sceau.njk" import sceau %}
 {% from "composants/frise-process.njk" import friseProcess %}
 {% from "composants/carte-realisation.njk" import carteRealisation %}
+{% from "composants/hero-photos.njk" import heroPhotos as afficherHeroPhotos %}
 
-<section class="hero conteneur">
-  {{ sceau(72, true) }}
-  <h1>Un bien à rénover. Un bien loué. Un seul interlocuteur.</h1>
-  <p class="hero__sous-titre">Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.</p>
-  <a href="/devis/" class="bouton bouton--principal">Demander un devis</a>
-</section>
+{{ afficherHeroPhotos("Un bien à rénover. Un bien loué. Un seul interlocuteur.", "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.", heroPhotos, "Demander un devis", "/devis/") }}
 
 <section class="conteneur">
   <h2>Notre process</h2>
@@ -26,7 +29,7 @@ description: "Soly'bat prend en charge l'intégralité des travaux de rénovatio
       {% if loop.index <= 4 %}{{ carteRealisation(projet) }}{% endif %}
     {% endfor %}
   </div>
-  <p><a href="/realisations/">Voir toutes les réalisations</a></p>
+  <p><a href="{{ '/realisations/' | url }}">Voir toutes les réalisations</a></p>
 </section>
 
 <section class="conteneur">
@@ -48,12 +51,12 @@ description: "Soly'bat prend en charge l'intégralité des travaux de rénovatio
 </section>
 
 <section class="garanties conteneur">
-  {{ sceau(56) }}
+  {{ sceau(56, decoratif=true) }}
   <h2>Chantier garanti</h2>
   <p>Assurance décennale, responsabilité civile professionnelle, suivi de chantier à chaque étape.</p>
 </section>
 
 <section class="conteneur" style="text-align: center;">
   <h2>Un projet de rénovation ?</h2>
-  <a href="/devis/" class="bouton bouton--principal">Demander un devis</a>
+  <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
 </section>

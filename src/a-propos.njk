@@ -3,8 +3,12 @@ layout: layouts/base.njk
 titre: "À propos"
 description: "L'histoire, les valeurs et la zone d'intervention de Soly'bat."
 ---
+{% from "composants/sceau.njk" import sceau %}
 <section class="conteneur">
-  <h1>À propos de Soly'bat</h1>
+  <div class="entete-page">
+    {{ sceau(40, decoratif=true) }}
+    <h1>À propos de Soly'bat</h1>
+  </div>
   <p>Soly'bat intervient sur un rayon d'environ 50 km autour de Vierzon (Cher, Centre-Val de Loire). Notre positionnement : transformer un bien à rénover en bien prêt à louer ou à vivre, avec un seul interlocuteur, un seul chantier, un délai maîtrisé.</p>
 
   <h2>Nos valeurs</h2>

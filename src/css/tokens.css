@@ -1,5 +1,6 @@
 :root {
   --couleur-terracotta: #B5502E;
+  --couleur-terracotta-texte: #AD4826; /* variante assombrie du terracotta, réservée aux fonds portant du texte crème clair (contraste AA 4,5:1, le terracotta standard n'atteint que 4,49:1) */
   --couleur-bois-brule: #6B4A32;
   --couleur-creme-sable: #EDE4D3;
   --couleur-creme-claire: #F6F1E7;
@@ -16,5 +17,11 @@
   --espace-xl: 6rem;
 
   --rayon-badge: 50%;
+  --rayon-controle: 4px;
+  --rayon-surface: 14px;
   --largeur-max-contenu: 1200px;
+
+  --ombre-surface: 0 8px 24px rgba(43, 39, 35, 0.14);
+  --ombre-surface-hover: 0 12px 32px rgba(43, 39, 35, 0.18);
+  --transition-douce: 200ms ease;
 }

@@ -1,20 +1,3 @@
-.hero {
-  padding: var(--espace-xl) 0;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero__sous-titre {
-  max-width: 600px;
-  margin: var(--espace-sm) auto var(--espace-md);
-}
-
 .pour-qui {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -24,7 +7,8 @@
 .pour-qui__colonne {
   background: var(--couleur-creme-claire);
   padding: var(--espace-md);
-  border-radius: 4px;
+  border-radius: var(--rayon-surface);
+  box-shadow: var(--ombre-surface);
 }
 
 .garanties {
@@ -38,7 +22,14 @@
   gap: var(--espace-md);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .pour-qui,
+  .realisations-apercu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
   .pour-qui,
   .realisations-apercu {
     grid-template-columns: 1fr;

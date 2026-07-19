@@ -18,6 +18,20 @@
   margin-bottom: var(--espace-xs);
 }
 
+.footer__contact {
+  margin-top: var(--espace-sm);
+}
+
+.footer__contact a {
+  color: var(--couleur-creme-claire);
+}
+
+.footer__contact a:hover,
+.footer__contact a:focus-visible {
+  color: var(--couleur-creme-sable);
+  text-decoration: underline;
+}
+
 .footer__liens {
   display: flex;
   flex-direction: column;
@@ -26,4 +40,15 @@
 
 .footer__liens a {
   color: var(--couleur-creme-claire);
+  transition: color var(--transition-douce);
+}
+
+.footer__liens a:hover,
+.footer__liens a:focus-visible {
+  color: var(--couleur-creme-sable);
+  text-decoration: underline;
+}
+
+.footer :focus-visible {
+  outline-color: var(--couleur-creme-claire);
 }

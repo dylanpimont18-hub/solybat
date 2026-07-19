@@ -8,7 +8,7 @@
     "duree": "6 semaines",
     "corpsDeMetier": ["plomberie", "électricité", "peinture", "sol"],
     "resume": "Appartement vétuste transformé en T3 prêt à louer, livré avec cuisine équipée.",
-    "photos": { "avant": null, "apres": null }
+    "photos": { "avant": "t3-vierzon-avant.jpg", "apres": "t3-vierzon-apres.jpg" }
   },
   {
     "slug": "maison-individuelle-bourges",
@@ -19,7 +19,7 @@
     "duree": "4 semaines",
     "corpsDeMetier": ["peinture", "sol", "électricité"],
     "resume": "Rafraîchissement complet des pièces de vie avant remise en location.",
-    "photos": { "avant": null, "apres": null }
+    "photos": { "avant": "bourges-avant.jpg", "apres": "bourges-apres.jpg" }
   },
   {
     "slug": "immeuble-rapport-vierzon",
@@ -30,7 +30,7 @@
     "duree": "12 semaines",
     "corpsDeMetier": ["plomberie", "électricité", "chauffage", "peinture", "sol"],
     "resume": "Rénovation complète de 4 lots d'un immeuble de rapport, livrés prêts à louer.",
-    "photos": { "avant": null, "apres": null }
+    "photos": { "avant": "immeuble-vierzon-avant.jpg", "apres": "immeuble-vierzon-apres.jpg" }
   },
   {
     "slug": "studio-remise-en-location",
@@ -41,6 +41,6 @@
     "duree": "2 semaines",
     "corpsDeMetier": ["peinture", "nettoyage", "petites réparations"],
     "resume": "Remise en état rapide entre deux locataires : peinture, sols, petites réparations.",
-    "photos": { "avant": null, "apres": null }
+    "photos": { "avant": "studio-avant.jpg", "apres": "studio-apres.jpg" }
   }
 ]

@@ -1,0 +1,14 @@
+{
+  "name": "Soly'bat — Rénovation & mise en location",
+  "short_name": "Soly'bat",
+  "description": "Rénovation de biens immobiliers en vue de mise en location, autour de Vierzon (Cher).",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EDE4D3",
+  "theme_color": "#B5502E",
+  "lang": "fr",
+  "icons": [
+    { "src": "/images/favicon.png", "sizes": "256x256", "type": "image/png" },
+    { "src": "/images/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

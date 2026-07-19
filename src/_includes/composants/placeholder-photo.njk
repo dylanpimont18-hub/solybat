@@ -1,0 +1,7 @@
+{% from "composants/sceau.njk" import sceau %}
+{% macro placeholderPhoto(rotation=0) %}
+<div class="placeholder-photo" style="--placeholder-rotation: {{ rotation }}deg;">
+  <span class="placeholder-photo__motif" aria-hidden="true">{{ sceau(140) }}</span>
+  <span class="placeholder-photo__legende">Photo à venir</span>
+</div>
+{% endmacro %}

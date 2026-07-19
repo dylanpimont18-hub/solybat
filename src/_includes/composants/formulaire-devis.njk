@@ -1,13 +1,21 @@
-<form class="formulaire-devis" data-formulaire-devis method="POST" action="/traiter-devis.php" novalidate>
+<form class="formulaire-devis" data-formulaire-devis method="POST" action="{{ '/traiter-devis.php' | url }}" novalidate>
   <p class="formulaire-devis__erreurs" data-formulaire-erreurs hidden></p>
 
   <fieldset class="formulaire-devis__profil">
     <legend>Vous êtes :</legend>
-    <button type="button" class="formulaire-devis__profil-bouton" data-profil-bouton="agence" aria-pressed="false">Une agence</button>
-    <button type="button" class="formulaire-devis__profil-bouton" data-profil-bouton="investisseur" aria-pressed="false">Un investisseur</button>
-    <button type="button" class="formulaire-devis__profil-bouton" data-profil-bouton="particulier" aria-pressed="true">Un particulier</button>
+    <label class="formulaire-devis__profil-bouton">
+      <input type="radio" name="profil" value="agence" class="sr-only" data-profil-radio>
+      Une agence
+    </label>
+    <label class="formulaire-devis__profil-bouton">
+      <input type="radio" name="profil" value="investisseur" class="sr-only" data-profil-radio>
+      Un investisseur
+    </label>
+    <label class="formulaire-devis__profil-bouton">
+      <input type="radio" name="profil" value="particulier" class="sr-only" data-profil-radio checked>
+      Un particulier
+    </label>
   </fieldset>
-  <input type="hidden" name="profil" data-profil-input value="particulier">
 
   <label for="devis-nom">Nom</label>
   <input type="text" id="devis-nom" name="nom" required>

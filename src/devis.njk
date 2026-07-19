@@ -3,8 +3,24 @@ layout: layouts/base.njk
 titre: "Demander un devis"
 description: "Formulaire de demande de devis, différencié selon votre profil."
 ---
-<section class="conteneur">
-  <h1>Demander un devis</h1>
-  <p>Décrivez votre projet, nous revenons vers vous sous 48h ouvrées.</p>
-  {% include "composants/formulaire-devis.njk" %}
+{% from "composants/sceau.njk" import sceau %}
+<section class="conteneur devis">
+  <div class="devis__formulaire">
+    <h1>Demander un devis</h1>
+    <p>Décrivez votre projet, nous revenons vers vous sous 48h ouvrées.</p>
+    {% include "composants/formulaire-devis.njk" %}
+  </div>
+
+  <aside class="devis__reassurance">
+    <div class="entete-page">
+      {{ sceau(32, decoratif=true) }}
+      <h2>Ce que vous pouvez attendre</h2>
+    </div>
+    <ul>
+      <li>Réponse sous 48h ouvrées</li>
+      <li>Devis détaillé par poste de travaux, sans engagement</li>
+      <li>Un seul interlocuteur du diagnostic à la remise des clés</li>
+      <li>Assurance décennale et responsabilité civile professionnelle</li>
+    </ul>
+  </aside>
 </section>

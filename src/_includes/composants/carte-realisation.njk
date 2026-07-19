@@ -1,14 +1,14 @@
+{% from "composants/placeholder-photo.njk" import placeholderPhoto %}
 {% macro carteRealisation(projet) %}
 <article class="carte-realisation" data-slug="{{ projet.slug }}" data-type-de-bien="{{ projet.typeDeBien }}" data-ampleur-chantier="{{ projet.ampleurChantier }}">
-  <a href="/realisations/{{ projet.slug }}/" class="carte-realisation__lien">
-    {% if projet.photos.apres %}
-    <img src="/images/realisations/{{ projet.photos.apres }}" alt="{{ projet.titre }}">
-    {% else %}
-    <div class="placeholder-photo">
-      <span>{{ projet.titre }}</span>
-      <span>photo à venir</span>
+  <a href="{{ ('/realisations/' + projet.slug + '/') | url }}" class="carte-realisation__lien">
+    <div class="carte-realisation__photo">
+      {% if projet.photos.apres %}
+      <img src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }}" loading="lazy" decoding="async">
+      {% else %}
+      {{ placeholderPhoto() }}
+      {% endif %}
     </div>
-    {% endif %}
     <h3 class="carte-realisation__titre">{{ projet.titre }}</h3>
     <p class="carte-realisation__meta">{{ projet.surface }} — {{ projet.duree }}</p>
   </a>

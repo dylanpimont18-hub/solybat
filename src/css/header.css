@@ -14,15 +14,13 @@
 .header__logo {
   display: flex;
   align-items: center;
-  gap: var(--espace-xs);
   text-decoration: none;
   color: var(--couleur-anthracite);
 }
 
-.header__nom {
-  font-family: var(--police-display);
-  font-weight: 600;
-  font-size: 1.25rem;
+.header__logo-img {
+  height: 48px;
+  width: auto;
 }
 
 .header__menu-toggle {
@@ -62,13 +60,30 @@
 .header__nav a {
   text-decoration: none;
   color: var(--couleur-anthracite);
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-douce), border-color var(--transition-douce);
 }
 
-.header__cta {
-  background: var(--couleur-terracotta);
-  color: var(--couleur-creme-claire) !important;
-  padding: var(--espace-xs) var(--espace-sm);
-  border-radius: 4px;
+.header__nav a:hover,
+.header__nav a:focus-visible {
+  color: var(--couleur-terracotta);
+}
+
+.header__nav a[aria-current="page"] {
+  color: var(--couleur-terracotta);
+  border-bottom-color: var(--couleur-terracotta);
+}
+
+.header__nav a.header__cta {
+  color: var(--couleur-creme-claire);
+  padding-bottom: var(--espace-xs);
+  border-bottom: none;
+}
+
+.header__nav a.header__cta:hover,
+.header__nav a.header__cta:focus-visible {
+  color: var(--couleur-creme-claire);
 }
 
 @media (max-width: 768px) {

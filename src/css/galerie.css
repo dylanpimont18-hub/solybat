@@ -1,5 +1,6 @@
 .galerie__filtres {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--espace-md);
   margin-bottom: var(--espace-md);
 }
@@ -7,9 +8,16 @@
 .galerie__filtres select {
   padding: var(--espace-xs);
   border: 1px solid var(--couleur-bois-brule);
-  border-radius: 4px;
+  border-radius: var(--rayon-controle);
   background: var(--couleur-creme-claire);
   color: var(--couleur-anthracite);
+  font: inherit;
+  transition: border-color var(--transition-douce);
+}
+
+.galerie__filtres select:hover,
+.galerie__filtres select:focus-visible {
+  border-color: var(--couleur-terracotta);
 }
 
 .galerie__grille {
@@ -23,7 +31,13 @@
   color: var(--couleur-bois-brule);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .galerie__grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
   .galerie__grille {
     grid-template-columns: 1fr;
   }

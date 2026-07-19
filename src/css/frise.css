@@ -21,7 +21,13 @@
   font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .frise-process {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
   .frise-process {
     grid-template-columns: 1fr;
   }

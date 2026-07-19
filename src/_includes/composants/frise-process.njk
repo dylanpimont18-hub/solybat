@@ -2,25 +2,25 @@
 {% macro friseProcess(detaillee=false) %}
 <ol class="frise-process">
   <li class="frise-process__etape">
-    {{ sceau(32) }}
+    {{ sceau(32, decoratif=true) }}
     <h3>01 Diagnostic</h3>
     <p>Visite du bien, évaluation des travaux nécessaires et des contraintes techniques.</p>
     {% if detaillee %}<p class="frise-process__delai">Sous 5 jours ouvrés après votre demande.</p>{% endif %}
   </li>
   <li class="frise-process__etape">
-    {{ sceau(32) }}
+    {{ sceau(32, decoratif=true) }}
     <h3>02 Devis</h3>
     <p>Devis détaillé par poste de travaux, délai d'exécution estimé.</p>
     {% if detaillee %}<p class="frise-process__delai">Sous 10 jours ouvrés après le diagnostic.</p>{% endif %}
   </li>
   <li class="frise-process__etape">
-    {{ sceau(32) }}
+    {{ sceau(32, decoratif=true) }}
     <h3>03 Chantier</h3>
     <p>Coordination de l'ensemble des corps de métier, suivi régulier communiqué au client.</p>
     {% if detaillee %}<p class="frise-process__delai">Durée variable selon l'ampleur, en moyenne 4 à 8 semaines.</p>{% endif %}
   </li>
   <li class="frise-process__etape">
-    {{ sceau(32) }}
+    {{ sceau(32, decoratif=true) }}
     <h3>04 Remise des clés</h3>
     <p>Réception des travaux, bien prêt à louer ou à vivre.</p>
     {% if detaillee %}<p class="frise-process__delai">État des lieux et remise des clés en main propre.</p>{% endif %}

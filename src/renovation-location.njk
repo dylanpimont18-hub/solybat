@@ -2,27 +2,35 @@
 layout: layouts/base.njk
 titre: "Notre service"
 description: "Soly'bat prend en charge l'intégralité des travaux nécessaires pour rendre votre bien prêt à louer ou à vivre."
+heroPhotos:
+  - image: "cuisine-equipee.jpg"
+    alt: "Cuisine équipée après rénovation"
+  - image: "salle-de-bain-renovee.jpg"
+    alt: "Salle de bain rénovée"
+  - image: "sol-peinture-refaits.jpg"
+    alt: "Sol et peinture refaits"
 ---
-<section class="conteneur">
-  <h1>Notre service</h1>
-  <p>Soly'bat prend en charge l'intégralité des travaux nécessaires pour rendre votre bien prêt à louer ou à vivre : plomberie, électricité, peinture, sols, cuisine, salle de bain. Un seul interlocuteur, un chantier coordonné, un délai maîtrisé.</p>
+{% from "composants/hero-photos.njk" import heroPhotos as afficherHeroPhotos %}
 
+{{ afficherHeroPhotos("Notre service", "Soly'bat prend en charge l'intégralité des travaux nécessaires pour rendre votre bien prêt à louer ou à vivre : plomberie, électricité, peinture, sols, cuisine, salle de bain. Un seul interlocuteur, un chantier coordonné, un délai maîtrisé.", heroPhotos) }}
+
+<section class="conteneur">
   <div data-onglets>
     <div class="onglets__boutons" role="tablist">
-      <button type="button" class="onglets__bouton" data-onglet-bouton="agence" role="tab" aria-selected="false">Agences</button>
-      <button type="button" class="onglets__bouton" data-onglet-bouton="investisseur" role="tab" aria-selected="false">Investisseurs</button>
-      <button type="button" class="onglets__bouton" data-onglet-bouton="particulier" role="tab" aria-selected="false">Particuliers</button>
+      <button type="button" id="onglet-agence" class="onglets__bouton" data-onglet-bouton="agence" role="tab" aria-selected="false" aria-controls="panneau-agence">Agences</button>
+      <button type="button" id="onglet-investisseur" class="onglets__bouton" data-onglet-bouton="investisseur" role="tab" aria-selected="false" aria-controls="panneau-investisseur">Investisseurs</button>
+      <button type="button" id="onglet-particulier" class="onglets__bouton" data-onglet-bouton="particulier" role="tab" aria-selected="false" aria-controls="panneau-particulier">Particuliers</button>
     </div>
 
-    <div data-onglet-panneau="agence" role="tabpanel">
+    <div id="panneau-agence" data-onglet-panneau="agence" role="tabpanel" aria-labelledby="onglet-agence" tabindex="0">
       <h2>Agences &amp; gestionnaires</h2>
       <p>Vous gérez plusieurs biens à remettre en location rapidement. Nous intervenons avec la même réactivité sur chaque chantier, avec un reporting régulier et une facturation adaptée aux volumes.</p>
     </div>
-    <div data-onglet-panneau="investisseur" role="tabpanel">
+    <div id="panneau-investisseur" data-onglet-panneau="investisseur" role="tabpanel" aria-labelledby="onglet-investisseur" tabindex="0">
       <h2>Investisseurs locatifs</h2>
       <p>Vous voulez un bien rentable sans passer votre temps à coordonner dix artisans. Nous prenons en charge l'intégralité du chantier, du diagnostic à la remise des clés.</p>
     </div>
-    <div data-onglet-panneau="particulier" role="tabpanel">
+    <div id="panneau-particulier" data-onglet-panneau="particulier" role="tabpanel" aria-labelledby="onglet-particulier" tabindex="0">
       <h2>Particuliers</h2>
       <p>Vous rénovez votre résidence ou un bien à louer. Nous vous expliquons chaque étape sans jargon technique, avec un devis clair par poste de travaux.</p>
     </div>

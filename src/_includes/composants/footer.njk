@@ -3,16 +3,20 @@
     <div>
       <p class="footer__nom">Soly'bat</p>
       <p>Rénovation &amp; mise en location — rayon d'environ 50 km autour de Vierzon (Cher).</p>
+      <p class="footer__contact">
+        <a href="tel:{{ site.telephoneLien }}">{{ site.telephone }}</a><br>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      </p>
     </div>
     <nav class="footer__liens">
-      <a href="/renovation-location/">Notre service</a>
-      <a href="/realisations/">Réalisations</a>
-      <a href="/process/">Process</a>
-      <a href="/espace-pro/">Espace pro</a>
-      <a href="/a-propos/">À propos</a>
-      <a href="/faq/">FAQ</a>
-      <a href="/devis/">Devis</a>
-      <a href="/mentions-legales/">Mentions légales</a>
+      <a href="{{ '/renovation-location/' | url }}">Notre service</a>
+      <a href="{{ '/realisations/' | url }}">Réalisations</a>
+      <a href="{{ '/process/' | url }}">Process</a>
+      <a href="{{ '/espace-pro/' | url }}">Espace pro</a>
+      <a href="{{ '/a-propos/' | url }}">À propos</a>
+      <a href="{{ '/faq/' | url }}">FAQ</a>
+      <a href="{{ '/devis/' | url }}">Devis</a>
+      <a href="{{ '/mentions-legales/' | url }}">Mentions légales</a>
     </nav>
   </div>
 </footer>

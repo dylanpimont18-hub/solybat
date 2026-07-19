@@ -4,8 +4,13 @@ titre: "Process"
 description: "Le déroulé détaillé d'un chantier Soly'bat, du diagnostic à la remise des clés."
 ---
 {% from "composants/frise-process.njk" import friseProcess %}
+{% from "composants/sceau.njk" import sceau %}
 <section class="conteneur">
-  <h1>Notre process</h1>
+  <div class="entete-page">
+    {{ sceau(40, decoratif=true) }}
+    <h1>Notre process</h1>
+  </div>
   <p>Chaque chantier suit les mêmes 4 étapes, avec un suivi communiqué régulièrement.</p>
+  <h2 class="sr-only">Les 4 étapes du chantier</h2>
   {{ friseProcess(true) }}
 </section>

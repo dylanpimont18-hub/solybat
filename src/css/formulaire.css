@@ -1,3 +1,35 @@
+.devis {
+  display: grid;
+  gap: var(--espace-lg);
+}
+
+@media (min-width: 900px) {
+  .devis {
+    grid-template-columns: minmax(0, 600px) 1fr;
+    align-items: start;
+  }
+}
+
+.devis__reassurance {
+  background: var(--couleur-creme-claire);
+  border-radius: var(--rayon-surface);
+  box-shadow: var(--ombre-surface);
+  padding: var(--espace-md);
+}
+
+.devis__reassurance ul {
+  margin: 0;
+  padding-left: var(--espace-md);
+}
+
+.devis__reassurance li {
+  margin-bottom: var(--espace-xs);
+}
+
+.devis__reassurance li:last-child {
+  margin-bottom: 0;
+}
+
 .formulaire-devis {
   display: flex;
   flex-direction: column;
@@ -16,32 +48,57 @@
 .formulaire-devis textarea {
   padding: var(--espace-xs);
   border: 1px solid var(--couleur-bois-brule);
-  border-radius: 4px;
+  border-radius: var(--rayon-controle);
   font: inherit;
+  transition: border-color var(--transition-douce);
+}
+
+.formulaire-devis input:focus-visible,
+.formulaire-devis textarea:focus-visible {
+  border-color: var(--couleur-terracotta);
 }
 
 .formulaire-devis__profil {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--espace-xs);
   border: none;
   padding: 0;
 }
 
 .formulaire-devis__profil-bouton {
+  display: inline-block;
   padding: var(--espace-xs) var(--espace-sm);
   border: 2px solid var(--couleur-bois-brule);
-  border-radius: 4px;
+  border-radius: var(--rayon-controle);
   background: var(--couleur-creme-claire);
   cursor: pointer;
+  font-weight: normal;
+  transition: background-color var(--transition-douce), border-color var(--transition-douce), color var(--transition-douce);
 }
 
-.formulaire-devis__profil-bouton[aria-pressed="true"] {
-  background: var(--couleur-terracotta);
-  color: var(--couleur-creme-claire);
+.formulaire-devis__profil-bouton:hover {
   border-color: var(--couleur-terracotta);
 }
 
+.formulaire-devis__profil-bouton input:focus-visible {
+  outline: none;
+}
+
+.formulaire-devis__profil-bouton:has(input:focus-visible) {
+  outline: 2px solid var(--couleur-terracotta);
+  outline-offset: 2px;
+}
+
+.formulaire-devis__profil-bouton:has(input:checked) {
+  background: var(--couleur-terracotta-texte);
+  color: var(--couleur-creme-claire);
+  border-color: var(--couleur-terracotta-texte);
+}
+
 .formulaire-devis__erreurs {
-  color: var(--couleur-terracotta);
+  color: var(--couleur-anthracite);
   font-weight: 600;
+  border-left: 3px solid var(--couleur-terracotta);
+  padding-left: var(--espace-xs);
 }

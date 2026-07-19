@@ -1,22 +1,20 @@
-{% from "composants/sceau.njk" import sceau %}
 <header class="header">
   <div class="header__conteneur conteneur">
-    <a href="/" class="header__logo">
-      {{ sceau(40) }}
-      <span class="header__nom">Soly'bat</span>
+    <a href="{{ '/' | url }}" class="header__logo">
+      <img src="{{ '/images/logo-solybat.png' | url }}" alt="Soly'bat" class="header__logo-img" width="644" height="635">
     </a>
     <button class="header__menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="header-nav">
       <span class="sr-only">Menu</span>
       <span class="header__menu-icone" aria-hidden="true"></span>
     </button>
     <nav class="header__nav" id="header-nav" data-nav-principale>
-      <a href="/renovation-location/">Notre service</a>
-      <a href="/realisations/">Réalisations</a>
-      <a href="/process/">Process</a>
-      <a href="/espace-pro/">Espace pro</a>
-      <a href="/a-propos/">À propos</a>
-      <a href="/faq/">FAQ</a>
-      <a href="/devis/" class="header__cta">Demander un devis</a>
+      <a href="{{ '/renovation-location/' | url }}" {% if page.url == "/renovation-location/" %}aria-current="page"{% endif %}>Notre service</a>
+      <a href="{{ '/realisations/' | url }}" {% if page.url == "/realisations/" or page.url.indexOf("/realisations/") == 0 %}aria-current="page"{% endif %}>Réalisations</a>
+      <a href="{{ '/process/' | url }}" {% if page.url == "/process/" %}aria-current="page"{% endif %}>Process</a>
+      <a href="{{ '/espace-pro/' | url }}" {% if page.url == "/espace-pro/" %}aria-current="page"{% endif %}>Espace pro</a>
+      <a href="{{ '/a-propos/' | url }}" {% if page.url == "/a-propos/" %}aria-current="page"{% endif %}>À propos</a>
+      <a href="{{ '/faq/' | url }}" {% if page.url == "/faq/" %}aria-current="page"{% endif %}>FAQ</a>
+      <a href="{{ '/devis/' | url }}" class="bouton bouton--principal header__cta" {% if page.url == "/devis/" %}aria-current="page"{% endif %}>Demander un devis</a>
     </nav>
   </div>
 </header>

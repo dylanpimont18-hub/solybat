@@ -3,9 +3,11 @@ layout: layouts/base.njk
 titre: "Page introuvable"
 description: "Cette page n'existe pas ou plus."
 permalink: "/404.html"
+noindex: true
+eleventyExcludeFromCollections: true
 ---
 <section class="conteneur page-404">
   <h1>Page introuvable</h1>
   <p>La page que vous cherchez n'existe pas ou plus.</p>
-  <a href="/" class="bouton bouton--principal">Retour à l'accueil</a>
+  <a href="{{ '/' | url }}" class="bouton bouton--principal">Retour à l'accueil</a>
 </section>

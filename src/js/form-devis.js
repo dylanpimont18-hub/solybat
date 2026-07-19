@@ -23,24 +23,24 @@ export function initFormDevis() {
   const formulaire = document.querySelector('[data-formulaire-devis]');
   if (!formulaire) return;
 
-  const boutonsProfil = Array.from(formulaire.querySelectorAll('[data-profil-bouton]'));
+  const radiosProfil = Array.from(formulaire.querySelectorAll('[data-profil-radio]'));
   const blocsProfil = Array.from(formulaire.querySelectorAll('[data-profil-bloc]'));
-  const champProfil = formulaire.querySelector('[data-profil-input]');
   const zoneErreurs = formulaire.querySelector('[data-formulaire-erreurs]');
 
   function selectionnerProfil(profil) {
-    champProfil.value = profil;
+    const radio = radiosProfil.find((r) => r.value === profil);
+    if (radio) radio.checked = true;
     blocsProfil.forEach((bloc) => {
       bloc.hidden = bloc.dataset.profilBloc !== profil;
     });
-    boutonsProfil.forEach((bouton) => {
-      bouton.setAttribute('aria-pressed', String(bouton.dataset.profilBouton === profil));
-    });
   }
 
-  boutonsProfil.forEach((bouton) => {
-    bouton.addEventListener('click', () => selectionnerProfil(bouton.dataset.profilBouton));
+  radiosProfil.forEach((radio) => {
+    radio.addEventListener('change', () => selectionnerProfil(radio.value));
   });
+
+  const profilInitial = radiosProfil.find((r) => r.checked);
+  if (profilInitial) selectionnerProfil(profilInitial.value);
 
   formulaire.addEventListener('submit', (evenement) => {
     const donnees = Object.fromEntries(new FormData(formulaire));

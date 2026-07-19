@@ -3,12 +3,16 @@ layout: layouts/base.njk
 titre: "FAQ"
 description: "Délais, garanties, assurances et paiement — les questions fréquentes sur nos chantiers."
 ---
+{% from "composants/sceau.njk" import sceau %}
 <section class="conteneur faq">
-  <h1>Questions fréquentes</h1>
+  <div class="entete-page">
+    {{ sceau(40, decoratif=true) }}
+    <h1>Questions fréquentes</h1>
+  </div>
 
   <details>
     <summary>Quels sont les délais moyens d'un chantier ?</summary>
-    <p>Comptez en moyenne 4 à 8 semaines selon l'ampleur des travaux, du diagnostic à la remise des clés.</p>
+    <p>Comptez en moyenne 7 à 11 semaines entre le diagnostic et la remise des clés : environ 3 semaines pour le diagnostic et le devis, puis 4 à 8 semaines de chantier selon l'ampleur des travaux.</p>
   </details>
 
   <details>
