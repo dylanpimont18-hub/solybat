@@ -40,7 +40,7 @@ $message = nettoyerValeur($_POST['message']);
 
 $sujet = 'Nouvelle demande de devis — ' . $profil;
 $corps = "Profil : $profil\nNom : $nom\nEmail : $email\nTéléphone : $telephone\n\nMessage :\n$message\n";
-$entetes = 'From: no-reply@solybat.fr' . "\r\n" . 'Reply-To: ' . $email;
+$entetes = 'From: no-reply@solybat18.fr' . "\r\n" . 'Reply-To: ' . $email;
 
 mail($adresseContact, $sujet, $corps, $entetes);
 
