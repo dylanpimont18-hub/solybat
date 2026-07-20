@@ -52,7 +52,7 @@
     "duree": "7 semaines",
     "corpsDeMetier": ["maçonnerie", "plâtrerie (placo)", "électricité", "plomberie", "peinture", "sol"],
     "resume": "Ouverture d'un mur porteur pour un séjour traversant, cloisons refaites en placo, cuisine et salle de bain entièrement reprises.",
-    "photos": {}
+    "photos": { "avant": "mehun-sur-yevre-avant.jpg", "apres": "mehun-sur-yevre-apres.jpg" }
   },
   {
     "slug": "local-commercial-transforme-saint-florent",
@@ -63,6 +63,6 @@
     "duree": "8 semaines",
     "corpsDeMetier": ["maçonnerie", "plâtrerie (placo)", "électricité", "plomberie", "chauffage", "peinture", "sol"],
     "resume": "Réaménagement intérieur complet d'un ancien local commercial en appartement T2 : création de cloisons, mise aux normes électricité et plomberie.",
-    "photos": {}
+    "photos": { "apres": "saint-florent-apres.jpg" }
   }
 ]

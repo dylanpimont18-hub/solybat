@@ -20,6 +20,10 @@ eleventyComputed:
     <img class="slider-avant-apres__calque" data-slider-apres src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }} — après" style="clip-path: inset(0 0 0 50%);" decoding="async">
     <div class="slider-avant-apres__curseur" data-slider-curseur tabindex="0" role="slider" aria-orientation="horizontal" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></div>
   </div>
+  {% elif projet.photos.apres %}
+  <div class="projet__photo-seule">
+    <img src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }} — après travaux" fetchpriority="high" decoding="async">
+  </div>
   {% else %}
   {{ placeholderPhoto() }}
   {% endif %}
