@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+titre: "Photos de chantier en vrac"
+description: "Un aperçu en vrac de nos chantiers : rénovations en cours et terminées, tous corps de métier."
+---
+{% from "composants/sceau.njk" import sceau %}
+<section class="conteneur photos-vrac">
+  <div class="entete-page">
+    {{ sceau(40, decoratif=true) }}
+    <h1>Photos de chantier en vrac</h1>
+  </div>
+
+  <p class="photos-vrac__intro">Un aperçu, sans mise en scène, de nos chantiers : pièces en cours de travaux et pièces terminées. Cliquez sur une photo pour l'agrandir.</p>
+
+  <div class="photos-vrac__grille">
+    {% for photo in photosVrac %}
+      <a class="photos-vrac__vignette" href="/images/photos-vrac/{{ photo.fichier }}" target="_blank" rel="noopener">
+        <img
+          src="/images/photos-vrac/{{ photo.fichier }}"
+          alt="{{ photo.alt }}"
+          loading="{{ 'eager' if loop.index <= 3 else 'lazy' }}"
+          decoding="async"
+        >
+      </a>
+    {% endfor %}
+  </div>
+</section>

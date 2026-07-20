@@ -64,6 +64,15 @@ Hero-photos (sous-titre citant explicitement les corps de métier) + section "To
 ## src/realisations/index.njk
 Hero-photos compact (1 photo) + galerie de réalisations filtrable côté client par type de bien et ampleur. `<h2 class="sr-only">` avant la grille pour éviter un saut h1→h3.
 
+## src/realisations/photos-vrac.njk
+Page "photos de chantier en vrac" : grille de 41 photos issues de `photos_farid/` (tout le dossier, y compris chantiers hors périmètre habituel du site — extérieur/tertiaire — et 2 rendus 3D, présentés comme réalisations Soly'bat à la demande explicite de l'utilisateur malgré la réserve de provenance signalée). Chaque vignette est un `<a target="_blank">` vers l'image pleine taille, pas de lightbox JS (cohérent avec la règle de marque "mouvement minimal"). Lien depuis `/realisations/index.njk` (`.galerie__plus-de-photos`).
+
+## src/_data/photosVrac.json
+Liste des 41 photos de `photos-vrac.njk` (nom de fichier + texte alternatif descriptif, dérivé de `photos_farid/CONTENU.md`).
+
+## src/images/photos-vrac/
+41 photos redimensionnées depuis `photos_farid/*.jpeg` (1200px de long côté, JPEG qualité 82, EXIF non préservé) — 12,2 Mo → 5,3 Mo au total. Générées par un script Python one-off (Pillow), non versionné.
+
 ## src/realisations/projet.njk
 Fiche projet individuelle, générée par pagination 11ty sur `_data/realisations.json`. Trois états : slider avant/après si les deux photos existent ; sinon photo "après" seule dans `.projet__photo-seule` si `photos.apres` existe sans `avant` (cas des projets avec une seule vraie photo dispo, ex. `local-commercial-transforme-saint-florent`) ; sinon fallback placeholder-photo. Curseur du slider avec `role="slider"`/`tabindex="0"`/`aria-value*` (piloté au clavier par `slider-avant-apres.js`). Le `<title>` de page utilise une variante de `projet.titre` sans le tiret cadratin interne (`replace(' — ', ', ')`) pour éviter le double tiret avant « — Soly'bat ». Photo "avant" (ou "après" seule) en `fetchpriority="high"` (candidat LCP de la page), les calques du slider en `decoding="async"`.
 

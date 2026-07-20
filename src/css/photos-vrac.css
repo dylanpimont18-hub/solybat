@@ -1,0 +1,44 @@
+.photos-vrac__intro {
+  max-width: 60ch;
+  margin: var(--espace-sm) 0 var(--espace-md);
+  color: var(--couleur-bois-brule);
+}
+
+.photos-vrac__grille {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espace-sm);
+}
+
+.photos-vrac__vignette {
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--rayon-surface);
+  overflow: hidden;
+  box-shadow: var(--ombre-surface);
+  transition: transform var(--transition-douce), box-shadow var(--transition-douce);
+}
+
+.photos-vrac__vignette:hover,
+.photos-vrac__vignette:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--ombre-surface-hover);
+}
+
+.photos-vrac__vignette img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .photos-vrac__grille {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .photos-vrac__grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

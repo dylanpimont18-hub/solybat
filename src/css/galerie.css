@@ -31,6 +31,11 @@
   color: var(--couleur-bois-brule);
 }
 
+.galerie__plus-de-photos {
+  text-align: center;
+  margin-top: var(--espace-lg);
+}
+
 @media (max-width: 900px) {
   .galerie__grille {
     grid-template-columns: repeat(2, 1fr);
