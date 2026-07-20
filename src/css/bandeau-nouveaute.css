@@ -1,0 +1,27 @@
+.bandeau-nouveaute {
+  background: var(--couleur-bois-brule);
+  color: var(--couleur-creme-claire);
+  padding: var(--espace-xs) 0;
+}
+
+.bandeau-nouveaute__texte {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.bandeau-nouveaute__texte a {
+  color: var(--couleur-creme-claire);
+  text-decoration: underline;
+  margin-left: var(--espace-xs);
+  transition: color var(--transition-douce);
+}
+
+.bandeau-nouveaute__texte a:hover,
+.bandeau-nouveaute__texte a:focus-visible {
+  color: var(--couleur-creme-sable);
+}
+
+.bandeau-nouveaute :focus-visible {
+  outline-color: var(--couleur-creme-claire);
+}

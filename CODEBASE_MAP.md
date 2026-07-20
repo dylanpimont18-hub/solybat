@@ -6,7 +6,10 @@ Index de navigation du site Soly'bat (11ty). Voir `CLAUDE.md` pour la stack et l
 Config 11ty (CommonJS — voir piège toolchain dans CLAUDE.md) : dossiers d'entrée/sortie, passthrough copy CSS/JS/images/PHP/`manifest.json`/`.htaccess`.
 
 ## src/_includes/layouts/base.njk
-Layout HTML commun à toutes les pages : head (title, description, canonical, Open Graph/Twitter Card avec `og-image.jpg` dédiée 1200×630, JSON-LD `GeneralContractor` avec `areaServed`, `noindex` optionnel via front-matter), manifest/apple-touch-icon/theme-color, polices Google Fonts en `<link rel="preconnect">`+`<link rel="stylesheet">` (plus de `@import` bloquant dans le CSS, graisses limitées à celles réellement utilisées : Fraunces 600, Inter 400/600), lien d'évitement `.lien-evitement` avant le header, header, footer, imports CSS/JS.
+Layout HTML commun à toutes les pages : head (title, description, canonical, Open Graph/Twitter Card avec `og-image.jpg` dédiée 1200×630, JSON-LD `GeneralContractor` avec `areaServed`, `noindex` optionnel via front-matter), manifest/apple-touch-icon/theme-color, polices Google Fonts en `<link rel="preconnect">`+`<link rel="stylesheet">` (plus de `@import` bloquant dans le CSS, graisses limitées à celles réellement utilisées : Fraunces 600, Inter 400/600), lien d'évitement `.lien-evitement` avant le header, bandeau nouveauté (`composants/bandeau-nouveaute.njk`) juste après, header, footer, imports CSS/JS.
+
+## src/_includes/composants/bandeau-nouveaute.njk
+Bandeau global statique (pas de JS, pas de bouton fermer), affiché sur toutes les pages au-dessus du header. Annonce actuelle : pose de climatisation via partenaires certifiés RGE, TVA 5,5% formulée "sous conditions" (pas affirmée comme acquise pour toute pose — le type d'équipement exact ouvrant droit au taux réduit n'était pas confirmé par le client). Lien vers `/renovation-location/`.
 
 ## src/_data/site.json
 Données globales : `url` (placeholder `https://www.solybat.fr`, utilisé pour canonical/OG/sitemap.xml/robots.txt), `telephone`/`telephoneLien`/`email` (coordonnées fictives `02 48 00 00 00` / `contact@solybat.fr`, utilisées dans le footer et les mentions légales) — toutes à remplacer par les vraies valeurs avant mise en ligne.
@@ -59,7 +62,7 @@ Page 404 avec lien retour accueil. `noindex: true` + exclue du sitemap (`elevent
 Accueil : hero-photos (triptyque plein cadre, `heroPhotos` en front matter), frise process, aperçu réalisations, pour qui, garanties (sceau motif), CTA.
 
 ## src/renovation-location.njk
-Hero-photos (sous-titre citant explicitement les corps de métier) + section "Tous corps de métier, un seul interlocuteur" (`.liste-corps-de-metier`, 8 corps de métier dont maçonnerie/plâtrerie) + présentation de l'offre avec onglets par profil (agence/investisseur/particulier), pattern ARIA Tabs complet (voir `js/onglets.js`).
+Hero-photos (sous-titre citant explicitement les corps de métier) + section "Tous corps de métier, un seul interlocuteur" (`.liste-corps-de-metier`, 9 corps de métier dont maçonnerie/plâtrerie/climatisation) + présentation de l'offre avec onglets par profil (agence/investisseur/particulier), pattern ARIA Tabs complet (voir `js/onglets.js`). Climatisation ajoutée (pose via partenaires certifiés RGE) suite à une demande client de mise en avant de ce nouveau service.
 
 ## src/realisations/index.njk
 Hero-photos compact (1 photo) + galerie de réalisations filtrable côté client par type de bien et ampleur. `<h2 class="sr-only">` avant la grille pour éviter un saut h1→h3.
@@ -138,7 +141,10 @@ Design tokens : couleurs, typographies, espacements, + rayons (`--rayon-controle
 Reset, styles globaux, classes utilitaires (`.bouton` avec hover/focus, `.conteneur`, `.entete-page` pour l'icône sceau à côté d'un `<h1>`/`<h2>` de page), `:focus-visible` global, `overflow-x: hidden` (nécessaire pour le hero plein cadre en 100vw), `.lien-evitement` (skip link, visible seulement au focus clavier). Polices Google Fonts chargées depuis `base.njk` (`<link>`, plus de `@import` bloquant ici). Liens en `--couleur-bois-brule` par défaut (contraste AA sur fond crème, ~4,0:1 avec terracotta ne suffisait pas), `--couleur-terracotta` au hover/focus uniquement. `.bouton--principal` en `--couleur-terracotta-texte` (pas `--couleur-terracotta`, insuffisant en contraste avec le texte crème clair). `section` utilise `padding-block` et `.conteneur` utilise `padding-inline` (propriétés logiques sur des axes distincts, plus le raccourci `padding`) pour éviter que la spécificité de classe de `.conteneur` n'annule le padding vertical voulu par le sélecteur de type `section` — ce bug annulait tout le padding haut/bas de `<section class="conteneur">` sur tout le site (contenu collé au header et au footer sur Process/FAQ/À propos/Devis/Mentions légales). `section + section { padding-top: 0 }` évite que deux `<section>` empilées (accueil) ne cumulent 2× le padding.
 
 ## src/css/styles.css
-Point d'entrée CSS, `@import` de tous les fichiers de composants/pages (inclut désormais `placeholder-photo.css` et `hero-photos.css`).
+Point d'entrée CSS, `@import` de tous les fichiers de composants/pages (inclut désormais `placeholder-photo.css`, `hero-photos.css`, `bandeau-nouveaute.css` et `photos-vrac.css`).
+
+## src/css/bandeau-nouveaute.css
+Bandeau global d'annonce : fond bois brûlé + texte crème claire (même combo que `footer.css`, contraste déjà validé), lien souligné, `outline-color` du focus-visible forcée en crème claire (comme le footer, sinon peu visible sur ce fond).
 
 ## src/css/placeholder-photo.css
 Styles du motif placeholder signature (dégradé + sceau en filigrane pivoté + légende italique).
