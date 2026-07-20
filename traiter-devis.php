@@ -1,9 +1,8 @@
 <?php
 require __DIR__ . '/devis-validation.php';
 
-// Placeholder — remplacer par la vraie adresse de contact Soly'bat une fois connue
-// (garder cohérent avec src/_data/site.json > email, utilisé côté front).
-$adresseContact = 'contact@solybat.fr';
+// Adresse de contact Soly'bat (cohérente avec src/_data/site.json > email).
+$adresseContact = 'solybat@gmail.com';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: /devis/');
