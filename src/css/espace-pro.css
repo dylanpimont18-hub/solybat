@@ -1,8 +1,0 @@
-.plaquette-a-venir {
-  display: block;
-  max-width: 40rem;
-  padding: var(--espace-sm) var(--espace-md);
-  background: var(--couleur-creme-claire);
-  border-left: 3px solid var(--couleur-terracotta);
-  border-radius: var(--rayon-controle);
-}

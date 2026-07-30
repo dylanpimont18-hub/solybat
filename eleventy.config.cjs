@@ -2,6 +2,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/images": "images" });
+  eleventyConfig.addPassthroughCopy({ "src/documents": "documents" });
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
   eleventyConfig.addPassthroughCopy({ "src/.htaccess": ".htaccess" });
