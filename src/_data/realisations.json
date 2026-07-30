@@ -63,6 +63,6 @@
     "duree": "8 semaines",
     "corpsDeMetier": ["maçonnerie", "plâtrerie (placo)", "électricité", "plomberie", "chauffage", "peinture", "sol"],
     "resume": "Réaménagement intérieur complet d'un ancien local commercial en appartement T2 : création de cloisons, mise aux normes électricité et plomberie.",
-    "photos": { "apres": "saint-florent-apres.jpg" }
+    "photos": { "avant": "saint-florent-avant.jpg", "apres": "saint-florent-apres.jpg" }
   }
 ]
