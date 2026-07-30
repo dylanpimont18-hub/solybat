@@ -7,7 +7,7 @@ function estHoneypotRempli(array $post): bool
 
 function nettoyerValeur(string $valeur): string
 {
-    return trim(str_replace(["\r", "\n"], ' ', $valeur));
+    return trim(preg_replace('/[\r\n]+/', ' ', $valeur));
 }
 
 function validerDonnees(array $post): array

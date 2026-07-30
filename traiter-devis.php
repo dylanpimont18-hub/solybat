@@ -2,7 +2,10 @@
 require __DIR__ . '/devis-validation.php';
 
 // Adresse de contact Soly'bat (cohérente avec src/_data/site.json > email).
-$adresseContact = 'solybat@gmail.com';
+// TEMPORAIRE (test local avant mise en prod) : redirigé vers dylan.pimont@orange.fr
+// au lieu de solybat@gmail.com le temps de valider le pipeline PHP. À remettre à
+// 'solybat@gmail.com' avant toute mise en ligne réelle.
+$adresseContact = 'dylan.pimont@orange.fr';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: /devis/');
