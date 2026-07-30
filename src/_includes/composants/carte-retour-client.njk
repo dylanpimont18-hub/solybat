@@ -1,0 +1,43 @@
+{% macro carteRetourClient(retour) %}
+<article class="carte-retour-client">
+  <p class="carte-retour-client__profil">{{ retour.prenom }} {{ retour.initiale }}</p>
+  <h3 class="carte-retour-client__titre">{{ retour.typeDeBien }}</h3>
+  <p class="carte-retour-client__quartier">{{ retour.quartier }}</p>
+  <p class="carte-retour-client__travaux">{{ retour.travauxDescription }}</p>
+
+  <dl class="carte-retour-client__chiffres">
+    <div>
+      <dt>Prix d'achat</dt>
+      <dd>{{ retour.prix }}</dd>
+    </div>
+    <div>
+      <dt>Travaux Soly'bat</dt>
+      <dd>{{ retour.travaux }} <span class="carte-retour-client__pourcentage">({{ retour.pourcentageTravaux }} du coût total)</span></dd>
+    </div>
+    <div>
+      <dt>Coût total (financé à 100 %)</dt>
+      <dd>{{ retour.coutTotal }}</dd>
+    </div>
+    <div>
+      <dt>Crédit</dt>
+      <dd>{{ retour.credit }}</dd>
+    </div>
+    <div>
+      <dt>Loyer post-travaux</dt>
+      <dd>{{ retour.loyer }}</dd>
+    </div>
+    <div>
+      <dt>Rentabilité brute</dt>
+      <dd>{{ retour.rentabiliteBrute }}</dd>
+    </div>
+    <div>
+      <dt>Cash-flow net avant impôt</dt>
+      <dd>{{ retour.cashFlow }}</dd>
+    </div>
+    <div>
+      <dt>DSCR</dt>
+      <dd>{{ retour.dscr }}</dd>
+    </div>
+  </dl>
+</article>
+{% endmacro %}

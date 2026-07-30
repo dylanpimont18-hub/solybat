@@ -1,0 +1,40 @@
+---
+layout: layouts/base.njk
+titre: "Retour client"
+description: "8 opérations réelles d'investissement locatif à Vierzon, chiffrées de bout en bout, travaux Soly'bat inclus."
+---
+{% from "composants/sceau.njk" import sceau %}
+{% from "composants/carte-retour-client.njk" import carteRetourClient %}
+<section class="conteneur retour-client">
+  <div class="entete-page">
+    {{ sceau(40, decoratif=true) }}
+    <h1>Retour client</h1>
+  </div>
+
+  <p class="retour-client__avertissement">Cas réels, chiffres réels. Pour préserver la confidentialité de nos clients, les prénoms ont été changés.</p>
+
+  <p>8 opérations d'investissement locatif menées à Vierzon, financées à 100 % (apport 0 €), travaux réalisés par Soly'bat clé en main. Hypothèses communes : vacance locative 5 %, cash-flow exprimé net avant impôt (régime fiscal non pris en compte).</p>
+
+  <dl class="retour-client__legende">
+    <div>
+      <dt>Rentabilité brute</dt>
+      <dd>loyer annuel rapporté au coût total de l'opération (achat + travaux + frais).</dd>
+    </div>
+    <div>
+      <dt>Cash-flow net avant impôt</dt>
+      <dd>ce qu'il reste chaque mois une fois le crédit et les charges payés, avant fiscalité.</dd>
+    </div>
+    <div>
+      <dt>DSCR</dt>
+      <dd>capacité du loyer à couvrir la mensualité du crédit (au-dessus de 1 = le loyer couvre la mensualité).</dd>
+    </div>
+  </dl>
+
+  <div class="retour-client__grille">
+    {% for retour in retoursClients %}
+      {{ carteRetourClient(retour) }}
+    {% endfor %}
+  </div>
+
+  <p class="retour-client__disclaimer">Ces opérations sont réelles, mais ne constituent pas une garantie d'obtention de financement à 100 % pour votre propre projet : chaque banque évalue le dossier de l'emprunteur, pas seulement le DSCR du bien.</p>
+</section>

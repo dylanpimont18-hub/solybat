@@ -115,6 +115,15 @@ img {
   color: var(--couleur-terracotta);
 }
 
+.boutons-groupe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--espace-sm);
+  flex-wrap: wrap;
+  margin-top: var(--espace-sm);
+}
+
 section {
   padding-block: var(--espace-xl);
 }

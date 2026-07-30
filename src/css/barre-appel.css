@@ -1,0 +1,30 @@
+.barre-appel-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  }
+
+  .barre-appel-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--espace-xs);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    padding: var(--espace-sm) var(--espace-md) calc(var(--espace-sm) + env(safe-area-inset-bottom));
+    background: var(--couleur-terracotta-texte);
+    color: var(--couleur-creme-claire);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .barre-appel-mobile:focus-visible {
+    outline-color: var(--couleur-creme-claire);
+  }
+}

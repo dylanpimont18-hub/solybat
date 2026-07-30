@@ -1,0 +1,106 @@
+.retour-client__avertissement {
+  font-weight: 600;
+  padding: var(--espace-sm);
+  border-left: 4px solid var(--couleur-terracotta);
+  background: var(--couleur-creme-claire);
+}
+
+.retour-client__legende {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espace-md);
+  margin: var(--espace-md) 0 var(--espace-lg);
+  padding: var(--espace-sm);
+  background: var(--couleur-creme-claire);
+  border-radius: var(--rayon-surface);
+}
+
+.retour-client__legende dt {
+  font-family: var(--police-display);
+  font-weight: 600;
+}
+
+.retour-client__legende dd {
+  margin: var(--espace-xs) 0 0;
+  color: var(--couleur-bois-brule);
+  font-size: 0.9rem;
+}
+
+.retour-client__grille {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espace-md);
+}
+
+.retour-client__disclaimer {
+  margin-top: var(--espace-lg);
+  color: var(--couleur-bois-brule);
+  font-size: 0.9rem;
+}
+
+.carte-retour-client {
+  padding: var(--espace-sm);
+  border-radius: var(--rayon-surface);
+  background: var(--couleur-creme-claire);
+  box-shadow: var(--ombre-surface);
+}
+
+.carte-retour-client__profil {
+  font-family: var(--police-display);
+  font-weight: 600;
+  color: var(--couleur-terracotta-texte);
+  margin: 0;
+}
+
+.carte-retour-client__titre {
+  margin: var(--espace-xs) 0 0;
+  font-size: 1.1rem;
+}
+
+.carte-retour-client__quartier {
+  color: var(--couleur-bois-brule);
+  font-size: 0.9rem;
+  margin: var(--espace-xs) 0 0;
+}
+
+.carte-retour-client__travaux {
+  margin: var(--espace-sm) 0;
+}
+
+.carte-retour-client__chiffres {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--espace-sm) var(--espace-md);
+  margin: 0;
+  padding-top: var(--espace-sm);
+  border-top: 1px solid var(--couleur-bois-brule);
+}
+
+.carte-retour-client__chiffres dt {
+  font-size: 0.78rem;
+  color: var(--couleur-bois-brule);
+}
+
+.carte-retour-client__chiffres dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.carte-retour-client__pourcentage {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--couleur-bois-brule);
+}
+
+@media (max-width: 900px) {
+  .retour-client__legende {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .retour-client__grille,
+  .carte-retour-client__chiffres {
+    grid-template-columns: 1fr;
+  }
+}

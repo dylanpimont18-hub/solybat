@@ -46,6 +46,7 @@
   </script>
 </head>
 <body>
+  {% from "composants/icone-telephone.njk" import iconeTelephone %}
   <a href="#contenu-principal" class="lien-evitement">Aller au contenu</a>
   {% include "composants/bandeau-nouveaute.njk" %}
   {% include "composants/header.njk" %}
@@ -53,6 +54,10 @@
     {{ content | safe }}
   </main>
   {% include "composants/footer.njk" %}
+  <a href="tel:{{ site.telephoneLien }}" class="barre-appel-mobile">
+    {{ iconeTelephone(20) }}
+    <span>Appeler {{ site.telephone }}</span>
+  </a>
   <script type="module" src="{{ '/js/main.js' | url }}"></script>
 </body>
 </html>

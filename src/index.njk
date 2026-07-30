@@ -15,7 +15,7 @@ heroPhotos:
 {% from "composants/carte-realisation.njk" import carteRealisation %}
 {% from "composants/hero-photos.njk" import heroPhotos as afficherHeroPhotos %}
 
-{{ afficherHeroPhotos("Un bien à rénover. Un bien loué. Un seul interlocuteur.", "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.", heroPhotos, "Demander un devis", "/devis/") }}
+{{ afficherHeroPhotos("Un bien à rénover. Un bien loué. Un seul interlocuteur.", "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.", heroPhotos, "Demander un devis", "/devis/", false, site.telephone, site.telephoneLien) }}
 
 <section class="conteneur">
   <h2>Notre process</h2>
@@ -42,6 +42,7 @@ heroPhotos:
     <div class="pour-qui__colonne">
       <h3>Investisseurs locatifs</h3>
       <p>Un bien rentable, rénové rapidement, sans gérer dix corps de métier différents.</p>
+      <p><a href="{{ '/retour-client/' | url }}">Voir des cas chiffrés &rarr;</a></p>
     </div>
     <div class="pour-qui__colonne">
       <h3>Particuliers</h3>
@@ -57,6 +58,10 @@ heroPhotos:
 </section>
 
 <section class="conteneur" style="text-align: center;">
-  <h2>Un projet de rénovation ?</h2>
-  <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+  <h2>Discutons de votre projet</h2>
+  <p>Un chantier à lancer, une question sur nos délais ou nos tarifs ? Appelez-nous directement, ou décrivez votre projet en quelques lignes.</p>
+  <div class="boutons-groupe">
+    <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
+    <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+  </div>
 </section>

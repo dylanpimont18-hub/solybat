@@ -79,6 +79,24 @@
   margin-bottom: var(--espace-sm);
 }
 
+.hero-photos__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-sm);
+}
+
+.hero-photos__ctas .bouton--secondaire {
+  color: var(--couleur-creme-claire);
+  border-color: var(--couleur-creme-claire);
+}
+
+.hero-photos__ctas .bouton--secondaire:hover,
+.hero-photos__ctas .bouton--secondaire:focus-visible {
+  background: var(--couleur-creme-claire);
+  color: var(--couleur-anthracite);
+  border-color: var(--couleur-creme-claire);
+}
+
 @media (max-width: 900px) {
   .hero-photos__grille--3,
   .hero-photos__grille--2 {

@@ -12,7 +12,7 @@ heroPhotos:
 ---
 {% from "composants/hero-photos.njk" import heroPhotos as afficherHeroPhotos %}
 
-{{ afficherHeroPhotos("Notre service", "Soly'bat prend en charge l'intégralité des travaux nécessaires pour rendre votre bien prêt à louer ou à vivre : maçonnerie, plâtrerie (cloisons placo), électricité, plomberie, chauffage, climatisation, peinture, sols, cuisine, salle de bain. Un seul interlocuteur, un chantier coordonné, un délai maîtrisé.", heroPhotos) }}
+{{ afficherHeroPhotos("Notre service", "Soly'bat prend en charge l'intégralité des travaux nécessaires pour rendre votre bien prêt à louer ou à vivre : maçonnerie, plâtrerie (cloisons placo), électricité, plomberie, chauffage, climatisation, peinture, sols, cuisine, salle de bain. Un seul interlocuteur, un chantier coordonné, un délai maîtrisé.", heroPhotos, "Demander un devis", "/devis/", false, site.telephone, site.telephoneLien) }}
 
 <section class="conteneur">
   <h2>Tous corps de métier, un seul interlocuteur</h2>
@@ -45,6 +45,7 @@ heroPhotos:
     <div id="panneau-investisseur" data-onglet-panneau="investisseur" role="tabpanel" aria-labelledby="onglet-investisseur" tabindex="0">
       <h2>Investisseurs locatifs</h2>
       <p>Vous voulez un bien rentable sans passer votre temps à coordonner dix artisans. Nous prenons en charge l'intégralité du chantier, du diagnostic à la remise des clés.</p>
+      <p><a href="{{ '/retour-client/' | url }}">Voir des cas chiffrés &rarr;</a></p>
     </div>
     <div id="panneau-particulier" data-onglet-panneau="particulier" role="tabpanel" aria-labelledby="onglet-particulier" tabindex="0">
       <h2>Particuliers</h2>
