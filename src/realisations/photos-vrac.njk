@@ -14,9 +14,9 @@ description: "Un aperçu en vrac de nos chantiers : rénovations en cours et ter
 
   <div class="photos-vrac__grille">
     {% for photo in photosVrac %}
-      <a class="photos-vrac__vignette" href="/images/photos-vrac/{{ photo.fichier }}" target="_blank" rel="noopener">
+      <a class="photos-vrac__vignette" href="{{ ('/images/photos-vrac/' + photo.fichier) | url }}" target="_blank" rel="noopener">
         <img
-          src="/images/photos-vrac/{{ photo.fichier }}"
+          src="{{ ('/images/photos-vrac/' + photo.fichier) | url }}"
           alt="{{ photo.alt }}"
           loading="{{ 'eager' if loop.index <= 3 else 'lazy' }}"
           decoding="async"
