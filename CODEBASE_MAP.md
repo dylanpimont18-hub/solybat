@@ -179,7 +179,14 @@ Bandeau global d'annonce : fond bois brûlé + texte crème claire (même combo 
 Styles du motif placeholder signature (dégradé + sceau en filigrane pivoté + légende italique).
 
 ## src/css/hero-photos.css
-Styles du hero plein cadre (breakout 100vw), grilles 1/2/3 panneaux, voile de contraste + texte superposé sur le premier panneau, variante `--compacte`. `.hero-photos__ctas` : ligne de boutons (CTA devis + CTA "Appeler"), `.bouton--secondaire` y est surchargé en crème claire (bordure/texte) — le style par défaut (bordure anthracite) serait invisible sur l'overlay sombre du hero.
+Styles du hero plein cadre, grilles 1/2/3 panneaux, voile de contraste + texte superposé sur le premier panneau, variante `--compacte`. `.hero-photos__ctas` : ligne de boutons (CTA devis + CTA "Appeler"), `.bouton--secondaire` y est surchargé en crème claire (bordure/texte) — le style par défaut (bordure anthracite) serait invisible sur l'overlay sombre du hero.
+
+Trois correctifs responsive appliqués le 2026-08-02 (le hero était la seule vraie faiblesse mobile du site, le reste des pages était déjà correct) :
+- **Texte coupé sous 900px** : `.hero-photos__panneau` est désormais `display:flex; align-items:flex-end` et `.hero-photos__texte` est en `position:relative` (dans le flux) au lieu de `position:absolute; bottom:0`. Avec l'ancien absolute, un texte plus haut que le `min-height` du panneau débordait **vers le haut** et était rogné par `overflow:hidden` — mesuré à 375px de viewport : panneau 320px pour un texte de 429px, soit 109px coupés et la première ligne du `<h1>` invisible. En flux, le panneau s'étire à la hauteur du texte ; l'alignement bas préserve le rendu desktop d'origine.
+- **Débordement horizontal de 8px** : l'ancienne sortie de cadre (`width:100vw` + `left:50%` + `margin-left:-50vw`) était redondante — `<main>` n'est pas contraint en largeur, donc `width:100%` suffit — et débordait de la largeur de la barre de défilement, `100vw` l'incluant. C'est ce débordement que le `overflow-x:hidden` de `base.css` masquait (ce dernier est conservé comme filet de sécurité).
+- **Bande crème de 6rem entre header et hero** : le hero étant un `<section>`, il héritait du `padding-block: var(--espace-xl)` global de `base.css` et se retrouvait détaché du haut de page. Neutralisé par `padding-block: 0`, avec `.hero-photos + section { padding-top: var(--espace-xl) }` pour rendre son espacement à la section suivante (que la règle `section + section { padding-top: 0 }` de `base.css` annulait sinon).
+
+Vérifié sur 8 pages × 4 largeurs (320/390/768/1280px) : aucun débordement horizontal, aucun texte rogné.
 
 ## src/css/retour-client.css
 Styles de `/retour-client/` : `.retour-client__avertissement` en encart à liseré terracotta plein (même traitement que `.plaquette-a-venir` d'`espace-pro.css`, pour une mention qui doit rester visible et non passer pour du texte secondaire), légende des 3 termes financiers en grille 3 colonnes (1 sous 900px), grille de cartes profil 2 colonnes (1 sous 560px). `.carte-retour-client` : pas de photo (contrairement à `.carte-realisation`), `<dl>` de chiffres en grille 2 colonnes (1 sous 560px).

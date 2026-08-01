@@ -1,8 +1,23 @@
+/* <main> n'est pas contraint en largeur : le hero est donc déjà pleine largeur en
+   width:100%. L'ancienne sortie de cadre (width:100vw + left:50% + margin-left:-50vw)
+   était redondante et débordait de la largeur de la barre de défilement, car 100vw
+   l'inclut alors que le contenu disponible ne fait que clientWidth (mesuré : 383px
+   de contenu pour 375px de viewport). C'est ce débordement que le overflow-x:hidden
+   de body masquait. */
 .hero-photos {
-  width: 100vw;
+  width: 100%;
   position: relative;
-  left: 50%;
-  margin-left: -50vw;
+  /* Le hero est un <section> : sans ça il hérite du padding-block global des
+     sections (base.css), ce qui insérait une bande crème vide de 6rem entre le
+     header et la photo et détachait le hero du haut de page. */
+  padding-block: 0;
+}
+
+/* base.css annule le padding-top d'une <section> qui en suit une autre (pour ne pas
+   cumuler les espacements). Le hero n'ayant plus de padding-bottom, la section
+   suivante doit retrouver le sien, sinon elle colle à la photo. */
+.hero-photos + section {
+  padding-top: var(--espace-xl);
 }
 
 .hero-photos__grille {
@@ -21,10 +36,18 @@
   grid-template-columns: 1fr;
 }
 
+/* Le panneau est un conteneur flex aligné en bas et le texte reste dans le flux
+   (voir .hero-photos__texte) : la hauteur du panneau s'étire donc pour contenir le
+   texte quand celui-ci est plus haut que min-height. Avec l'ancien texte en
+   position absolute + bottom:0, le débordement partait vers le haut et se faisait
+   couper par overflow:hidden — la première ligne du <h1> disparaissait sous 900px
+   (mesuré : panneau 320px pour un texte de 429px, soit 109px coupés). */
 .hero-photos__panneau {
   position: relative;
   overflow: hidden;
   min-height: clamp(360px, 55vh, 480px);
+  display: flex;
+  align-items: flex-end;
 }
 
 .hero-photos--compacte .hero-photos__panneau {
@@ -51,11 +74,12 @@
   background: linear-gradient(0deg, rgba(43, 39, 35, 0.8) 0%, rgba(43, 39, 35, 0.3) 55%, rgba(43, 39, 35, 0.05) 100%);
 }
 
+/* position: relative (et non absolute) pour rester dans le flux du panneau flex :
+   c'est ce qui permet au panneau de s'agrandir au lieu de couper le texte.
+   Reste au-dessus de .hero-photos__voile car positionné et placé après lui dans le DOM. */
 .hero-photos__texte {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  width: 100%;
   padding: var(--espace-lg) var(--espace-md) var(--espace-md);
   color: var(--couleur-creme-claire);
 }
