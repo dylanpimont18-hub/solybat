@@ -1,0 +1,25 @@
+.publicite-climatisation {
+  display: flex;
+  justify-content: center;
+}
+
+.publicite-climatisation__lien {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--rayon-surface);
+  overflow: hidden;
+  box-shadow: var(--ombre-surface);
+  transition: var(--transition-douce);
+}
+
+.publicite-climatisation__lien:hover {
+  box-shadow: var(--ombre-surface-hover);
+  transform: translateY(-2px);
+}
+
+.publicite-climatisation__lien img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

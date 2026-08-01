@@ -17,6 +17,13 @@ heroPhotos:
 
 {{ afficherHeroPhotos("Un bien à rénover. Un bien loué. Un seul interlocuteur.", "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.", heroPhotos, "Demander un devis", "/devis/", false, site.telephone, site.telephoneLien) }}
 
+<section class="conteneur publicite-climatisation">
+  <h2 class="sr-only">Offre climatisation</h2>
+  <a class="publicite-climatisation__lien" href="{{ '/devis/' | url }}" aria-label="Climatisation, fourniture et pose, offre à partir de 2 500 euros HT, devis gratuit et sans engagement, pose par nos partenaires certifiés RGE, demander un devis">
+    <img src="/images/publicite-climatisation.png" alt="" width="1080" height="1350" loading="lazy" decoding="async">
+  </a>
+</section>
+
 <section class="conteneur">
   <h2>Notre process</h2>
   {{ friseProcess() }}

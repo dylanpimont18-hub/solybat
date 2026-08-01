@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Publicité climatisation — Soly'bat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --couleur-terracotta: #B5502E;
+    --couleur-terracotta-texte: #AD4826;
+    --couleur-bois-brule: #6B4A32;
+    --couleur-creme-sable: #EDE4D3;
+    --couleur-creme-claire: #F6F1E7;
+    --couleur-anthracite: #2B2723;
+    --couleur-vert-olivier: #7A8560;
+    --police-display: 'Fraunces', serif;
+    --police-texte: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    background: var(--couleur-creme-sable);
+    font-family: var(--police-texte);
+    color: var(--couleur-anthracite);
+  }
+  .pub {
+    position: relative;
+    width: 1080px;
+    height: 1350px;
+    padding: 64px 72px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .pub__vagues {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.5;
+  }
+  .pub__sceau-filigrane {
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    z-index: 0;
+    opacity: 0.1;
+  }
+  .pub__contenu {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* Entête */
+  .pub__entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pub__logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .pub__logo img {
+    width: 56px;
+    height: 56px;
+  }
+  .pub__logo-texte {
+    font-family: var(--police-display);
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--couleur-anthracite);
+  }
+  .pub__badge {
+    border: 1.5px solid var(--couleur-terracotta);
+    color: var(--couleur-terracotta-texte);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 999px;
+  }
+
+  /* Titre */
+  .pub__eyebrow {
+    margin-top: 56px;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--couleur-bois-brule);
+  }
+  .pub__titre {
+    margin-top: 12px;
+    font-family: var(--police-display);
+    font-weight: 700;
+    font-size: 108px;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+  }
+  .pub__titre span:first-child { color: var(--couleur-anthracite); }
+  .pub__titre span:last-child { color: var(--couleur-terracotta-texte); }
+  .pub__soustitre {
+    margin-top: 28px;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 820px;
+    color: var(--couleur-anthracite);
+  }
+
+  /* Offre */
+  .pub__offre {
+    margin-top: 48px;
+    background: var(--couleur-terracotta-texte);
+    border-radius: 20px;
+    padding: 36px 44px;
+    box-shadow: 0 8px 24px rgba(43, 39, 35, 0.14);
+  }
+  .pub__offre-label {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--couleur-creme-claire);
+  }
+  .pub__offre-prix {
+    margin-top: 6px;
+    font-family: var(--police-display);
+    font-weight: 700;
+    font-size: 76px;
+    color: var(--couleur-creme-claire);
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .pub__offre-prix span {
+    font-family: var(--police-texte);
+    font-weight: 700;
+    font-size: 32px;
+  }
+  .pub__offre-pilule {
+    display: inline-block;
+    margin-top: 18px;
+    background: rgba(246, 241, 231, 0.16);
+    border: 1px solid rgba(246, 241, 231, 0.4);
+    color: var(--couleur-creme-claire);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 999px;
+  }
+
+  /* Points clés */
+  .pub__points {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .pub__point {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 25px;
+    font-weight: 600;
+    color: var(--couleur-anthracite);
+  }
+  .pub__point::before {
+    content: "";
+    flex: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--couleur-vert-olivier);
+  }
+
+  /* Pied */
+  .pub__pied {
+    margin-top: auto;
+    background: var(--couleur-creme-claire);
+    border-radius: 20px;
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 8px 24px rgba(43, 39, 35, 0.1);
+  }
+  .pub__pied-titre {
+    font-family: var(--police-display);
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--couleur-anthracite);
+  }
+  .pub__pied-sous {
+    margin-top: 6px;
+    font-size: 17px;
+    color: var(--couleur-bois-brule);
+  }
+  .pub__pied-sous strong { color: var(--couleur-anthracite); }
+  .pub__bouton {
+    flex: none;
+    background: var(--couleur-terracotta-texte);
+    color: var(--couleur-creme-claire);
+    font-weight: 700;
+    font-size: 20px;
+    padding: 18px 32px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="pub">
+    <svg class="pub__vagues" width="1080" height="1350" viewBox="0 0 1080 1350" fill="none">
+      <path d="M0 90 C 220 30, 420 150, 680 90 S 1080 60, 1080 60" stroke="var(--couleur-bois-brule)" stroke-width="2" opacity="0.18"/>
+      <path d="M0 150 C 240 190, 460 90, 700 150 S 1080 130, 1080 130" stroke="var(--couleur-terracotta)" stroke-width="2" opacity="0.14"/>
+    </svg>
+    <svg class="pub__sceau-filigrane" width="480" height="480" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="var(--couleur-terracotta)" stroke-width="1.5"/>
+      <circle cx="50" cy="68" r="9" fill="none" stroke="var(--couleur-anthracite)" stroke-width="1"/>
+      <circle cx="50" cy="68" r="2.5" fill="var(--couleur-vert-olivier)"/>
+    </svg>
+
+    <div class="pub__contenu">
+      <div class="pub__entete">
+        <div class="pub__logo">
+          <img src="../src/images/logo-solybat.png" alt="Soly'bat">
+          <span class="pub__logo-texte">Soly&rsquo;bat</span>
+        </div>
+        <div class="pub__badge">Clim &amp; confort</div>
+      </div>
+
+      <div class="pub__eyebrow">Fourniture &amp; pose</div>
+      <h1 class="pub__titre"><span>Climati</span><span>sation</span></h1>
+      <p class="pub__soustitre">Nous installons la climatisation chez vous, avec les mêmes équipes qui rénovent votre bien.</p>
+
+      <div class="pub__offre">
+        <div class="pub__offre-label">Offre à partir de</div>
+        <div class="pub__offre-prix">2&nbsp;500&nbsp;€ <span>HT</span></div>
+        <div class="pub__offre-pilule">TVA à 5,5&nbsp;% possible sous conditions</div>
+      </div>
+
+      <div class="pub__points">
+        <div class="pub__point">Devis gratuit et sans engagement</div>
+        <div class="pub__point">Pose par nos partenaires certifiés RGE</div>
+        <div class="pub__point">Un seul interlocuteur, du diagnostic à la pose</div>
+      </div>
+
+      <div class="pub__pied">
+        <div>
+          <div class="pub__pied-titre">Demandez votre devis</div>
+          <div class="pub__pied-sous"><strong>Soly&rsquo;bat</strong> — 06 14 59 13 74 · solybat18.fr</div>
+        </div>
+        <div class="pub__bouton">Contactez-nous →</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

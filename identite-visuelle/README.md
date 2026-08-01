@@ -7,3 +7,16 @@ Générées le 2026-07-30, à partir de `logo-solybat.png` (recadré/détouré e
 - `signature-email-apercu.png` — rendu visuel de la signature, pour vérification rapide sans avoir à la coller dans un client mail.
 
 Reste à faire si besoin : favicon et apple-touch-icon déjà en place (voir `src/manifest.json`), donc ce dossier couvre les 2 dernières déclinaisons listées dans `CLAUDE.md`.
+
+## Publicité climatisation
+
+Générée le 2026-08-01, à la demande de l'utilisateur qui a fourni une publicité concurrente ("Vierzon Carrelage — Climatisation", fond bleu nuit/orange, format 1080×1350) à reproduire avec le ton et l'identité Soly'bat, en conservant l'accroche prix "à partir de 2 500 € HT".
+
+- `publicite-climatisation.html` — source éditable (HTML/CSS autonome, tokens de couleur/police repris de `src/css/tokens.css`, logo référencé en relatif depuis `src/images/logo-solybat.png`). Rouvrir et éditer ce fichier pour toute modification de texte/prix, puis régénérer le PNG (voir commande ci-dessous).
+- `publicite-climatisation.png` — export 1080×1350 px (format portrait 4:5, réseaux sociaux/impression), généré via `msedge --headless --disable-gpu --force-device-scale-factor=1 --window-size=1080,1350 --screenshot=publicite-climatisation.png file:///.../publicite-climatisation.html`.
+
+Différences volontaires avec la publicité de référence (pas une reproduction à l'identique) :
+- Palette/typo Soly'bat (crème sable, terracotta, Fraunces/Inter) au lieu du bleu nuit/orange/cyan de la référence — cohérent avec la règle de marque "fond crème sable partout" (`CLAUDE.md`).
+- Mention TVA reformulée en "TVA à 5,5 % possible sous conditions" (au lieu d'une affirmation ferme) — reprise mot pour mot du bandeau du site (`src/_includes/composants/bandeau-nouveaute.njk`), car le type d'équipement ouvrant droit au taux réduit n'a jamais été confirmé par le client (voir mémoire `service-climatisation`).
+- Le point "Marques reconnues (Carrier, LG...)" de la référence n'a pas été repris (partenariats de marque non confirmés) — remplacé par "Pose par nos partenaires certifiés RGE", déjà établi sur le site.
+- Sous-titre et points clés réécrits dans la voix Soly'bat ("un seul interlocuteur", équipes qui rénovent le bien) plutôt que traduits mot à mot.
