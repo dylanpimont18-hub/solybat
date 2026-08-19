@@ -1,10 +1,12 @@
 {% macro bandePhotos(photos) %}
 <div class="bande-photos">
   {% for photo in photos %}
+  {% set dim = ('/images/realisations/' + photo.image) | dimensionsImage %}
   <figure class="bande-photos__element" data-reveal>
     <img
       src="{{ ('/images/realisations/' + photo.image) | url }}"
       alt="{{ photo.alt }}"
+      {% if dim %}width="{{ dim.largeur }}" height="{{ dim.hauteur }}"{% endif %}
       loading="lazy"
       decoding="async">
     {% if photo.legende %}<figcaption class="bande-photos__legende">{{ photo.legende }}</figcaption>{% endif %}

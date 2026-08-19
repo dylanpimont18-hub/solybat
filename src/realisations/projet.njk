@@ -16,13 +16,16 @@ eleventyComputed:
 
   {% if projet.photos.avant and projet.photos.apres %}
   <div class="slider-avant-apres" data-slider-avant-apres>
-    <img class="slider-avant-apres__calque" src="{{ ('/images/realisations/' + projet.photos.avant) | url }}" alt="{{ projet.titre }} — avant" fetchpriority="high" decoding="async">
-    <img class="slider-avant-apres__calque" data-slider-apres src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }} — après" style="clip-path: inset(0 0 0 50%);" decoding="async">
+    {% set dimAvant = ('/images/realisations/' + projet.photos.avant) | dimensionsImage %}
+    <img class="slider-avant-apres__calque" src="{{ ('/images/realisations/' + projet.photos.avant) | url }}" alt="{{ projet.titre }} — avant" {% if dimAvant %}width="{{ dimAvant.largeur }}" height="{{ dimAvant.hauteur }}"{% endif %} fetchpriority="high" decoding="async">
+    {% set dimApres = ('/images/realisations/' + projet.photos.apres) | dimensionsImage %}
+    <img class="slider-avant-apres__calque" data-slider-apres src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }} — après" {% if dimApres %}width="{{ dimApres.largeur }}" height="{{ dimApres.hauteur }}"{% endif %} style="clip-path: inset(0 0 0 50%);" decoding="async">
     <div class="slider-avant-apres__curseur" data-slider-curseur tabindex="0" role="slider" aria-orientation="horizontal" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></div>
   </div>
   {% elif projet.photos.apres %}
   <div class="projet__photo-seule">
-    <img src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }} — après travaux" fetchpriority="high" decoding="async">
+    {% set dimSeule = ('/images/realisations/' + projet.photos.apres) | dimensionsImage %}
+    <img src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }} — après travaux" {% if dimSeule %}width="{{ dimSeule.largeur }}" height="{{ dimSeule.hauteur }}"{% endif %} fetchpriority="high" decoding="async">
   </div>
   {% else %}
   {{ placeholderPhoto() }}

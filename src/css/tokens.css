@@ -1,7 +1,8 @@
 :root {
   /* ---------- Palette de marque (BRAND.md) ---------- */
   --couleur-terracotta: #B5502E;
-  --couleur-terracotta-texte: #AD4826; /* variante assombrie du terracotta, réservée aux fonds portant du texte crème clair (contraste AA 4,5:1, le terracotta standard n'atteint que 4,49:1) */
+  --couleur-terracotta-texte: #AD4826; /* variante assombrie du terracotta, réservée aux FONDS portant du texte crème clair (contraste AA 4,5:1, le terracotta standard n'atteint que 4,49:1) */
+  --couleur-terracotta-sur-creme: #A74A2A; /* terracotta utilisé COMME TEXTE sur fond crème : 4,55:1 sur crème sable, 5,10:1 sur crème claire. Ne pas confondre avec --couleur-terracotta-texte, calibré pour le cas inverse (4,46:1 seulement en texte sur crème). */
   --couleur-bois-brule: #6B4A32;
   --couleur-creme-sable: #EDE4D3;
   --couleur-creme-claire: #F6F1E7;

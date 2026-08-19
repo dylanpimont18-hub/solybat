@@ -5,11 +5,13 @@
     noir pendant l'initialisation WebGL. Une fois la scène active elle passe en
     fond d'ambiance ; si WebGL est indisponible elle redevient le hero complet.
   #}
+  {% set dimensionsRepli = ('/images/realisations/' + photoRepli) | dimensionsImage %}
   <div class="hero-3d__decor" aria-hidden="true">
     <img
       class="hero-3d__photo"
       src="{{ ('/images/realisations/' + photoRepli) | url }}"
       alt=""
+      {% if dimensionsRepli %}width="{{ dimensionsRepli.largeur }}" height="{{ dimensionsRepli.hauteur }}"{% endif %}
       fetchpriority="high"
       decoding="async">
     <canvas class="hero-3d__canvas" data-hero-3d-canvas></canvas>

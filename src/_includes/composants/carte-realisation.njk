@@ -4,7 +4,8 @@
   <a href="{{ ('/realisations/' + projet.slug + '/') | url }}" class="carte-realisation__lien">
     <div class="carte-realisation__photo">
       {% if projet.photos.apres %}
-      <img src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }}" loading="lazy" decoding="async">
+      {% set dim = ('/images/realisations/' + projet.photos.apres) | dimensionsImage %}
+      <img src="{{ ('/images/realisations/' + projet.photos.apres) | url }}" alt="{{ projet.titre }}" {% if dim %}width="{{ dim.largeur }}" height="{{ dim.hauteur }}"{% endif %} loading="lazy" decoding="async">
       {% else %}
       {{ placeholderPhoto() }}
       {% endif %}

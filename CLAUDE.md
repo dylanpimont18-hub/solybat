@@ -92,7 +92,33 @@ Le site a reçu une refonte visuelle complète, décidée avec le client après 
 - **Rythme sombre/clair** : sections `.section--sombre` en anthracite profond alternées avec le crème.
 - **Garde-fous** : `prefers-reduced-motion` neutralise tout (le hero rend alors une image fixe de la maison terminée) ; sans WebGL, sans JS ou après perte de contexte, la photo de chantier redevient le hero complet ; boucle stoppée hors viewport et onglet en arrière-plan ; densité de pixels plafonnée à 1,5.
 - **Vérification** : 83 tests `node --test` (69 ajoutés, toute la géométrie et la chorégraphie sont testées sans navigateur). Mesures de layout mobile faites en encapsulant la page dans une iframe de largeur fixe — `--window-size` d'Edge headless n'est pas respecté sous ~500px, et les captures d'écran figent des images en cours d'animation : ajouter `--force-prefers-reduced-motion` pour capturer un état stable.
-- **Reste à faire** : Lighthouse n'a **pas** été re-mesuré après la refonte (références d'avant : accueil 74 perf / 100 accessibilité, LCP 5,9 s). À refaire avant mise en ligne.
+## Audit et passe perf du 2026-08-19
+
+Audit complet mené après la refonte, puis correctifs appliqués (lots choisis par le client). Lighthouse mobile sur l'accueil :
+
+| | Avant refonte | Après refonte | Après passe perf |
+|---|---|---|---|
+| Performance | 74 | 68 | **82** |
+| LCP | 5,9 s | 4,7 s | **4,0 s** |
+| Accessibilité | 100 | 100 | **100** |
+| Requêtes CSS | — | 26 | **2** |
+| Requêtes totales | — | 55 | **30** |
+
+- **CSS assemblé au build** (`lib/assembler-css.cjs`) : les 21 `@import` chaînés étaient sérialisés et tous bloquants. C'était le plus gros gain disponible, sans aucun coût visuel.
+- **`modulepreload`** sur les 15 modules ES : aplatit la cascade de découverte (3 allers-retours réseau avant que le JS tourne).
+- **`width`/`height` sur toutes les images**, via le filtre `dimensionsImage` (lecture de l'en-tête binaire, sans dépendance).
+- **Deux contrastes AA corrigés**, tous deux introduits par la refonte : `.surtitre` (4,46:1) réutilisait `--couleur-terracotta-texte`, calibré pour du texte crème **sur** terracotta et non l'inverse — d'où la nouvelle variable `--couleur-terracotta-sur-creme` (#A74A2A, 4,55:1). Et `.hero-3d__legende` (3,65:1 → 6,29:1).
+- **`<h2>` manquant** sur `/retour-client` (saut h1 → h3).
+
+**Attention à ne pas mal lire le TBT** : il tombe de 370 ms à 0 ms, mais c'est un artefact de fenêtre de mesure. Le travail sur le fil principal reste quasi identique (3 422 → 3 064 ms) et `scene-hero.js` coûte toujours ~1 037 ms d'exécution sous throttling Lighthouse. Le coût CPU de la 3D n'a pas disparu, il a été déplacé hors de la fenêtre mesurée. La 3D a été conservée telle quelle sur décision du client.
+
+**Points laissés ouverts par l'audit** (non retenus dans les lots appliqués) :
+- `traiter-devis.php` reçoit toujours sur `dylan.pimont@orange.fr` — **seul vrai bloquant pour une mise en ligne réelle**.
+- Les 7 placeholders légaux (SIRET, assurances, hébergeur, CGV, confidentialité).
+- `/realisations/photos-vrac` : 5,7 Mo, et ses photos les plus lourdes sont des chantiers extérieurs (terrasse, piscine, façade) hors du périmètre intérieur de Soly'bat.
+- La publicité climatisation est une image PNG de texte : le prix « 2 500 € HT » n'est pas indexable.
+- Métas descriptions courtes sur `/devis`, `/realisations`, 404, devis-merci ; `<title>` de 77 caractères sur la fiche Saint-Florent.
+- Images en JPEG, pas de WebP/AVIF.
 
 ## État du projet
 

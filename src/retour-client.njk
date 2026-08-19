@@ -30,6 +30,8 @@ description: "8 opérations réelles d'investissement locatif à Vierzon, chiffr
     </div>
   </dl>
 
+  {# Sans ce niveau intermédiaire, la page saute du h1 aux h3 des cartes. #}
+  <h2 class="sr-only">Les opérations, une par une</h2>
   <div class="retour-client__grille">
     {% for retour in retoursClients %}
       {{ carteRetourClient(retour) }}

@@ -3,7 +3,21 @@
 Index de navigation du site Soly'bat (11ty). Voir `CLAUDE.md` pour la stack et les commandes, `BRAND.md` pour la marque, `docs/superpowers/plans/2026-07-17-site-solybat.md` pour le détail de chaque page.
 
 ## eleventy.config.cjs
-Config 11ty (CommonJS — voir piège toolchain dans CLAUDE.md) : dossiers d'entrée/sortie, passthrough copy CSS/JS/images/documents/PHP/`manifest.json`/`.htaccess`.
+Config 11ty (CommonJS — voir piège toolchain dans CLAUDE.md) : dossiers d'entrée/sortie, passthrough copy CSS/JS/images/documents/PHP/`manifest.json`/`.htaccess`, plus trois ajouts de la passe perf du 2026-08-19 :
+- filtre `dimensionsImage(cheminSite)` — lit les dimensions natives d'une image (cache par build) pour écrire `width`/`height` sur chaque `<img>` et supprimer le décalage de mise en page
+- donnée globale `modulesJs` — liste les modules ES à précharger, consommée par `base.njk` (`<link rel="modulepreload">`)
+- hook `eleventy.after` → `assemblerFeuillesDeStyle()` — assemble les 21 feuilles en un seul `_site/css/styles.css` minifié, **et supprime les feuilles individuelles de `_site/css/`** (elles ne sont plus référencées ; les laisser reviendrait à téléverser une seconde copie du CSS en FTP)
+
+## lib/assembler-css.cjs
+Résolution des `@import` et minification prudente, en CommonJS (la config 11ty doit rester CJS). Testé par `tests/assembler-css.test.js`.
+- resoudreImports(contenu, lireFichier) — inline récursif, un import déjà vu est ignoré (pas de boucle infinie), un import introuvable est conservé tel quel plutôt que perdu
+- minifierCss(css) — retire commentaires et espaces superflus. **Ne touche volontairement pas aux espaces autour de `:` ni des combinateurs** (`a :hover` ≠ `a:hover`), et recopie le contenu des chaînes à l'identique pour préserver les `url("data:image/svg+xml,…")`
+- assembler(contenuRacine, lireFichier) — les deux en une passe
+
+## lib/dimensions-image.cjs
+Lecture des dimensions dans l'en-tête binaire, sans dépendance (le projet n'a aucune bibliothèque d'image et on n'a besoin que de deux entiers). Testé par `tests/dimensions-image.test.js`.
+- lireDimensions(donnees) — PNG (bloc IHDR) ou JPEG (marqueur SOF), null si format inconnu ou fichier tronqué
+- Piège traité : dans un JPEG, les marqueurs 0xC4/0xC8/0xCC sont dans la plage des SOF sans en être — les confondre donne des dimensions absurdes
 
 ## src/documents/
 Fichiers statiques copiés tels quels (`documents/` en sortie). Contient `plaquette-solybat.pdf` (2 pages A4, générée le 2026-07-30 via une page HTML autonome — logo en base64, polices Google Fonts, tokens de couleur BRAND.md — convertie en PDF par `msedge --headless --print-to-pdf`), liée depuis `espace-pro.njk`.

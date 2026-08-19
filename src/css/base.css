@@ -63,7 +63,8 @@ img {
   align-items: center;
   gap: 0.75rem;
   margin: 0 0 var(--espace-xs);
-  color: var(--couleur-terracotta-texte);
+  /* Texte terracotta SUR crème : exige la variante dédiée. */
+  color: var(--couleur-terracotta-sur-creme);
   font-size: var(--texte-sm);
   font-weight: 600;
   letter-spacing: var(--interlettrage-surtitre);

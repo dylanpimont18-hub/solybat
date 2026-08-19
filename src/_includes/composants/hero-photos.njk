@@ -5,7 +5,8 @@
     {% for photo in photos %}
     <div class="hero-photos__panneau">
       {% if photo.image %}
-      <img src="{{ ('/images/realisations/' + photo.image) | url }}" alt="{{ photo.alt }}" class="hero-photos__photo" {% if loop.first %}fetchpriority="high"{% endif %} decoding="async">
+      {% set dim = ('/images/realisations/' + photo.image) | dimensionsImage %}
+      <img src="{{ ('/images/realisations/' + photo.image) | url }}" alt="{{ photo.alt }}" class="hero-photos__photo" {% if dim %}width="{{ dim.largeur }}" height="{{ dim.hauteur }}"{% endif %} {% if loop.first %}fetchpriority="high"{% endif %} decoding="async">
       {% else %}
       {{ placeholderPhoto(loop.index0 * 11) }}
       {% endif %}
