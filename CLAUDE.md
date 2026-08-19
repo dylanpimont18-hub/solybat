@@ -82,6 +82,18 @@ npm test          # lance tous les tests (node --test, découverte auto de tests
 /mentions-legales           SIRET, assurances, CGV, confidentialité
 ```
 
+## Refonte visuelle 2026-08-19
+
+Le site a reçu une refonte visuelle complète, décidée avec le client après lui avoir signalé qu'elle contredisait deux règles de `BRAND.md` (mouvement minimal, fond crème partout) — les deux règles ont été révisées dans `BRAND.md`, elles ne sont plus une source de vérité périmée.
+
+- **Hero de l'accueil** : maquette 3D d'une maison qui se construit en boucle (dalle → murs → cloison → pignons → toit → cheminée → finitions), **en WebGL écrit à la main**, sans Three.js. 66 triangles, ~3 Ko gzip contre ~165 Ko pour la bibliothèque. Voir `src/js/hero-3d/` et son entrée dans `CODEBASE_MAP.md`.
+- **Les 3 photos réelles du triptyque de hero** n'ont pas disparu : elles descendent en section « preuve » juste sous le hero, en plus grand (`composants/bande-photos.njk`). L'ancre de crédibilité de `BRAND.md` est préservée, elle arrive en écran 2.
+- **Couche de mouvement transverse** (`src/css/mouvement.css` + 4 modules JS) : apparitions au scroll, basculement 3D des cartes, header collant condensé, trait de la frise qui se dessine, compteurs, transitions de page.
+- **Rythme sombre/clair** : sections `.section--sombre` en anthracite profond alternées avec le crème.
+- **Garde-fous** : `prefers-reduced-motion` neutralise tout (le hero rend alors une image fixe de la maison terminée) ; sans WebGL, sans JS ou après perte de contexte, la photo de chantier redevient le hero complet ; boucle stoppée hors viewport et onglet en arrière-plan ; densité de pixels plafonnée à 1,5.
+- **Vérification** : 83 tests `node --test` (69 ajoutés, toute la géométrie et la chorégraphie sont testées sans navigateur). Mesures de layout mobile faites en encapsulant la page dans une iframe de largeur fixe — `--window-size` d'Edge headless n'est pas respecté sous ~500px, et les captures d'écran figent des images en cours d'animation : ajouter `--force-prefers-reduced-motion` pour capturer un état stable.
+- **Reste à faire** : Lighthouse n'a **pas** été re-mesuré après la refonte (références d'avant : accueil 74 perf / 100 accessibilité, LCP 5,9 s). À refaire avant mise en ligne.
+
 ## État du projet
 
 Les 10 pages (les 9 du BRAND.md + `/devis-merci`) sont construites avec contenu provisoire crédible et données de démo. Un audit complet (accessibilité, SEO, cohérence de marque, contraste, responsive) a été passé et les correctifs de code ont été appliqués directement (voir historique git). Reste avant mise en ligne, par ordre d'impact :

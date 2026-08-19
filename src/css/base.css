@@ -7,16 +7,24 @@ body {
   background: var(--couleur-creme-sable);
   color: var(--couleur-anthracite);
   font-family: var(--police-texte);
-  line-height: 1.5;
+  font-size: var(--texte-md);
+  line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
   font-family: var(--police-display);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.14;
+  letter-spacing: var(--interlettrage-titre);
+  text-wrap: balance;
   margin: 0 0 var(--espace-sm);
 }
+
+h1 { font-size: var(--titre-lg); }
+h2 { font-size: var(--titre-md); }
+h3 { font-size: var(--titre-sm); letter-spacing: -0.01em; }
 
 p {
   margin: 0 0 var(--espace-sm);
@@ -34,7 +42,8 @@ a:focus-visible {
 
 :focus-visible {
   outline: 2px solid var(--couleur-terracotta);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 img {
@@ -46,6 +55,46 @@ img {
   max-width: var(--largeur-max-contenu);
   margin: 0 auto;
   padding-inline: var(--espace-md);
+}
+
+/* Étiquette de section : petite capitale espacée, précédée d'un filet. */
+.surtitre {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 var(--espace-xs);
+  color: var(--couleur-terracotta-texte);
+  font-size: var(--texte-sm);
+  font-weight: 600;
+  letter-spacing: var(--interlettrage-surtitre);
+  text-transform: uppercase;
+}
+
+.surtitre::before {
+  content: '';
+  width: 2.25rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.section__entete {
+  max-width: var(--largeur-max-texte);
+  margin-bottom: var(--espace-lg);
+}
+
+.section__entete p {
+  color: rgba(43, 39, 35, 0.78);
+  font-size: var(--texte-lg);
+  margin-bottom: 0;
+}
+
+/* Chapeau des pages sans hero photo (process, à propos, FAQ). */
+.section__intro {
+  max-width: var(--largeur-max-texte);
+  margin-top: var(--espace-sm);
+  color: rgba(43, 39, 35, 0.82);
+  font-size: var(--texte-lg);
 }
 
 .entete-page {
@@ -82,25 +131,40 @@ img {
 }
 
 .bouton {
-  display: inline-block;
-  padding: var(--espace-xs) var(--espace-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espace-xs);
+  padding: 0.75rem var(--espace-md);
   border-radius: var(--rayon-controle);
   text-decoration: none;
   font-weight: 600;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: background-color var(--transition-douce), border-color var(--transition-douce), transform var(--transition-douce);
+  transition:
+    background-color var(--duree-rapide) var(--courbe-douce),
+    border-color var(--duree-rapide) var(--courbe-douce),
+    color var(--duree-rapide) var(--courbe-douce),
+    box-shadow var(--duree-moyenne) var(--courbe-sortie),
+    transform var(--duree-rapide) var(--courbe-sortie);
+}
+
+.bouton:active {
+  transform: translateY(0) scale(0.985);
 }
 
 .bouton--principal {
   background: var(--couleur-terracotta-texte);
   color: var(--couleur-creme-claire);
+  box-shadow: var(--ombre-basse);
 }
 
 .bouton--principal:hover,
 .bouton--principal:focus-visible {
   background: var(--couleur-bois-brule);
+  color: var(--couleur-creme-claire);
   transform: translateY(-2px);
+  box-shadow: var(--ombre-surface);
 }
 
 .bouton--secondaire {
@@ -113,6 +177,23 @@ img {
 .bouton--secondaire:focus-visible {
   border-color: var(--couleur-terracotta);
   color: var(--couleur-terracotta);
+  transform: translateY(-2px);
+}
+
+/* Variante pour fond sombre (hero 3D, sections anthracite). */
+.bouton--fantome {
+  background: rgba(246, 241, 231, 0.06);
+  color: var(--couleur-creme-claire);
+  border-color: rgba(246, 241, 231, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.bouton--fantome:hover,
+.bouton--fantome:focus-visible {
+  background: rgba(246, 241, 231, 0.14);
+  border-color: var(--couleur-creme-claire);
+  color: var(--couleur-creme-claire);
+  transform: translateY(-2px);
 }
 
 .boutons-groupe {
@@ -121,13 +202,20 @@ img {
   align-items: center;
   gap: var(--espace-sm);
   flex-wrap: wrap;
-  margin-top: var(--espace-sm);
+  margin-top: var(--espace-md);
 }
 
 section {
-  padding-block: var(--espace-xl);
+  padding-block: var(--espace-section);
 }
 
 section + section {
   padding-top: 0;
+}
+
+/* Une section sombre reprend son propre rythme vertical : elle porte un fond,
+   donc elle ne peut pas hériter du « padding-top: 0 » des sections enchaînées. */
+section + section.section--sombre,
+section.section--sombre + section {
+  padding-top: var(--espace-section);
 }

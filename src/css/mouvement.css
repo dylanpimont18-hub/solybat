@@ -1,0 +1,211 @@
+/* Couche de mouvement transverse : apparitions, basculement des cartes,
+   header collant, transitions de page. Importée en dernier pour pouvoir
+   surcharger les états de survol déjà définis par les composants. */
+
+/* ---------- Apparition au scroll ----------
+   Le masquage n'est appliqué que si reveals.js a posé `reveals-actifs` sur
+   <html>. Sans JS, rien n'est caché. */
+
+.reveals-actifs [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity var(--duree-lente) var(--courbe-sortie),
+    transform var(--duree-lente) var(--courbe-sortie);
+  transition-delay: var(--decalage-reveal, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveals-actifs [data-reveal].est-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------- Basculement 3D des cartes ---------- */
+
+.tilt-actif [data-tilt] {
+  position: relative;
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition:
+    transform var(--duree-moyenne) var(--courbe-sortie),
+    box-shadow var(--duree-moyenne) var(--courbe-sortie);
+}
+
+/* Pendant le survol, la carte doit suivre le pointeur sans traîner. */
+.tilt-actif [data-tilt]:hover,
+.tilt-actif [data-tilt]:focus-within {
+  transform:
+    perspective(900px)
+    rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg))
+    translateY(-6px);
+  transition-duration: 90ms;
+}
+
+/* Reflet qui suit l'inclinaison, pour donner une matière à la surface. */
+.tilt-actif [data-tilt]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    58% 58% at var(--reflet-x, 50%) var(--reflet-y, 50%),
+    rgba(255, 255, 255, 0.20),
+    transparent 72%
+  );
+  transition: opacity var(--duree-moyenne) var(--courbe-douce);
+}
+
+.tilt-actif [data-tilt]:hover::after {
+  opacity: 1;
+}
+
+/* ---------- Header collant ---------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition:
+    background-color var(--duree-moyenne) var(--courbe-douce),
+    box-shadow var(--duree-moyenne) var(--courbe-douce),
+    border-color var(--duree-moyenne) var(--courbe-douce);
+}
+
+.header__conteneur {
+  transition: padding-block var(--duree-moyenne) var(--courbe-sortie);
+}
+
+.header__logo-img {
+  transition: height var(--duree-moyenne) var(--courbe-sortie);
+}
+
+.header--condense {
+  background: rgba(246, 241, 231, 0.86);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom-color: rgba(107, 74, 50, 0.25);
+  box-shadow: var(--ombre-basse);
+}
+
+.header--condense .header__conteneur {
+  padding-block: 0.5rem;
+}
+
+.header--condense .header__logo-img {
+  height: 36px;
+}
+
+/* Le navigateur ne gère pas backdrop-filter : on garde un fond opaque. */
+@supports not (backdrop-filter: blur(1px)) {
+  .header--condense {
+    background: var(--couleur-creme-claire);
+  }
+}
+
+/* ---------- Frise du process : le trait se dessine ---------- */
+
+.frise-process {
+  position: relative;
+}
+
+.frise-process__etape {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 901px) {
+  .frise-process::before {
+    content: '';
+    position: absolute;
+    top: 15px; /* milieu du sceau de 32px */
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    z-index: 0;
+    background: linear-gradient(
+      to right,
+      var(--couleur-terracotta),
+      var(--couleur-bois-brule)
+    );
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1500ms var(--courbe-douce) 260ms;
+  }
+
+  .frise-process.est-visible::before,
+  .reveals-actifs .frise-process:not([data-reveal])::before {
+    transform: scaleX(1);
+  }
+
+  /* Sans JS, le trait doit être là d'emblée. */
+  html:not(.reveals-actifs) .frise-process::before {
+    transform: scaleX(1);
+    transition: none;
+  }
+}
+
+/* ---------- Transitions entre pages ----------
+   Amélioration progressive : ignoré par les navigateurs sans View Transitions. */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: fondu-sortie 180ms var(--courbe-douce) both;
+}
+
+::view-transition-new(root) {
+  animation: fondu-entree 320ms var(--courbe-sortie) both;
+}
+
+@keyframes fondu-sortie {
+  to { opacity: 0; }
+}
+
+@keyframes fondu-entree {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Respect du réglage système ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveals-actifs [data-reveal],
+  .reveals-actifs [data-reveal].est-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .tilt-actif [data-tilt],
+  .tilt-actif [data-tilt]:hover,
+  .tilt-actif [data-tilt]:focus-within {
+    transform: none;
+    transition: none;
+  }
+
+  .frise-process::before {
+    transform: scaleX(1) !important;
+    transition: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

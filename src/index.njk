@@ -2,73 +2,121 @@
 layout: layouts/base.njk
 titre: "Accueil"
 description: "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés."
-heroPhotos:
+photosPreuve:
   - image: "cuisine-renovee.jpg"
     alt: "Cuisine rénovée par Soly'bat"
+    legende: "Cuisine livrée, prête à louer."
   - image: "sejour-renove.jpg"
     alt: "Séjour rénové par Soly'bat"
+    legende: "Séjour après travaux : sols, murs, électricité."
   - image: "piece-a-renover.jpg"
     alt: "Pièce prête à rénover"
+    legende: "Le même type de pièce, avant intervention."
 ---
 {% from "composants/sceau.njk" import sceau %}
 {% from "composants/frise-process.njk" import friseProcess %}
 {% from "composants/carte-realisation.njk" import carteRealisation %}
-{% from "composants/hero-photos.njk" import heroPhotos as afficherHeroPhotos %}
+{% from "composants/hero-3d.njk" import hero3d %}
+{% from "composants/bande-photos.njk" import bandePhotos %}
 
-{{ afficherHeroPhotos("Un bien à rénover. Un bien loué. Un seul interlocuteur.", "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.", heroPhotos, "Demander un devis", "/devis/", false, site.telephone, site.telephoneLien) }}
+{% set lignesTitre = [
+  { texte: "Un bien à rénover." },
+  { texte: "Un bien loué.", accent: true },
+  { texte: "Un seul interlocuteur." }
+] %}
+
+{{ hero3d(
+  "Rénovation pour mise en location · Vierzon et 50 km",
+  lignesTitre,
+  "Soly'bat prend en charge l'intégralité des travaux de rénovation de votre bien, du diagnostic à la remise des clés, pour un logement prêt à louer ou à vivre.",
+  "Demander un devis",
+  "/devis/",
+  site.telephone,
+  site.telephoneLien,
+  "cuisine-renovee.jpg",
+  "Maquette animée : le déroulé d'un chantier, de la dalle à la remise des clés."
+) }}
+
+<section class="conteneur">
+  <div class="section__entete" data-reveal>
+    <p class="surtitre">Chantiers réels</p>
+    <h2>Ce que ça donne une fois les clés rendues</h2>
+    <p>Pas de photothèque, pas de rendu d'agence : des pièces que nous avons livrées, telles qu'elles sont le jour de la réception.</p>
+  </div>
+  {{ bandePhotos(photosPreuve) }}
+</section>
 
 <section class="conteneur publicite-climatisation">
   <h2 class="sr-only">Offre climatisation</h2>
-  <a class="publicite-climatisation__lien" href="{{ '/devis/' | url }}" aria-label="Climatisation, fourniture et pose, offre à partir de 2 500 euros HT, devis gratuit et sans engagement, pose par nos partenaires certifiés RGE, demander un devis">
+  <a class="publicite-climatisation__lien" href="{{ '/devis/' | url }}" data-reveal aria-label="Climatisation, fourniture et pose, offre à partir de 2 500 euros HT, devis gratuit et sans engagement, pose par nos partenaires certifiés RGE, demander un devis">
     <img src="{{ '/images/publicite-climatisation.png' | url }}" alt="" width="1080" height="1350" loading="lazy" decoding="async">
   </a>
 </section>
 
-<section class="conteneur">
-  <h2>Notre process</h2>
-  {{ friseProcess() }}
+<section class="section--sombre">
+  <div class="conteneur">
+    <div class="section__entete" data-reveal>
+      <p class="surtitre">Notre process</p>
+      <h2>Quatre étapes, un seul interlocuteur</h2>
+      <p>Vous n'appelez qu'un numéro. Nous coordonnons tous les corps de métier, et vous tenons informé à chaque étape.</p>
+    </div>
+    {{ friseProcess() }}
+    <p class="section__pied" data-reveal><a href="{{ '/process/' | url }}">Voir le détail des étapes et les délais moyens &rarr;</a></p>
+  </div>
 </section>
 
 <section class="conteneur">
-  <h2>Nos dernières réalisations</h2>
+  <div class="section__entete" data-reveal>
+    <p class="surtitre">Réalisations</p>
+    <h2>Nos dernières réalisations</h2>
+  </div>
   <div class="realisations-apercu">
     {% for projet in realisations | reverse %}
       {% if loop.index <= 4 %}{{ carteRealisation(projet) }}{% endif %}
     {% endfor %}
   </div>
-  <p><a href="{{ '/realisations/' | url }}">Voir toutes les réalisations</a></p>
+  <p class="section__pied" data-reveal><a href="{{ '/realisations/' | url }}">Voir toutes les réalisations &rarr;</a></p>
 </section>
 
 <section class="conteneur">
-  <h2>Pour qui</h2>
+  <div class="section__entete" data-reveal>
+    <p class="surtitre">Pour qui</p>
+    <h2>Trois façons de travailler avec nous</h2>
+  </div>
   <div class="pour-qui">
-    <div class="pour-qui__colonne">
+    <div class="pour-qui__colonne" data-reveal>
       <h3>Agences &amp; gestionnaires</h3>
       <p>Un prestataire fiable et réactif pour vos biens à remettre en location, avec un interlocuteur unique du diagnostic à la livraison.</p>
+      <p><a href="{{ '/espace-pro/' | url }}">Espace pro &rarr;</a></p>
     </div>
-    <div class="pour-qui__colonne">
+    <div class="pour-qui__colonne" data-reveal>
       <h3>Investisseurs locatifs</h3>
       <p>Un bien rentable, rénové rapidement, sans gérer dix corps de métier différents.</p>
       <p><a href="{{ '/retour-client/' | url }}">Voir des cas chiffrés &rarr;</a></p>
     </div>
-    <div class="pour-qui__colonne">
+    <div class="pour-qui__colonne" data-reveal>
       <h3>Particuliers</h3>
       <p>La rénovation de votre résidence ou de votre bien locatif, expliquée simplement, sans jargon.</p>
+      <p><a href="{{ '/renovation-location/' | url }}">Notre offre &rarr;</a></p>
     </div>
   </div>
 </section>
 
-<section class="garanties conteneur">
-  {{ sceau(56, decoratif=true) }}
-  <h2>Chantier garanti</h2>
-  <p>Assurance décennale, responsabilité civile professionnelle, suivi de chantier à chaque étape.</p>
+<section class="section--sombre garanties">
+  <div class="conteneur" data-reveal>
+    {{ sceau(64, decoratif=true) }}
+    <h2>Chantier garanti</h2>
+    <p>Assurance décennale, responsabilité civile professionnelle, suivi de chantier à chaque étape.</p>
+  </div>
 </section>
 
-<section class="conteneur" style="text-align: center;">
-  <h2>Discutons de votre projet</h2>
-  <p>Un chantier à lancer, une question sur nos délais ou nos tarifs ? Appelez-nous directement, ou décrivez votre projet en quelques lignes.</p>
-  <div class="boutons-groupe">
-    <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
-    <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+<section class="conteneur appel-final">
+  <div data-reveal>
+    <h2>Discutons de votre projet</h2>
+    <p>Un chantier à lancer, une question sur nos délais ou nos tarifs ? Appelez-nous directement, ou décrivez votre projet en quelques lignes.</p>
+    <div class="boutons-groupe">
+      <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
+      <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+    </div>
   </div>
 </section>

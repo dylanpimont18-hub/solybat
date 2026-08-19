@@ -1,0 +1,35 @@
+{% macro hero3d(surtitre, lignesTitre, sousTitre, ctaTexte, ctaLien, telephone, telephoneLien, photoRepli, legende) %}
+<section class="hero-3d" data-hero-3d>
+  {#
+    La photo reste affichée tant que la scène 3D n'a pas démarré : pas de cadre
+    noir pendant l'initialisation WebGL. Une fois la scène active elle passe en
+    fond d'ambiance ; si WebGL est indisponible elle redevient le hero complet.
+  #}
+  <div class="hero-3d__decor" aria-hidden="true">
+    <img
+      class="hero-3d__photo"
+      src="{{ ('/images/realisations/' + photoRepli) | url }}"
+      alt=""
+      fetchpriority="high"
+      decoding="async">
+    <canvas class="hero-3d__canvas" data-hero-3d-canvas></canvas>
+    <div class="hero-3d__voile"></div>
+  </div>
+
+  <div class="hero-3d__contenu conteneur">
+    {% if surtitre %}<p class="hero-3d__surtitre">{{ surtitre }}</p>{% endif %}
+    <h1 class="hero-3d__titre">
+      {%- for ligne in lignesTitre -%}
+      <span class="hero-3d__ligne{% if ligne.accent %} hero-3d__ligne--accent{% endif %}" style="--rang: {{ loop.index0 }}"><span class="hero-3d__ligne-interne">{{ ligne.texte }}</span></span>
+      {%- endfor -%}
+    </h1>
+    {% if sousTitre %}<p class="hero-3d__sous-titre">{{ sousTitre }}</p>{% endif %}
+    <div class="hero-3d__ctas">
+      {% if ctaTexte %}<a href="{{ ctaLien | url }}" class="bouton bouton--principal">{{ ctaTexte }}</a>{% endif %}
+      {% if telephone %}<a href="tel:{{ telephoneLien }}" class="bouton bouton--fantome">Appeler {{ telephone }}</a>{% endif %}
+    </div>
+  </div>
+
+  {% if legende %}<p class="hero-3d__legende">{{ legende }}</p>{% endif %}
+</section>
+{% endmacro %}

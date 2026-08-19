@@ -68,8 +68,28 @@ Formulaire de devis : profil (boutons radio natifs stylés en pilules via `:has(
 ## src/404.njk
 Page 404 avec lien retour accueil. `noindex: true` + exclue du sitemap (`eleventyExcludeFromCollections`).
 
+## src/_includes/composants/hero-3d.njk
+Hero de l'accueil depuis la refonte 2026-08-19 : `<canvas>` piloté par `src/js/hero-3d/`, photo de chantier en repli/fond d'ambiance derrière, voile de lisibilité, titre en lignes masquées révélées une par une. Le texte reste du HTML (indexable, sélectionnable) ; le canvas est `aria-hidden`.
+- hero3d(surtitre, lignesTitre, sousTitre, ctaTexte, ctaLien, telephone, telephoneLien, photoRepli, legende)
+
+## src/_includes/composants/bande-photos.njk
+Bande de photos de chantier « preuve », placée juste après le hero 3D de l'accueil — les vraies photos passent en écran 2 au lieu du triptyque de hero. Colonne centrale décalée verticalement pour éviter l'effet bandeau.
+- bandePhotos(photos) — photos = [{ image, alt, legende }]
+
+## src/css/hero-3d.css
+Mise en page du hero 3D : fond dégradé anthracite, voile orienté (par le bas en portrait, par la gauche en paysage), révélation masquée des lignes du titre. Le bloc `@media (max-width: 760px)` est dimensionné pour que **les CTA tiennent au-dessus de la ligne de flottaison**, barre d'appel fixe déduite (mesuré : 660px de hero, CTA à 767px sur un écran de 844px).
+
+## src/css/bande-photos.css
+Grille 3 colonnes décalée de la bande photo, repliée en colonne unique sous 760px (format 3/2 au lieu de 4/5 pour limiter le défilement).
+
+## src/css/sections-sombres.css
+Sections anthracite (`.section--sombre`) : grain SVG local (pas de calque plein écran, qui provoquerait des repeintures au scroll), halo terracotta, et toutes les surcharges de lisibilité — sceau (variables de marque redéfinies localement sur le SVG uniquement), liste des corps de métier, cartes, boutons secondaires.
+
+## src/css/mouvement.css
+Couche de mouvement transverse, **importée en dernier** pour surcharger les états de survol des composants : apparitions au scroll, basculement 3D des cartes + reflet, header collant condensé, trait de la frise process qui se dessine, transitions de page (View Transitions API), et le bloc `prefers-reduced-motion` qui neutralise tout.
+
 ## src/index.njk
-Accueil : hero-photos (triptyque plein cadre, CTA devis + appel), **publicité climatisation mise en avant juste après le hero** (carte cliquable vers `/devis/`, image `src/images/publicite-climatisation.png`, ajoutée le 2026-08-02 à la demande du client — voir `identite-visuelle/README.md` pour la source éditable), frise process, aperçu réalisations, pour qui (colonne investisseurs pointe vers `/retour-client/`, "Voir des cas chiffrés"), garanties (sceau motif), CTA final réchauffé ("Discutons de votre projet", boutons appel + devis via `.boutons-groupe`).
+Accueil : **hero 3D** (`composants/hero-3d.njk`, maquette WebGL + titre en 3 lignes révélées, CTA devis + appel), puis **bande photos « preuve »** qui récupère les 3 photos réelles de l'ancien triptyque, **publicité climatisation** (carte cliquable vers `/devis/`, image `src/images/publicite-climatisation.png`, ajoutée le 2026-08-02 à la demande du client — voir `identite-visuelle/README.md` pour la source éditable), frise process, aperçu réalisations, pour qui (colonne investisseurs pointe vers `/retour-client/`, "Voir des cas chiffrés"), garanties (sceau motif), CTA final réchauffé ("Discutons de votre projet", boutons appel + devis via `.boutons-groupe`).
 
 ## src/renovation-location.njk
 Hero-photos (sous-titre citant explicitement les corps de métier, CTA devis + appel — absent avant, ajouté pour cohérence conversion avec les autres heros) + section "Tous corps de métier, un seul interlocuteur" (`.liste-corps-de-metier`, 9 corps de métier dont maçonnerie/plâtrerie/climatisation) + présentation de l'offre avec onglets par profil (agence/investisseur/particulier), pattern ARIA Tabs complet (voir `js/onglets.js`). Climatisation ajoutée (pose via partenaires certifiés RGE) suite à une demande client de mise en avant de ce nouveau service. Le panneau investisseur pointe vers `/retour-client/` ("Voir des cas chiffrés").
@@ -127,7 +147,64 @@ Données des projets (6 exemples) : slug, type, ampleur, photos, corps de métie
 18 photos réelles/générées de chantier (voir historique ci-dessous), désormais en **JPEG** (converties depuis PNG, qualité 82 : 23,4 Mo → 2,5 Mo au total, -89%, aucune perte visible à l'écran — c'étaient des photos, pas des aplats, le PNG était le mauvais format), + 3 photos réelles (`mehun-sur-yevre-avant.jpg`, `mehun-sur-yevre-apres.jpg`, `saint-florent-apres.jpg`, redimensionnées à 1200px de long côté et recompressées qualité 82 depuis `photos_farid/`, cf. ci-dessus) + 1 photo générée par IA le 2026-07-30 (`saint-florent-avant.jpg`, local commercial vide avant travaux, skill `generer-image` + `post_traitement.py --intensite moyenne`, pas de prompt documenté dans `docs/prompts-photos.md` car ajoutée hors du lot initial de 18). Référencées par `image:`/`photos.avant`/`photos.apres` dans les front-matters et `realisations.json` — voir `docs/prompts-photos.md` pour le mapping des 18 emplacements du lot initial (hero accueil ×3, hero renovation-location ×3, hero réalisations ×1, hero espace-pro ×3, + avant/après des 4 premières réalisations). `cuisine-renovee.jpg` (accueil, régénérée) est volontairement laissée nette/léchée pour suggérer une photo prise par un professionnel sur la page d'accueil ; `sejour-renove.jpg`/`piece-a-renover.jpg` (autres photos hero de l'accueil) suivent la même logique. Les 15 autres fichiers générés du lot initial + `saint-florent-avant.jpg` sont passés par `post_traitement.py` (`--intensite moyenne`) pour un rendu plus crédible "photo de chantier au smartphone" (grain, léger flou, inclinaison + recadrage asymétrique, exposition irrégulière, vignettage, artefacts JPEG). Versions antérieures : `photos/_avant-correction-ia/` (artefact IA retiré), `photos/_avant-post-traitement/` (avant le passage smartphone), `photos/_avant-compression-jpeg/` (PNG originaux avant conversion JPEG). `src/images/signature-sceau.png` (180×180, hors de ce dossier réalisations) : sceau détouré en transparent (recadré depuis `logo-solybat.png` en évitant l'artefact de type filigrane connu près du bord droit, voir note plus haut sur `chantier-coordination.jpg`), utilisé par la signature email dans `identite-visuelle/`.
 
 ## src/js/main.js
-Point d'entrée JS unique, importe et initialise tous les modules interactifs.
+Point d'entrée JS unique, importe et initialise tous les modules interactifs — d'abord les modules fonctionnels historiques (nav, onglets, filtre, slider, formulaire), puis la couche visuelle ajoutée par la refonte 2026-08-19 (`initHeaderCondense`, `initReveals`, `initTiltCartes`, `initCompteurs`, `initHero3d`). Chaque `init*()` sort immédiatement si sa cible est absente de la page.
+
+## src/js/hero-3d/
+Maquette 3D WebGL du hero de l'accueil, écrite à la main (aucune bibliothèque : ~3 Ko gzip contre ~165 Ko pour Three.js, pour une scène de 66 triangles). Découpée en modules purs testables + une couche de rendu.
+
+### src/js/hero-3d/matrices.js
+Matrices 4×4 colonne-majeure (convention WebGL), toutes pures. `multiplierMatrices(a,b)` renvoie a·b, donc b s'applique en premier.
+- matriceIdentite(), matricePerspective(fov, rapport, proche, lointain), matriceRotationX/Y(angle), matriceTranslation(x,y,z), multiplierMatrices(a,b)
+- matriceVueOrbite(rayon, azimut, elevation, hauteurCible) — caméra en orbite autour d'un point de l'axe Y
+
+### src/js/hero-3d/geometrie-maison.js
+Génère la maquette (dalle, 4 murs percés, cloison, 2 pignons, 2 versants de toit, cheminée, vitres, porte) — 66 triangles, normales **imposées** et non déduites du sens de parcours. Chaque pièce porte un `ordre` de construction (7 étapes distinctes).
+- construireGeometrieMaison() — pièces prêtes pour le GPU (positions, normales, arêtes)
+- compterEtapes(pieces), construireGrilleSol(demiEtendue, pas), extrairePointsDeConvergence(pieces, maximum), normaliser(v)
+- COULEURS, DIMENSIONS — palette de marque en 0..1, cotes de la maquette
+
+### src/js/hero-3d/phases.js
+Toute la chorégraphie de la boucle de 11,6 s (essaim → fil de fer → construction → terminée → fondu), sous forme pure : un temps en secondes donne un état complet de scène. La scène est transparente au début ET à la fin de la boucle, ce qui masque le rebouclage.
+- calculerEtatScene(temps, nombreEtapes) — état complet (opacités, émergences, convergence, lumière des fenêtres)
+- calculerPhase(temps), calculerEmergence(progression, ordre, nombreEtapes), etatImmobile(nombreEtapes), adoucir(t), adoucirSortie(t), borner01(v)
+- SEQUENCE, DUREE_BOUCLE
+
+### src/js/hero-3d/webgl.js
+Enrobage WebGL minimal + les trois paires de shaders (faces pleines, lignes, points). Éclairage **hémisphérique** (ciel neutre / sol chaud) : une ambiante plate faisait lire le crème comme du gris. Éclairage deux faces via `gl_FrontFacing`, car murs et cloison se voient des deux côtés.
+- creerContexte(canvas), creerProgramme(gl, vs, fs) — introspecte attributs/uniformes actifs
+- creerTampon(gl, donnees), lierAttribut(gl, tampon, emplacement, taille)
+
+### src/js/hero-3d/scene-hero.js
+Assemblage des tampons, caméra, boucle de rendu. Densité de pixels plafonnée à 1,5, `POLYGON_OFFSET_FILL` pour que les arêtes se posent sur les faces sans z-fighting, lumière qui suit partiellement la caméra pour éviter le contre-jour. La boucle **reprend où elle en était** après une pause (écart borné à 0,1 s), elle ne redémarre pas à zéro.
+- creerSceneHero(canvas, options) — retourne demarrer/arreter/detruire/dessinerInstant/viserParallaxe, ou null si WebGL est indisponible
+- calculerRayonCamera(rapport) — recule la caméra en portrait (pur)
+- calculerDecalageCamera(rapport) — décale la maquette à droite en paysage, vers le haut en portrait, pour qu'elle ne passe pas sous le texte (pur)
+
+### src/js/hero-3d/index.js
+Câblage DOM. Init différée après le premier rendu (`requestIdleCallback`) pour ne pas peser sur le LCP. La boucle ne tourne que si le hero est dans le viewport ET l'onglet au premier plan. Bascule sur le repli photo (`.hero-3d--repli`) si WebGL manque, si les shaders échouent ou si le contexte est perdu.
+- initHero3d() — cible `[data-hero-3d]`, retourne null si absent
+
+## src/js/reveals.js
+Apparition des blocs au scroll (`IntersectionObserver`, une seule fois, décalage plafonné à 350 ms). Dégradation : le CSS ne masque que sous la classe `reveals-actifs` posée par ce module — sans JS, rien n'est caché.
+- calculerDecalage(rang, pas, plafond) — retard d'apparition (pur)
+- calculerRangsParGroupe(elements) — rang de chaque élément parmi ses frères (pur)
+- initReveals()
+
+## src/js/tilt-cartes.js
+Basculement 3D des cartes au survol, réservé aux pointeurs fins. Une seule mise à jour par image (`requestAnimationFrame`).
+- calculerInclinaison(x, y, cadre, amplitude) — rotations + position du reflet, bornées hors cadre (pur)
+- initTiltCartes()
+
+## src/js/compteurs.js
+Chiffres qui montent à l'entrée dans le viewport (`[data-compteur]`, utilisé sur les 2 métriques clés de `/retour-client`). Le HTML porte toujours la valeur finale : sans JS, le chiffre est simplement là.
+- analyserValeur(texte) — relève nombre + habillage (préfixe, suffixe, décimales, séparateur de milliers insécable). Chaque espace interne doit être suivi d'un chiffre, sinon « 42 500 € » avalait l'espace avant l'unité.
+- formaterValeur(valeur, format), calculerValeurAffichee(depart, arrivee, progression), adoucirSortie(t)
+- initCompteurs()
+
+## src/js/header-condense.js
+Header collant qui se condense au défilement, avec hystérésis (24 px) pour éviter le clignotement autour du seuil.
+- calculerEtatHeader(defilement, etaitCondense, seuil, hysteresis) — pur
+- initHeaderCondense()
 
 ## src/js/nav.js
 Toggle du menu mobile.

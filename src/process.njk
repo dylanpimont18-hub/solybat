@@ -5,12 +5,29 @@ description: "Le déroulé détaillé d'un chantier Soly'bat, du diagnostic à l
 ---
 {% from "composants/frise-process.njk" import friseProcess %}
 {% from "composants/sceau.njk" import sceau %}
+
 <section class="conteneur">
   <div class="entete-page">
     {{ sceau(40, decoratif=true) }}
     <h1>Notre process</h1>
   </div>
-  <p>Chaque chantier suit les mêmes 4 étapes, avec un suivi communiqué régulièrement.</p>
-  <h2 class="sr-only">Les 4 étapes du chantier</h2>
-  {{ friseProcess(true) }}
+  <p class="section__intro">Chaque chantier suit les mêmes 4 étapes, avec un suivi communiqué régulièrement.</p>
+</section>
+
+<section class="section--sombre">
+  <div class="conteneur">
+    <h2 class="sr-only">Les 4 étapes du chantier</h2>
+    {{ friseProcess(true) }}
+  </div>
+</section>
+
+<section class="conteneur appel-final">
+  <div data-reveal>
+    <h2>Prêt à lancer l'étape 01 ?</h2>
+    <p>Le diagnostic est gratuit et sans engagement. Comptez 5 jours ouvrés pour la visite.</p>
+    <div class="boutons-groupe">
+      <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
+      <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+    </div>
+  </div>
 </section>

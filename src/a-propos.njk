@@ -4,16 +4,40 @@ titre: "À propos"
 description: "L'histoire, les valeurs et la zone d'intervention de Soly'bat."
 ---
 {% from "composants/sceau.njk" import sceau %}
+
 <section class="conteneur">
   <div class="entete-page">
     {{ sceau(40, decoratif=true) }}
     <h1>À propos de Soly'bat</h1>
   </div>
-  <p>Soly'bat intervient sur un rayon d'environ 50 km autour de Vierzon (Cher, Centre-Val de Loire). Notre positionnement : transformer un bien à rénover en bien prêt à louer ou à vivre, avec un seul interlocuteur, un seul chantier, un délai maîtrisé.</p>
+  <p class="section__intro">Soly'bat intervient sur un rayon d'environ 50 km autour de Vierzon (Cher, Centre-Val de Loire). Notre positionnement : transformer un bien à rénover en bien prêt à louer ou à vivre, avec un seul interlocuteur, un seul chantier, un délai maîtrisé.</p>
+</section>
 
-  <h2>Nos valeurs</h2>
-  <p>Sobriété et précision plutôt que promesses commerciales : nous communiquons des délais et des coûts clairs, à chaque étape du chantier. Nous nous adressons aussi bien aux professionnels de l'immobilier qu'aux particuliers, sans jargon technique non expliqué.</p>
+<section class="section--sombre">
+  <div class="conteneur">
+    <div class="section__entete" data-reveal>
+      <p class="surtitre">Nos valeurs</p>
+      <h2>Sobriété et précision plutôt que promesses commerciales</h2>
+      <p>Nous communiquons des délais et des coûts clairs, à chaque étape du chantier. Nous nous adressons aussi bien aux professionnels de l'immobilier qu'aux particuliers, sans jargon technique non expliqué.</p>
+    </div>
+  </div>
+</section>
 
-  <h2>Zone d'intervention</h2>
-  <p>Vierzon et un rayon d'environ 50 km : Bourges, Vierzon, Issoudun, Romorantin-Lanthenay et les communes environnantes.</p>
+<section class="conteneur">
+  <div class="section__entete" data-reveal>
+    <p class="surtitre">Zone d'intervention</p>
+    <h2>Vierzon et 50 km alentour</h2>
+    <p>Bourges, Vierzon, Issoudun, Romorantin-Lanthenay et les communes environnantes.</p>
+  </div>
+</section>
+
+<section class="conteneur appel-final">
+  <div data-reveal>
+    <h2>Votre bien est dans la zone ?</h2>
+    <p>Dites-nous où il se trouve et ce qu'il faut y faire : nous vous répondons sous 5 jours ouvrés.</p>
+    <div class="boutons-groupe">
+      <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
+      <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+    </div>
+  </div>
 </section>

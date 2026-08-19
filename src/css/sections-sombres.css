@@ -1,0 +1,115 @@
+/* Sections anthracite : rythme sombre/clair sur des pages jusqu'ici
+   uniformément crème. Écart assumé à la règle « fond crème sable partout »
+   de BRAND.md, décidé avec le client le 2026-08-19. */
+
+.section--sombre {
+  position: relative;
+  isolation: isolate;
+  background: var(--couleur-anthracite-profond);
+  color: var(--couleur-creme-claire);
+}
+
+/* Grain fin : casse l'aplat numérique, rappelle la matière du chantier.
+   Posé en pseudo-élément local plutôt qu'en calque plein écran, pour ne pas
+   provoquer de repeinture globale au scroll. */
+.section--sombre::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* Halo terracotta très diffus, pour éviter le noir plat. */
+.section--sombre::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(90% 70% at 82% 8%, rgba(181, 80, 46, 0.18), transparent 64%);
+}
+
+.section--sombre h2,
+.section--sombre h3 {
+  color: var(--couleur-creme-claire);
+}
+
+.section--sombre p {
+  color: rgba(246, 241, 231, 0.82);
+}
+
+.section--sombre .surtitre {
+  color: var(--couleur-terracotta-clair);
+}
+
+.section--sombre .section__entete p {
+  color: rgba(246, 241, 231, 0.82);
+}
+
+.section--sombre a:not(.bouton) {
+  color: var(--couleur-terracotta-clair);
+}
+
+.section--sombre a:not(.bouton):hover,
+.section--sombre a:not(.bouton):focus-visible {
+  color: var(--couleur-creme-claire);
+}
+
+.section--sombre :focus-visible {
+  outline-color: var(--couleur-terracotta-clair);
+}
+
+/* Le bouton secondaire est bordé d'anthracite : invisible sur fond sombre. */
+.section--sombre .bouton--secondaire {
+  color: var(--couleur-creme-claire);
+  border-color: rgba(246, 241, 231, 0.45);
+}
+
+.section--sombre .bouton--secondaire:hover,
+.section--sombre .bouton--secondaire:focus-visible {
+  border-color: var(--couleur-creme-claire);
+  color: var(--couleur-creme-claire);
+}
+
+/* Le sceau est un SVG qui puise ses couleurs dans les variables de marque :
+   on les redéfinit localement plutôt que de dupliquer le composant.
+   Portée volontairement réduite au SVG, pour ne pas déteindre sur le texte. */
+.section--sombre .sceau {
+  --couleur-terracotta: var(--couleur-terracotta-clair);
+  --couleur-anthracite: rgba(246, 241, 231, 0.72);
+  --couleur-vert-olivier: var(--couleur-olivier-clair);
+}
+
+/* Disque plein derrière le sceau de la frise, pour que le trait de liaison
+   passe derrière lui au lieu de le traverser. */
+.section--sombre .frise-process__etape .sceau {
+  background: var(--couleur-anthracite-profond);
+  border-radius: 50%;
+}
+
+/* La liste des corps de métier fixe ses couleurs en dur : sur fond sombre,
+   l'anthracite et le bois brûlé seraient illisibles. */
+.section--sombre .liste-corps-de-metier li {
+  color: var(--couleur-creme-claire);
+  border-left-color: var(--couleur-terracotta-clair);
+}
+
+.section--sombre .liste-corps-de-metier li span {
+  color: rgba(246, 241, 231, 0.68);
+}
+
+/* Cartes posées sur fond sombre. */
+.section--sombre .carte-realisation,
+.section--sombre .carte-retour-client {
+  background: rgba(246, 241, 231, 0.045);
+  border: 1px solid var(--couleur-bordure-sombre);
+  box-shadow: var(--ombre-portee-sombre);
+}
+
+.section--sombre .carte-realisation h3,
+.section--sombre .carte-retour-client h3 {
+  color: var(--couleur-creme-claire);
+}

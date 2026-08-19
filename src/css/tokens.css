@@ -1,4 +1,5 @@
 :root {
+  /* ---------- Palette de marque (BRAND.md) ---------- */
   --couleur-terracotta: #B5502E;
   --couleur-terracotta-texte: #AD4826; /* variante assombrie du terracotta, réservée aux fonds portant du texte crème clair (contraste AA 4,5:1, le terracotta standard n'atteint que 4,49:1) */
   --couleur-bois-brule: #6B4A32;
@@ -7,21 +8,72 @@
   --couleur-anthracite: #2B2723;
   --couleur-vert-olivier: #7A8560;
 
+  /* ---------- Extensions pour les sections sombres ----------
+     BRAND.md dit « fond crème sable partout » ; la refonte 2026-08 introduit
+     une alternance crème / anthracite pour créer du rythme sur les 10 pages.
+     Les deux variantes claires ci-dessous existent parce que le terracotta et
+     le vert olivier standards ne passent pas AA sur fond anthracite profond. */
+  --couleur-anthracite-profond: #1F1C19;
+  --couleur-anthracite-nuit: #17140F;
+  --couleur-terracotta-clair: #E08A63;  /* AA sur anthracite-profond (~6,0:1) */
+  --couleur-olivier-clair: #A9B589;     /* AA sur anthracite-profond (~7,6:1) */
+  --couleur-bordure-sombre: rgba(246, 241, 231, 0.14);
+  --couleur-voile-clair: rgba(246, 241, 231, 0.06);
+
+  /* ---------- Typographie ---------- */
   --police-display: 'Fraunces', serif;
   --police-texte: 'Inter', sans-serif;
 
+  /* Échelle fluide : la borne basse vaut pour 360px, la haute pour 1200px. */
+  --texte-sm: 0.875rem;
+  --texte-md: 1rem;
+  --texte-lg: clamp(1.0625rem, 0.99rem + 0.32vw, 1.1875rem);
+  --texte-xl: clamp(1.125rem, 1rem + 0.55vw, 1.375rem);
+  --titre-sm: clamp(1.25rem, 1.14rem + 0.48vw, 1.5rem);
+  --titre-md: clamp(1.5rem, 1.24rem + 1.14vw, 2.125rem);
+  --titre-lg: clamp(2rem, 1.48rem + 2.29vw, 3.25rem);
+  /* La borne basse est calée sur « Un bien à rénover. » qui doit tenir sans
+     frôler le bord dans un conteneur de 311px (iPhone 12/13/14 en portrait). */
+  --titre-xl: clamp(1.9rem, 0.9rem + 4.6vw, 4.75rem);
+
+  --interlettrage-titre: -0.022em;
+  --interlettrage-surtitre: 0.14em;
+
+  /* ---------- Espacement ---------- */
   --espace-xs: 0.5rem;
   --espace-sm: 1rem;
   --espace-md: 2rem;
   --espace-lg: 4rem;
   --espace-xl: 6rem;
+  --espace-section: clamp(3.5rem, 2rem + 6.4vw, 7rem);
 
+  /* ---------- Formes ---------- */
   --rayon-badge: 50%;
-  --rayon-controle: 4px;
+  --rayon-controle: 6px;
   --rayon-surface: 14px;
+  --rayon-large: 24px;
   --largeur-max-contenu: 1200px;
+  --largeur-max-texte: 68ch;
 
-  --ombre-surface: 0 8px 24px rgba(43, 39, 35, 0.14);
-  --ombre-surface-hover: 0 12px 32px rgba(43, 39, 35, 0.18);
+  /* ---------- Élévation (deux couches : contact + diffusion) ---------- */
+  --ombre-basse:
+    0 1px 2px rgba(43, 39, 35, 0.08),
+    0 4px 12px rgba(43, 39, 35, 0.06);
+  --ombre-surface:
+    0 2px 4px rgba(43, 39, 35, 0.10),
+    0 12px 28px rgba(43, 39, 35, 0.12);
+  --ombre-surface-hover:
+    0 4px 8px rgba(43, 39, 35, 0.12),
+    0 24px 48px rgba(43, 39, 35, 0.18);
+  --ombre-portee-sombre:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 18px 40px rgba(0, 0, 0, 0.38);
+
+  /* ---------- Mouvement ---------- */
   --transition-douce: 200ms ease;
+  --duree-rapide: 180ms;
+  --duree-moyenne: 380ms;
+  --duree-lente: 720ms;
+  --courbe-sortie: cubic-bezier(0.22, 1, 0.36, 1);
+  --courbe-douce: cubic-bezier(0.4, 0, 0.2, 1);
 }

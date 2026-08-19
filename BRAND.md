@@ -117,9 +117,9 @@ Le site ne vend pas "des travaux", il prouve la disparition d'un problème : un 
 ### Règles de direction artistique
 
 - **Photographie** : uniquement des photos réelles de chantiers Soly'bat (même smartphone, lumière naturelle) — jamais de stock, une agence immobilière repère un stock générique instantanément et ça détruit la crédibilité
-- **Mouvement** : minimal et volontaire — le slider avant/après est le seul vrai moment d'interaction, pas d'animations au scroll partout (incompatible avec le sérieux recherché en B2B)
+- **Mouvement** : *(règle révisée le 2026-08-19, à la demande du client)* le site assume désormais une couche de mouvement — maquette 3D WebGL dans le hero de l'accueil, apparitions au scroll, basculement des cartes, compteurs. Chaque effet doit rester **au service du contenu** : la maquette raconte le process (dalle → murs → toit → clés), la frise se dessine parce qu'elle est un séquencement, les compteurs pointent les deux chiffres qui décident. Tout est désactivé sous `prefers-reduced-motion`. *Version antérieure de la règle, conservée pour mémoire : « minimal et volontaire — le slider avant/après est le seul vrai moment d'interaction, pas d'animations au scroll partout (incompatible avec le sérieux recherché en B2B) ». La réserve B2B reste valable : si un retour terrain d'agence signale un effet « site d'agence web », c'est cette couche qu'il faut alléger en premier.*
 - **Numérotation** : légitime uniquement pour la frise du process (01→04), qui est un vrai séquencement — ne pas en abuser ailleurs
-- **Fond** : crème sable partout, jamais blanc pur ni noir pur
+- **Fond** : crème sable en fond dominant, **alterné avec des sections anthracite profond** (`--couleur-anthracite-profond`) pour créer du rythme sur des pages longues *(ajout du 2026-08-19)*. Jamais blanc pur ni noir pur. Sur fond sombre, le terracotta et le vert olivier standards ne passent pas AA : utiliser `--couleur-terracotta-clair` et `--couleur-olivier-clair`.
 
 ---
 

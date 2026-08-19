@@ -1,5 +1,5 @@
 {% macro carteRetourClient(retour) %}
-<article class="carte-retour-client">
+<article class="carte-retour-client" data-reveal data-tilt>
   <p class="carte-retour-client__profil">{{ retour.prenom }} {{ retour.initiale }}</p>
   <h3 class="carte-retour-client__titre">{{ retour.typeDeBien }}</h3>
   <p class="carte-retour-client__quartier">{{ retour.quartier }}</p>
@@ -28,11 +28,11 @@
     </div>
     <div>
       <dt>Rentabilité brute</dt>
-      <dd>{{ retour.rentabiliteBrute }}</dd>
+      <dd data-compteur>{{ retour.rentabiliteBrute }}</dd>
     </div>
     <div>
       <dt>Cash-flow net avant impôt</dt>
-      <dd>{{ retour.cashFlow }}</dd>
+      <dd data-compteur>{{ retour.cashFlow }}</dd>
     </div>
     <div>
       <dt>DSCR</dt>

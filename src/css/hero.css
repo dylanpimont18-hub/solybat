@@ -5,21 +5,69 @@
 }
 
 .pour-qui__colonne {
+  display: flex;
+  flex-direction: column;
   background: var(--couleur-creme-claire);
   padding: var(--espace-md);
-  border-radius: var(--rayon-surface);
+  border-radius: var(--rayon-large);
+  border: 1px solid rgba(107, 74, 50, 0.12);
+  box-shadow: var(--ombre-basse);
+  transition:
+    box-shadow var(--duree-moyenne) var(--courbe-sortie),
+    border-color var(--duree-moyenne) var(--courbe-sortie),
+    transform var(--duree-moyenne) var(--courbe-sortie);
+}
+
+.pour-qui__colonne:hover,
+.pour-qui__colonne:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(181, 80, 46, 0.35);
   box-shadow: var(--ombre-surface);
+}
+
+/* Le lien de la colonne est repoussé en pied de carte pour aligner les
+   trois colonnes malgré des textes de longueurs différentes. */
+.pour-qui__colonne p:last-child {
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: var(--espace-sm);
+  font-weight: 600;
 }
 
 .garanties {
   text-align: center;
-  background: var(--couleur-creme-claire);
+}
+
+.garanties .sceau {
+  margin: 0 auto var(--espace-sm);
+}
+
+.garanties p {
+  max-width: 52ch;
+  margin-inline: auto;
+  margin-bottom: 0;
 }
 
 .realisations-apercu {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--espace-md);
+}
+
+/* Lien de renvoi en fin de section (« voir tout »). */
+.section__pied {
+  margin-top: var(--espace-lg);
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.appel-final {
+  text-align: center;
+}
+
+.appel-final p {
+  max-width: 56ch;
+  margin-inline: auto;
 }
 
 @media (max-width: 900px) {

@@ -1,0 +1,52 @@
+/* Bande de photos de chantier : la preuve, juste après la promesse du hero 3D.
+   Décalage vertical de la colonne centrale pour éviter l'alignement en bandeau,
+   qui aurait fait « galerie de stock ». */
+
+.bande-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.2vw, 2rem);
+  align-items: start;
+}
+
+.bande-photos__element {
+  margin: 0;
+}
+
+.bande-photos__element:nth-child(2) {
+  margin-top: clamp(1.5rem, 5vw, 4rem);
+}
+
+.bande-photos__element img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--rayon-large);
+  box-shadow: var(--ombre-surface);
+}
+
+.bande-photos__legende {
+  margin-top: 0.75rem;
+  color: var(--couleur-bois-brule);
+  font-size: var(--texte-sm);
+  line-height: 1.45;
+}
+
+.section--sombre .bande-photos__legende {
+  color: rgba(246, 241, 231, 0.7);
+}
+
+@media (max-width: 760px) {
+  .bande-photos {
+    grid-template-columns: 1fr;
+    gap: var(--espace-md);
+  }
+
+  .bande-photos__element:nth-child(2) {
+    margin-top: 0;
+  }
+
+  .bande-photos__element img {
+    aspect-ratio: 3 / 2;
+  }
+}

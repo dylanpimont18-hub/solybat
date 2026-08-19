@@ -15,9 +15,46 @@ heroPhotos:
 {{ afficherHeroPhotos("Un prestataire réactif pour vos biens à remettre en location", "Agences immobilières et gestionnaires de biens : Soly'bat intervient sur vos chantiers de remise en location avec une réactivité adaptée à vos volumes. Un interlocuteur unique par chantier, un reporting régulier, une facturation simplifiée pour les prestataires récurrents.", heroPhotos, "Demander un devis", "/devis/", false, site.telephone, site.telephoneLien) }}
 
 <section class="conteneur">
-  <h2>Plaquette de présentation</h2>
-  <p><a href="{{ '/documents/plaquette-solybat.pdf' | url }}" class="bouton bouton--secondaire">Télécharger la plaquette (PDF)</a></p>
+  <div class="section__entete" data-reveal>
+    <p class="surtitre">Ce que vous y gagnez</p>
+    <h2>Trois choses qui changent sur un chantier confié à Soly'bat</h2>
+  </div>
+  <div class="pour-qui">
+    <div class="pour-qui__colonne" data-reveal>
+      <h3>Un interlocuteur unique</h3>
+      <p>Un seul numéro par chantier, du diagnostic à la remise des clés. C'est nous qui coordonnons les corps de métier, pas vous.</p>
+    </div>
+    <div class="pour-qui__colonne" data-reveal>
+      <h3>Un reporting régulier</h3>
+      <p>Un point d'avancement à chaque étape, pour que vous puissiez répondre à votre propriétaire sans avoir à nous relancer.</p>
+    </div>
+    <div class="pour-qui__colonne" data-reveal>
+      <h3>Une facturation simplifiée</h3>
+      <p>Pour les prestataires récurrents, une facturation adaptée aux volumes plutôt qu'un devis isolé par lot.</p>
+    </div>
+  </div>
+</section>
 
-  <h2>Un chantier à nous confier ?</h2>
-  <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+<section class="section--sombre">
+  <div class="conteneur">
+    <div class="section__entete" data-reveal>
+      <p class="surtitre">Documentation</p>
+      <h2>Plaquette de présentation</h2>
+      <p>Deux pages A4 : positionnement, déroulé d'un chantier, corps de métier couverts. À transmettre en interne ou à un propriétaire.</p>
+    </div>
+    <p data-reveal>
+      <a href="{{ '/documents/plaquette-solybat.pdf' | url }}" class="bouton bouton--secondaire">Télécharger la plaquette (PDF)</a>
+    </p>
+  </div>
+</section>
+
+<section class="conteneur appel-final">
+  <div data-reveal>
+    <h2>Un chantier à nous confier ?</h2>
+    <p>Décrivez le lot et son état actuel : nous revenons vers vous avec un diagnostic sous 5 jours ouvrés.</p>
+    <div class="boutons-groupe">
+      <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
+      <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+    </div>
+  </div>
 </section>

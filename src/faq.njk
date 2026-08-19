@@ -4,34 +4,49 @@ titre: "FAQ"
 description: "Délais, garanties, assurances et paiement — les questions fréquentes sur nos chantiers."
 ---
 {% from "composants/sceau.njk" import sceau %}
+
 <section class="conteneur faq">
   <div class="entete-page">
     {{ sceau(40, decoratif=true) }}
     <h1>Questions fréquentes</h1>
   </div>
+  <p class="section__intro">Délais, assurances, paiement, suivi de chantier : les cinq questions qu'on nous pose le plus souvent.</p>
 
-  <details>
+  <details data-reveal>
     <summary>Quels sont les délais moyens d'un chantier ?</summary>
     <p>Comptez en moyenne 7 à 11 semaines entre le diagnostic et la remise des clés : environ 3 semaines pour le diagnostic et le devis, puis 4 à 8 semaines de chantier selon l'ampleur des travaux.</p>
   </details>
 
-  <details>
+  <details data-reveal>
     <summary>Êtes-vous assurés ?</summary>
     <p>Oui, Soly'bat dispose d'une assurance décennale et d'une responsabilité civile professionnelle couvrant l'ensemble des travaux réalisés.</p>
   </details>
 
-  <details>
+  <details data-reveal>
     <summary>Comment se déroule le paiement ?</summary>
     <p>Un acompte est demandé au démarrage du chantier, le solde à la remise des clés, selon les modalités précisées dans le devis.</p>
   </details>
 
-  <details>
+  <details data-reveal>
     <summary>Intervenez-vous en dehors de Vierzon ?</summary>
     <p>Nous intervenons dans un rayon d'environ 50 km autour de Vierzon (Cher).</p>
   </details>
 
-  <details>
+  <details data-reveal>
     <summary>Puis-je suivre l'avancement du chantier ?</summary>
     <p>Oui, un point d'avancement régulier vous est communiqué à chaque étape du chantier.</p>
   </details>
+</section>
+
+<section class="section--sombre">
+  <div class="conteneur appel-final">
+    <div data-reveal>
+      <h2>Une question qui n'est pas là ?</h2>
+      <p>Appelez-nous, ou posez-la directement dans le formulaire de devis.</p>
+      <div class="boutons-groupe">
+        <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
+        <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
+      </div>
+    </div>
+  </div>
 </section>

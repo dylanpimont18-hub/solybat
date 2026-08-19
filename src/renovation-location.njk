@@ -14,23 +14,32 @@ heroPhotos:
 
 {{ afficherHeroPhotos("Notre service", "Soly'bat prend en charge l'intégralité des travaux nécessaires pour rendre votre bien prêt à louer ou à vivre : maçonnerie, plâtrerie (cloisons placo), électricité, plomberie, chauffage, climatisation, peinture, sols, cuisine, salle de bain. Un seul interlocuteur, un chantier coordonné, un délai maîtrisé.", heroPhotos, "Demander un devis", "/devis/", false, site.telephone, site.telephoneLien) }}
 
-<section class="conteneur">
-  <h2>Tous corps de métier, un seul interlocuteur</h2>
-  <p>Nous coordonnons nous-mêmes chaque corps de métier nécessaire à votre chantier — vous n'avez qu'un seul interlocuteur du diagnostic à la remise des clés.</p>
-  <ul class="liste-corps-de-metier">
-    <li>Maçonnerie <span>(ouverture de mur, cloisons, chape)</span></li>
-    <li>Plâtrerie <span>(cloisons placo, faux plafonds)</span></li>
-    <li>Électricité <span>(mise aux normes, tableau)</span></li>
-    <li>Plomberie <span>(sanitaires, cuisine, salle de bain)</span></li>
-    <li>Chauffage <span>(chaudière, radiateurs)</span></li>
-    <li>Climatisation <span>(pose par nos partenaires certifiés RGE)</span></li>
-    <li>Peinture &amp; finitions</li>
-    <li>Sols &amp; carrelage</li>
-    <li>Menuiserie intérieure <span>(portes, placards)</span></li>
-  </ul>
+<section class="section--sombre">
+  <div class="conteneur">
+    <div class="section__entete" data-reveal>
+      <p class="surtitre">Corps de métier</p>
+      <h2>Tous corps de métier, un seul interlocuteur</h2>
+      <p>Nous coordonnons nous-mêmes chaque corps de métier nécessaire à votre chantier — vous n'avez qu'un seul interlocuteur du diagnostic à la remise des clés.</p>
+    </div>
+    <ul class="liste-corps-de-metier">
+      <li data-reveal>Maçonnerie <span>(ouverture de mur, cloisons, chape)</span></li>
+      <li data-reveal>Plâtrerie <span>(cloisons placo, faux plafonds)</span></li>
+      <li data-reveal>Électricité <span>(mise aux normes, tableau)</span></li>
+      <li data-reveal>Plomberie <span>(sanitaires, cuisine, salle de bain)</span></li>
+      <li data-reveal>Chauffage <span>(chaudière, radiateurs)</span></li>
+      <li data-reveal>Climatisation <span>(pose par nos partenaires certifiés RGE)</span></li>
+      <li data-reveal>Peinture &amp; finitions</li>
+      <li data-reveal>Sols &amp; carrelage</li>
+      <li data-reveal>Menuiserie intérieure <span>(portes, placards)</span></li>
+    </ul>
+  </div>
 </section>
 
 <section class="conteneur">
+  <div class="section__entete" data-reveal>
+    <p class="surtitre">Par profil</p>
+    <h2>Ce que ça change pour vous</h2>
+  </div>
   <div data-onglets>
     <div class="onglets__boutons" role="tablist">
       <button type="button" id="onglet-agence" class="onglets__bouton" data-onglet-bouton="agence" role="tab" aria-selected="false" aria-controls="panneau-agence">Agences</button>
@@ -39,17 +48,30 @@ heroPhotos:
     </div>
 
     <div id="panneau-agence" data-onglet-panneau="agence" role="tabpanel" aria-labelledby="onglet-agence" tabindex="0">
-      <h2>Agences &amp; gestionnaires</h2>
+      <h3>Agences &amp; gestionnaires</h3>
       <p>Vous gérez plusieurs biens à remettre en location rapidement. Nous intervenons avec la même réactivité sur chaque chantier, avec un reporting régulier et une facturation adaptée aux volumes.</p>
+      <p><a href="{{ '/espace-pro/' | url }}">Voir l'espace pro &rarr;</a></p>
     </div>
     <div id="panneau-investisseur" data-onglet-panneau="investisseur" role="tabpanel" aria-labelledby="onglet-investisseur" tabindex="0">
-      <h2>Investisseurs locatifs</h2>
+      <h3>Investisseurs locatifs</h3>
       <p>Vous voulez un bien rentable sans passer votre temps à coordonner dix artisans. Nous prenons en charge l'intégralité du chantier, du diagnostic à la remise des clés.</p>
       <p><a href="{{ '/retour-client/' | url }}">Voir des cas chiffrés &rarr;</a></p>
     </div>
     <div id="panneau-particulier" data-onglet-panneau="particulier" role="tabpanel" aria-labelledby="onglet-particulier" tabindex="0">
-      <h2>Particuliers</h2>
+      <h3>Particuliers</h3>
       <p>Vous rénovez votre résidence ou un bien à louer. Nous vous expliquons chaque étape sans jargon technique, avec un devis clair par poste de travaux.</p>
+      <p><a href="{{ '/process/' | url }}">Voir le déroulé d'un chantier &rarr;</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="conteneur appel-final">
+  <div data-reveal>
+    <h2>Un chantier à chiffrer ?</h2>
+    <p>Décrivez votre bien en quelques lignes, ou appelez-nous directement.</p>
+    <div class="boutons-groupe">
+      <a href="tel:{{ site.telephoneLien }}" class="bouton bouton--secondaire">Appeler {{ site.telephone }}</a>
+      <a href="{{ '/devis/' | url }}" class="bouton bouton--principal">Demander un devis</a>
     </div>
   </div>
 </section>
