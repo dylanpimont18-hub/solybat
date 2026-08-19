@@ -14,6 +14,12 @@ Résolution des `@import` et minification prudente, en CommonJS (la config 11ty 
 - minifierCss(css) — retire commentaires et espaces superflus. **Ne touche volontairement pas aux espaces autour de `:` ni des combinateurs** (`a :hover` ≠ `a:hover`), et recopie le contenu des chaînes à l'identique pour préserver les `url("data:image/svg+xml,…")`
 - assembler(contenuRacine, lireFichier) — les deux en une passe
 
+## lib/synthese-rentabilite.cjs
+Agrégats des opérations chiffrées, calculés au build et exposés en donnée globale `syntheseRentabilite`. Écrire « 8/8 » en dur dans le gabarit le rendrait faux à la première opération ajoutée dans `retoursClients.json` ; ici le chiffre suit la donnée. Testé par `tests/synthese-rentabilite.test.js`.
+- calculerSynthese(operations) — comptages, moyennes, bornes, cumuls, plus des `libelles` prêts à afficher et **volontairement lisibles par `analyserValeur()` de `compteurs.js`** (sinon l'animation écraserait le texte)
+- meilleuresOperations(operations, n) — les n plus rentables, tri stable
+- lireNombre(valeur) — retourne `null` et non `NaN` sur une entrée illisible : un NaN se propagerait silencieusement dans toutes les moyennes
+
 ## lib/dimensions-image.cjs
 Lecture des dimensions dans l'en-tête binaire, sans dépendance (le projet n'a aucune bibliothèque d'image et on n'a besoin que de deux entiers). Testé par `tests/dimensions-image.test.js`.
 - lireDimensions(donnees) — PNG (bloc IHDR) ou JPEG (marqueur SOF), null si format inconnu ou fichier tronqué
@@ -85,6 +91,13 @@ Page 404 avec lien retour accueil. `noindex: true` + exclue du sitemap (`elevent
 ## src/_includes/composants/hero-3d.njk
 Hero de l'accueil depuis la refonte 2026-08-19 : `<canvas>` piloté par `src/js/hero-3d/`, photo de chantier en repli/fond d'ambiance derrière, voile de lisibilité, titre en lignes masquées révélées une par une. Le texte reste du HTML (indexable, sélectionnable) ; le canvas est `aria-hidden`.
 - hero3d(surtitre, lignesTitre, sousTitre, ctaTexte, ctaLien, telephone, telephoneLien, photoRepli, legende)
+
+## src/_includes/composants/bloc-rentabilite.njk
+Bloc « Cas chiffrés » de l'accueil (ajouté le 2026-08-19) : 4 chiffres agrégés en compteurs animés, les 3 opérations les plus rentables en cartes, mention des hypothèses, CTA vers `/retour-client/`. Les chiffres viennent de `syntheseRentabilite`, jamais écrits en dur. L'ordre du balisage reste `<dt>` puis `<dd>` (exigé par HTML) ; c'est le CSS qui inverse l'affichage pour mettre le grand chiffre au-dessus de son libellé.
+- blocRentabilite(synthese, lienPage)
+
+## src/css/bloc-rentabilite.css
+Mise en page du bloc. `flex-direction: column-reverse` sur chaque chiffre (voir ci-dessus), `font-variant-numeric: tabular-nums` pour que le libellé ne sautille pas pendant l'animation du compteur, et `margin-top: auto` sur les chiffres des cartes pour les aligner malgré des titres de longueurs différentes. Mobile : chiffres en 2 colonnes, cartes empilées, bouton pleine largeur (mesuré à 405px : aucun débordement).
 
 ## src/_includes/composants/bande-photos.njk
 Bande de photos de chantier « preuve », placée juste après le hero 3D de l'accueil — les vraies photos passent en écran 2 au lieu du triptyque de hero. Colonne centrale décalée verticalement pour éviter l'effet bandeau.

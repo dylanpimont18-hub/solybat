@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
-titre: "Retour client"
+titre: "Cas chiffrés"
 description: "8 opérations réelles d'investissement locatif à Vierzon, chiffrées de bout en bout, travaux Soly'bat inclus."
 ---
 {% from "composants/sceau.njk" import sceau %}
@@ -8,12 +8,12 @@ description: "8 opérations réelles d'investissement locatif à Vierzon, chiffr
 <section class="conteneur retour-client">
   <div class="entete-page">
     {{ sceau(40, decoratif=true) }}
-    <h1>Retour client</h1>
+    <h1>{{ syntheseRentabilite.nombreOperations }} opérations réelles, chiffrées de bout en bout</h1>
   </div>
 
   <p class="retour-client__avertissement">Cas réels, chiffres réels. Pour préserver la confidentialité de nos clients, les prénoms ont été changés.</p>
 
-  <p>8 opérations d'investissement locatif menées à Vierzon, financées à 100 % (apport 0 €), travaux réalisés par Soly'bat clé en main. Hypothèses communes : vacance locative 5 %, cash-flow exprimé net avant impôt (régime fiscal non pris en compte).</p>
+  <p>{{ syntheseRentabilite.nombreOperations }} opérations d'investissement locatif menées à Vierzon, financées à 100 % (apport 0 €), travaux réalisés par Soly'bat clé en main. Rentabilité brute de {{ syntheseRentabilite.libelles.fourchetteRentabilite }} selon l'opération. Hypothèses communes : vacance locative 5 %, cash-flow exprimé net avant impôt (régime fiscal non pris en compte).</p>
 
   <dl class="retour-client__legende">
     <div>

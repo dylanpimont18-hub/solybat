@@ -112,6 +112,16 @@ Audit complet mené après la refonte, puis correctifs appliqués (lots choisis 
 
 **Attention à ne pas mal lire le TBT** : il tombe de 370 ms à 0 ms, mais c'est un artefact de fenêtre de mesure. Le travail sur le fil principal reste quasi identique (3 422 → 3 064 ms) et `scene-hero.js` coûte toujours ~1 037 ms d'exécution sous throttling Lighthouse. Le coût CPU de la 3D n'a pas disparu, il a été déplacé hors de la fenêtre mesurée. La 3D a été conservée telle quelle sur décision du client.
 
+## Mise en avant des cas chiffrés (2026-08-19)
+
+Les 8 opérations chiffrées n'étaient accessibles que par **deux liens en petit texte**, dont un caché derrière un onglet, et la page était absente du menu **et** du footer. C'est pourtant le contenu le plus convaincant du site pour un investisseur : 8/8 opérations en cash-flow positif, 8/8 avec un DSCR > 1, rentabilité brute de 9,75 % à 16,08 %.
+
+- **Bloc « Cas chiffrés » sur l'accueil** (`composants/bloc-rentabilite.njk`), en section sombre entre la bande photos et la publicité climatisation : 4 chiffres agrégés en compteurs animés, les 3 opérations les plus rentables, mention des hypothèses, CTA. Cela décale la publicité climatisation d'une position (signalé au client, qui a validé).
+- **Entrée « Cas chiffrés » au menu principal et au footer.** L'**URL reste `/retour-client/`** — seul le libellé affiché change, donc aucun lien externe cassé.
+- **Tous les chiffres sont calculés au build** (`lib/synthese-rentabilite.cjs`), jamais écrits en dur : ajouter une 9ᵉ opération dans `retoursClients.json` met à jour l'accueil et la page tout seuls. Le `<h1>` et le chapeau de `/retour-client` sont eux aussi dynamiques.
+- **Vocabulaire** : ce sont des **opérations réelles**, pas des simulations. Ne pas revenir à un vocabulaire de projection, ce serait les affaiblir (voir aussi la note « retour client » dans la mémoire projet).
+- Vérifié : contrastes (14 combinaisons, 0 échec), rendu desktop, et mobile mesuré à 405px — chiffres en 2 colonnes, cartes empilées, bouton pleine largeur, aucun débordement.
+
 **Points laissés ouverts par l'audit** (non retenus dans les lots appliqués) :
 - `traiter-devis.php` reçoit toujours sur `dylan.pimont@orange.fr` — **seul vrai bloquant pour une mise en ligne réelle**.
 - Les 7 placeholders légaux (SIRET, assurances, hébergeur, CGV, confidentialité).

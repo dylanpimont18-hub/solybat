@@ -1,0 +1,147 @@
+/* Bloc « Cas chiffrés » de l'accueil : les chiffres qui décident un
+   investisseur, sortis de la page où ils étaient enterrés. */
+
+.bloc-rentabilite__chiffres {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espace-md);
+  margin: 0 0 var(--espace-lg);
+  padding: 0;
+}
+
+/* colonne-inverse : le grand chiffre s'affiche au-dessus de son libellé,
+   alors que le balisage garde l'ordre <dt> puis <dd> exigé par HTML. */
+.bloc-rentabilite__chiffre {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.35rem;
+  padding-top: var(--espace-sm);
+  border-top: 2px solid var(--couleur-terracotta-clair);
+}
+
+.bloc-rentabilite__chiffre dd {
+  margin: 0;
+  color: var(--couleur-creme-claire);
+  font-family: var(--police-display);
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--interlettrage-titre);
+  /* Les chiffres changent pendant l'animation : sans chasse fixe, le libellé
+     dessous sautillerait à chaque image. */
+  font-variant-numeric: tabular-nums;
+}
+
+.bloc-rentabilite__chiffre dt {
+  color: rgba(246, 241, 231, 0.72);
+  font-size: var(--texte-sm);
+  line-height: 1.35;
+}
+
+/* ---------- Les trois exemples ---------- */
+
+.bloc-rentabilite__exemples {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espace-md);
+  margin: 0 0 var(--espace-md);
+  padding: 0;
+  list-style: none;
+}
+
+.bloc-rentabilite__exemple {
+  /* Colonne + `margin-top: auto` sur les chiffres : les trois cartes alignent
+     leurs valeurs même quand un titre passe sur deux lignes. */
+  display: flex;
+  flex-direction: column;
+  padding: var(--espace-md);
+  border: 1px solid var(--couleur-bordure-sombre);
+  border-radius: var(--rayon-large);
+  background: var(--couleur-voile-clair);
+  box-shadow: var(--ombre-portee-sombre);
+}
+
+.bloc-rentabilite__bien {
+  margin: 0 0 0.15rem;
+  color: var(--couleur-creme-claire);
+  font-family: var(--police-display);
+  font-size: var(--titre-sm);
+  line-height: 1.2;
+}
+
+.bloc-rentabilite__quartier {
+  margin: 0 0 var(--espace-sm);
+  color: rgba(246, 241, 231, 0.6);
+  font-size: var(--texte-sm);
+}
+
+.bloc-rentabilite__detail {
+  display: grid;
+  gap: 0.4rem;
+  margin: auto 0 0;
+}
+
+.bloc-rentabilite__detail > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espace-sm);
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--couleur-bordure-sombre);
+}
+
+.bloc-rentabilite__detail dt {
+  color: rgba(246, 241, 231, 0.72);
+  font-size: var(--texte-sm);
+}
+
+.bloc-rentabilite__detail dd {
+  margin: 0;
+  color: var(--couleur-terracotta-clair);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- Mention et action ---------- */
+
+.bloc-rentabilite__mention {
+  max-width: 64ch;
+  margin: 0 0 var(--espace-md);
+  color: rgba(246, 241, 231, 0.6);
+  font-size: var(--texte-sm);
+  line-height: 1.5;
+}
+
+.bloc-rentabilite__action {
+  margin: 0;
+}
+
+/* ---------- Adaptations ---------- */
+
+@media (max-width: 900px) {
+  .bloc-rentabilite__chiffres {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--espace-sm) var(--espace-md);
+  }
+
+  .bloc-rentabilite__exemples {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .bloc-rentabilite__chiffre dd {
+    /* En dessous, « 410 200 € » déborderait d'une demi-colonne. */
+    font-size: clamp(1.5rem, 1rem + 4vw, 2rem);
+  }
+
+  .bloc-rentabilite__exemple {
+    padding: var(--espace-sm) var(--espace-md);
+  }
+
+  .bloc-rentabilite__action .bouton {
+    display: flex;
+    width: 100%;
+  }
+}

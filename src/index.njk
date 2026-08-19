@@ -18,6 +18,7 @@ photosPreuve:
 {% from "composants/carte-realisation.njk" import carteRealisation %}
 {% from "composants/hero-3d.njk" import hero3d %}
 {% from "composants/bande-photos.njk" import bandePhotos %}
+{% from "composants/bloc-rentabilite.njk" import blocRentabilite %}
 
 {% set lignesTitre = [
   { texte: "Un bien à rénover." },
@@ -45,6 +46,8 @@ photosPreuve:
   </div>
   {{ bandePhotos(photosPreuve) }}
 </section>
+
+{{ blocRentabilite(syntheseRentabilite, "/retour-client/") }}
 
 <section class="conteneur publicite-climatisation">
   <h2 class="sr-only">Offre climatisation</h2>

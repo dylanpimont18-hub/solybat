@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { assembler } = require("./lib/assembler-css.cjs");
 const { lireDimensions } = require("./lib/dimensions-image.cjs");
+const { calculerSynthese, meilleuresOperations } = require("./lib/synthese-rentabilite.cjs");
 
 const DOSSIER_CSS = path.join(__dirname, "src", "css");
 const DOSSIER_SORTIE_CSS = path.join(__dirname, "_site", "css");
@@ -88,6 +89,16 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("dimensionsImage", dimensionsImage);
 
   eleventyConfig.addGlobalData("modulesJs", () => listerModulesJs());
+
+  // Agregats des operations chiffrees, recalcules a chaque build : un « 8/8 »
+  // ecrit en dur deviendrait faux des la premiere operation ajoutee.
+  eleventyConfig.addGlobalData("syntheseRentabilite", () => {
+    const fichier = path.join(__dirname, "src", "_data", "retoursClients.json");
+    const operations = JSON.parse(fs.readFileSync(fichier, "utf8"));
+    return Object.assign(calculerSynthese(operations), {
+      meilleures: meilleuresOperations(operations, 3),
+    });
+  });
 
   eleventyConfig.on("eleventy.after", assemblerFeuillesDeStyle);
 

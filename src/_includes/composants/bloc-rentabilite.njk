@@ -1,0 +1,67 @@
+{% macro blocRentabilite(synthese, lienPage) %}
+<section class="section--sombre bloc-rentabilite">
+  <div class="conteneur">
+    <div class="section__entete" data-reveal>
+      <p class="surtitre">Cas chiffrés</p>
+      <h2>Ce que rapporte un bien qu'on rénove</h2>
+      <p>{{ synthese.nombreOperations }} opérations réelles menées à Vierzon, chiffrées de l'achat à la mise en location, travaux Soly'bat inclus.</p>
+    </div>
+
+    {#
+      Chaque chiffre est un couple <dt>/<dd> : le libellé reste associé à la
+      valeur pour un lecteur d'écran. L'ordre visuel (grand chiffre au-dessus
+      de son libellé) est inversé en CSS, pas dans le balisage.
+    #}
+    <dl class="bloc-rentabilite__chiffres">
+      <div class="bloc-rentabilite__chiffre" data-reveal>
+        <dt>opérations en cash-flow positif</dt>
+        <dd data-compteur>{{ synthese.libelles.cashFlowPositif }}</dd>
+      </div>
+      <div class="bloc-rentabilite__chiffre" data-reveal>
+        <dt>rentabilité brute moyenne</dt>
+        <dd data-compteur>{{ synthese.libelles.rentabiliteMoyenne }}</dd>
+      </div>
+      <div class="bloc-rentabilite__chiffre" data-reveal>
+        <dt>cash-flow net moyen, par mois</dt>
+        <dd data-compteur>{{ synthese.libelles.cashFlowMoyen }}</dd>
+      </div>
+      <div class="bloc-rentabilite__chiffre" data-reveal>
+        <dt>de travaux réalisés sur ces opérations</dt>
+        <dd data-compteur>{{ synthese.libelles.travauxCumules }}</dd>
+      </div>
+    </dl>
+
+    <ul class="bloc-rentabilite__exemples">
+      {% for operation in synthese.meilleures %}
+      <li class="bloc-rentabilite__exemple" data-reveal data-tilt>
+        <p class="bloc-rentabilite__bien">{{ operation.typeDeBien }}</p>
+        <p class="bloc-rentabilite__quartier">{{ operation.quartier }}</p>
+        <dl class="bloc-rentabilite__detail">
+          <div>
+            <dt>Rentabilité brute</dt>
+            <dd>{{ operation.rentabiliteBrute }}</dd>
+          </div>
+          <div>
+            <dt>Cash-flow net</dt>
+            <dd>{{ operation.cashFlow }}</dd>
+          </div>
+          <div>
+            <dt>DSCR</dt>
+            <dd>{{ operation.dscr }}</dd>
+          </div>
+        </dl>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <p class="bloc-rentabilite__mention">
+      Cas réels, chiffres réels — seuls les prénoms ont été modifiés.
+      Financement à 100 % (apport 0 €), vacance locative 5 %, cash-flow net avant impôt.
+    </p>
+
+    <div class="bloc-rentabilite__action">
+      <a href="{{ lienPage | url }}" class="bouton bouton--principal">Voir les {{ synthese.nombreOperations }} opérations en détail</a>
+    </div>
+  </div>
+</section>
+{% endmacro %}
