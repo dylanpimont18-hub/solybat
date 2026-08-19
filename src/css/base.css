@@ -49,6 +49,13 @@ a:focus-visible {
 img {
   max-width: 100%;
   display: block;
+  /* Indispensable depuis que chaque <img> porte width/height (réservation de
+     place, anti-décalage) : sans ce `auto`, l'attribut `height` compte comme
+     une hauteur définie, et `aspect-ratio` est alors ignoré — une photo de
+     1200×896 s'affichait 326×896 au lieu de 326×217.
+     Les composants qui pilotent eux-mêmes la hauteur (cartes, heros, slider)
+     la redéfinissent via un sélecteur de classe, donc plus spécifique. */
+  height: auto;
 }
 
 .conteneur {

@@ -122,6 +122,12 @@ Les 8 opérations chiffrées n'étaient accessibles que par **deux liens en peti
 - **Vocabulaire** : ce sont des **opérations réelles**, pas des simulations. Ne pas revenir à un vocabulaire de projection, ce serait les affaiblir (voir aussi la note « retour client » dans la mémoire projet).
 - Vérifié : contrastes (14 combinaisons, 0 échec), rendu desktop, et mobile mesuré à 405px — chiffres en 2 colonnes, cartes empilées, bouton pleine largeur, aucun débordement.
 
+### Piège : `width`/`height` en attribut annulent `aspect-ratio`
+
+Depuis que chaque `<img>` porte ses dimensions natives en attributs, **`img { height: auto }` dans `base.css` n'est plus cosmétique, il est indispensable**. Sans lui, l'attribut `height` compte comme une hauteur définie ; `aspect-ratio` n'est appliqué que si l'une des deux dimensions est `auto`, donc il est ignoré. Concrètement : une photo 1200×896 dans `.bande-photos` s'affichait 326×896 au lieu de 326×217 sur mobile, et la page d'accueil mesurait 2 164 px de trop.
+
+Les composants qui pilotent eux-mêmes la hauteur (cartes, heros, slider, photos-vrac) déclarent `height: 100%` via un sélecteur de classe, plus spécifique que `img` — ils n'étaient donc pas touchés. Si un futur composant dimensionne une image par `aspect-ratio` seul, ne pas lui donner de `height` en CSS.
+
 **Points laissés ouverts par l'audit** (non retenus dans les lots appliqués) :
 - `traiter-devis.php` reçoit toujours sur `dylan.pimont@orange.fr` — **seul vrai bloquant pour une mise en ligne réelle**.
 - Les 7 placeholders légaux (SIRET, assurances, hébergeur, CGV, confidentialité).
