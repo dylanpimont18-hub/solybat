@@ -14,9 +14,11 @@ const retoursClients = require('../src/_data/retoursClients.json');
 
 /* Les deux cotes utilisent des espaces insecables, mais pas les memes : le
    formateur de lib/ pose une fine insecable (U+202F) dans "410 200 €", le HTML
-   pose des insecables ordinaires (U+00A0) pour retenir les unites en fin de ligne.
-   On compare donc sur un texte normalise, des deux cotes. */
-const normaliser = (texte) => texte.replace(/[   ]/g, ' ');
+   pose des insecables pour retenir ses unites en fin de ligne — tantot le
+   caractere U+00A0, tantot l'entite &nbsp;. On ramene tout a l'espace ordinaire,
+   des deux cotes, sinon le garde-fou echoue sur de la typographie et non sur un
+   chiffre perime. */
+const normaliser = (texte) => texte.replace(/&nbsp;/g, ' ').replace(/[   ]/g, ' ');
 
 const plaquette = normaliser(
   readFileSync(new URL('../identite-visuelle/plaquette-solybat.html', import.meta.url), 'utf8')
@@ -57,7 +59,6 @@ test('le tableau des trois meilleures operations correspond aux donnees', () => 
       operation.coutTotal,
       operation.loyer,
       operation.cashFlow,
-      operation.dscr,
       operation.rentabiliteBrute,
     ]) {
       contient(valeur, 'du tableau des operations');

@@ -7,13 +7,25 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Plaquette Soly'bat — A4 PAYSAGE, 3 pages.
-     Source de src/documents/plaquette-solybat.pdf. Voir identite-visuelle/README.md
-     pour la commande de régénération : le PDF n'est pas produit par npm run build.
+  /* Plaquette Soly'bat — DEPLIANT 3 VOLETS.
+     A4 paysage recto-verso (2 pages, pas une de plus : c'est UNE feuille imprimee
+     des deux cotes), pliee en 3 apres impression.
 
-     Les chiffres de la page 3 viennent de src/_data/retoursClients.json (agrégés par
-     lib/synthese-rentabilite.cjs) et sont écrits en dur ici. tests/test-plaquette.test.js
-     échoue si les données changent sans que la plaquette soit régénérée. */
+     Geometrie : 297mm / 3 = 99mm par volet. Chaque volet garde 8mm de marge de
+     part et d'autre du pli — rien d'important ne doit traverser une pliure.
+     Pli suppose : ACCORDEON (zigzag), volets d'egale largeur. Un pli roule
+     demanderait de rétrécir le volet rentrant d'environ 3mm et de permuter
+     l'ordre des volets : voir identite-visuelle/README.md.
+
+     Ordre de lecture (accordeon, couverture = volet droit du recto) :
+       RECTO  : [1 dos/contact] [2 pourquoi nous] [3 COUVERTURE]
+       VERSO  : [4 corps de metier] [5 process] [6 operations chiffrees]
+
+     Source de src/documents/plaquette-solybat.pdf. Le PDF n'est pas produit par
+     npm run build : commande de regeneration dans identite-visuelle/README.md.
+     Les chiffres du volet 6 viennent de src/_data/retoursClients.json (agreges par
+     lib/synthese-rentabilite.cjs) et sont ecrits en dur ; tests/plaquette.test.js
+     echoue s'ils se perimen. */
 
   :root {
     --terracotta: #B5502E;
@@ -27,7 +39,7 @@
     --display: 'Fraunces', Georgia, serif;
     --texte: 'Inter', Arial, sans-serif;
 
-    --filet: rgba(107, 74, 50, 0.3);
+    --filet: rgba(107, 74, 50, 0.32);
     --filet-sombre: rgba(246, 241, 231, 0.22);
   }
 
@@ -43,62 +55,74 @@
     print-color-adjust: exact;
   }
 
-  .page {
-    position: relative;
+  .feuille {
+    display: grid;
+    grid-template-columns: 99mm 99mm 99mm;
     width: 297mm;
     height: 210mm;
-    padding: 16mm;
-    background: var(--creme-sable);
     overflow: hidden;
+  }
+
+  .feuille + .feuille { page-break-before: always; }
+  .feuille:last-child { page-break-after: avoid; }
+
+  /* Un volet = une colonne de 99mm. Le padding tient le contenu a distance des
+     plis : 8mm cote pli, 12mm cote bord exterieur de la feuille. */
+  .volet {
+    position: relative;
+    padding: 15mm 8mm;
+    background: var(--creme-sable);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
-  .page + .page { page-break-before: always; }
-  .page:last-child { page-break-after: avoid; }
+  .volet--bord-gauche { padding-left: 12mm; }
+  .volet--bord-droit { padding-right: 12mm; }
+  .volet--sombre { background: var(--anthracite-profond); color: var(--creme-claire); }
 
-  /* ---------------- Page furniture ---------------- */
+  /* ---------------- Titres de volet ---------------- */
 
-  .entete-courante {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--filet);
-    font-size: 8.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--bois-brule);
-  }
-
-  .entete-courante__folio {
-    font-family: var(--display);
+  .volet__surtitre {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 8px;
     font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     color: var(--terracotta);
   }
 
-  /* ---------------- Page 1 : couverture ---------------- */
-
-  .couverture {
-    background: var(--anthracite-profond);
-    color: var(--creme-claire);
-    padding: 22mm 24mm 18mm;
-    justify-content: space-between;
+  .volet__titre {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.25;
+    letter-spacing: -0.022em;
   }
+
+  .volet__filet {
+    width: 26mm;
+    height: 2px;
+    background: var(--terracotta);
+    margin: 11px 0 13px;
+  }
+
+  /* ---------------- Volet 3 : couverture ---------------- */
+
+  .couverture { justify-content: space-between; }
 
   .couverture__sceau {
     display: block;
-    width: 30mm;
+    width: 34mm;
     height: auto;
   }
 
   .couverture__titre {
     font-family: var(--display);
     font-weight: 700;
-    font-size: 58px;
-    line-height: 1.18;
+    font-size: 27px;
+    line-height: 1.24;
     letter-spacing: -0.028em;
   }
 
@@ -108,124 +132,123 @@
   }
 
   .couverture__filet {
-    width: 64mm;
+    width: 30mm;
     height: 2px;
     background: var(--terracotta);
-    margin: 30px 0 18px;
+    margin: 16px 0 13px;
   }
 
   .couverture__objet {
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 10.5px;
+    line-height: 1.65;
     color: rgba(246, 241, 231, 0.78);
   }
 
-  .couverture__pied {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
   .couverture__signature {
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    font-size: 7.5px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(246, 241, 231, 0.5);
   }
 
-  .couverture__contact {
-    text-align: right;
-    font-size: 11.5px;
-    line-height: 1.75;
-    color: rgba(246, 241, 231, 0.9);
+  /* ---------------- Volet 1 : dos / contact ---------------- */
+
+  .dos { justify-content: center; }
+
+  .dos__titre {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.25;
+    letter-spacing: -0.022em;
   }
 
-  .couverture__contact strong {
-    font-weight: 600;
+  .dos__filet {
+    width: 26mm;
+    height: 2px;
+    background: var(--terracotta);
+    margin: 14px 0 18px;
+  }
+
+  .dos__ligne { margin-bottom: 14px; }
+
+  .dos__ligne span {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--terracotta-clair);
   }
 
-  /* ---------------- Titres de page ---------------- */
-
-  .titre-page {
-    margin-top: 14px;
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 29px;
-    letter-spacing: -0.026em;
-  }
-
-  .chapo {
-    margin-top: 9px;
-    max-width: 148mm;
-    font-size: 11.5px;
-    line-height: 1.75;
-    color: var(--anthracite);
-  }
-
-  .surtitre {
-    margin-bottom: 12px;
-    font-size: 8.5px;
+  .dos__ligne strong {
+    font-size: 12.5px;
     font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--terracotta);
   }
 
-  .bloc { margin-top: 26px; }
-
-  /* ---------------- Corps de métier ---------------- */
-
-  .metiers {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 14mm;
-    list-style: none;
+  .dos__zone {
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--filet-sombre);
+    font-size: 9.5px;
+    line-height: 1.6;
+    color: rgba(246, 241, 231, 0.72);
   }
+
+  /* ---------------- Listes ---------------- */
+
+  .metiers { list-style: none; }
 
   .metiers li {
-    padding: 7px 0;
+    padding: 13px 0;
     border-bottom: 1px solid var(--filet);
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 600;
   }
+
+  .metiers li:last-child { border-bottom: none; }
 
   .metiers span {
     display: block;
     margin-top: 2px;
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 400;
     color: var(--bois-brule);
   }
 
-  /* ---------------- Frise process ---------------- */
-
-  .frise {
+  /* Les 4 etapes se repartissent sur toute la hauteur du volet : un demi-volet
+     vide se lisait comme un oubli. Le trait passe donc sur la liste elle-meme,
+     sinon il se briserait entre les elements espaces. */
+  .etapes {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 12mm;
-    padding-top: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    list-style: none;
+    padding-bottom: 4px;
   }
 
-  /* Le trait continu qui relie les 4 étapes : signature de la marque. */
-  .frise::before {
+  .etapes::before {
     content: '';
     position: absolute;
-    top: 5px;
-    left: 0;
-    right: 0;
-    height: 1px;
+    left: 5px;
+    top: 6px;
+    bottom: 10px;
+    width: 1px;
     background: var(--filet);
   }
 
-  .frise__etape { position: relative; }
+  .etapes li {
+    position: relative;
+    padding-left: 21px;
+  }
 
-  .frise__etape::before {
+  .etapes li::before {
     content: '';
     position: absolute;
-    top: -20px;
     left: 0;
+    top: 3px;
     width: 11px;
     height: 11px;
     border-radius: 50%;
@@ -233,188 +256,155 @@
     background: var(--creme-sable);
   }
 
-  .frise__etape::after {
+  .etapes li::after {
     content: '';
     position: absolute;
-    top: -16.5px;
     left: 4px;
-    width: 4px;
-    height: 4px;
+    top: 7px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
     background: var(--olivier);
   }
 
-  .frise__numero {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 11px;
-    color: var(--terracotta);
-  }
-
-  .frise__titre {
-    margin-top: 3px;
+  .etapes strong {
+    display: block;
     font-family: var(--display);
     font-weight: 600;
-    font-size: 15px;
+    font-size: 12.5px;
     letter-spacing: -0.02em;
   }
 
-  .frise__texte {
-    margin-top: 7px;
-    font-size: 10px;
-    line-height: 1.6;
+  .etapes strong b {
+    font-weight: 700;
+    color: var(--terracotta);
   }
 
-  .frise__delai {
-    margin-top: 8px;
-    padding-top: 7px;
-    border-top: 1px solid var(--filet);
-    font-size: 9px;
-    line-height: 1.5;
+  .etapes p {
+    margin-top: 4px;
+    font-size: 9.5px;
+    line-height: 1.55;
+  }
+
+  .etapes em {
+    display: block;
+    margin-top: 4px;
+    font-style: normal;
+    font-size: 8.5px;
     color: var(--bois-brule);
   }
 
-  /* ---------------- Raisons ---------------- */
+  .raisons { list-style: none; }
 
-  .raisons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 12mm;
-    list-style: none;
+  .raisons li {
+    padding: 29px 0;
+    border-bottom: 1px solid var(--filet);
   }
 
-  .raisons li { border-top: 2px solid var(--terracotta); padding-top: 9px; }
+  .raisons li:last-child { border-bottom: none; }
 
   .raisons strong {
     display: block;
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 600;
+    color: var(--terracotta);
   }
 
   .raisons p {
     margin-top: 4px;
     font-size: 9.5px;
     line-height: 1.55;
-    color: var(--bois-brule);
   }
 
-  /* ---------------- Page 3 : chiffres ---------------- */
+  /* ---------------- Volet 6 : les chiffres ---------------- */
 
   .chiffres {
+    list-style: none;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    background: var(--anthracite-profond);
-    color: var(--creme-claire);
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--filet-sombre);
+    border: 1px solid var(--filet-sombre);
   }
 
-  .chiffre { padding: 22px 20px 24px; }
+  .chiffres li {
+    background: var(--anthracite-profond);
+    color: var(--creme-claire);
+    padding: 13px 11px 14px;
+  }
 
-  .chiffre + .chiffre { border-left: 1px solid var(--filet-sombre); }
-
-  .chiffre__valeur {
+  .chiffres strong {
+    display: block;
     font-family: var(--display);
     font-weight: 700;
-    font-size: 38px;
+    font-size: 23px;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: var(--terracotta-clair);
   }
 
-  .chiffre__label {
-    margin-top: 7px;
-    font-size: 9.5px;
-    line-height: 1.5;
+  .chiffres span {
+    display: block;
+    margin-top: 4px;
+    font-size: 7.5px;
+    line-height: 1.45;
     color: rgba(246, 241, 231, 0.82);
   }
 
-  .operations {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 10.5px;
+  .operations { list-style: none; margin-top: 14px; }
+
+  .operations li {
+    padding: 11px 0;
+    border-bottom: 1px solid var(--filet);
   }
 
-  .operations th {
-    padding: 0 0 7px;
-    text-align: left;
-    font-size: 8.5px;
+  .operations li:last-child { border-bottom: none; }
+
+  .operations__bien {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--bois-brule);
-    border-bottom: 1px solid var(--filet);
   }
 
-  .operations td {
-    padding: 13px 0;
-    border-bottom: 1px solid var(--filet);
-  }
-
-  .operations th + th,
-  .operations td + td { padding-left: 6mm; }
-
-  .operations tbody tr:last-child td { border-bottom: none; }
-
-  .operations .num {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .operations .fort {
+  .operations__rendement {
+    flex: none;
     font-family: var(--display);
     font-weight: 700;
     font-size: 13px;
     color: var(--terracotta);
   }
 
-  .note {
-    margin-top: 16px;
-    max-width: 210mm;
-    font-size: 8.5px;
-    line-height: 1.6;
+  .operations__detail {
+    margin-top: 3px;
+    font-size: 9px;
     color: var(--bois-brule);
   }
 
-  /* ---------------- Bande contact ---------------- */
-
-  .contact {
+  .note {
     margin-top: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16mm;
-    background: var(--anthracite-profond);
-    color: var(--creme-claire);
-    padding: 16px 20px;
+    padding-top: 12px;
+    font-size: 7.5px;
+    line-height: 1.55;
+    color: var(--bois-brule);
   }
 
-  .contact__titre {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 19px;
-    letter-spacing: -0.02em;
-  }
-
-  .contact__lignes {
-    display: flex;
-    gap: 12mm;
-    font-size: 11.5px;
-  }
-
-  .contact__lignes span {
-    display: block;
-    font-size: 8.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--terracotta-clair);
-    margin-bottom: 3px;
-  }
-
-  .pied-page {
+  .renvoi {
     margin-top: auto;
-    padding-top: 10px;
-    text-align: right;
-    font-size: 8px;
-    letter-spacing: 0.1em;
+    padding-top: 16px;
+    font-size: 9px;
+    line-height: 1.55;
+  }
+
+  .renvoi strong { color: var(--terracotta); }
+
+  .volet__pied {
+    margin-top: auto;
+    padding-top: 12px;
+    font-size: 7.5px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--bois-brule);
   }
@@ -422,190 +412,150 @@
 </head>
 <body>
 
-<!-- ============ PAGE 1 — COUVERTURE ============ -->
-<section class="page couverture">
-  <img class="couverture__sceau" src="../src/images/logo-solybat.png" alt="Soly'bat">
+<!-- ==================== RECTO (face exterieure) ====================
+     [ volet 1 : dos ] [ volet 2 : pourquoi nous ] [ volet 3 : COUVERTURE ] -->
+<div class="feuille">
 
-  <div>
-    <h1 class="couverture__titre">Un bien à rénover.<br><em>Un bien loué.</em><br>Un seul interlocuteur.</h1>
-    <div class="couverture__filet"></div>
-    <p class="couverture__objet">
-      Plaquette de présentation<br>
-      Agences &amp; gestionnaires de biens
-    </p>
-  </div>
+  <!-- Volet 1 — dos : ce qu'on voit au dos une fois plie -->
+  <section class="volet volet--sombre volet--bord-gauche dos">
+    <p class="dos__titre">Un chantier<br>à nous confier ?</p>
+    <div class="dos__filet"></div>
 
-  <div class="couverture__pied">
-    <p class="couverture__signature">Rénovation &amp; mise en location — Vierzon et les communes alentour</p>
-    <p class="couverture__contact">
-      <strong>06 14 59 13 74</strong><br>
-      solybat@gmail.com<br>
-      solybat18.fr
-    </p>
-  </div>
-</section>
+    <p class="dos__ligne"><span>Téléphone</span><strong>06 14 59 13 74</strong></p>
+    <p class="dos__ligne"><span>Email</span><strong>solybat@gmail.com</strong></p>
+    <p class="dos__ligne"><span>Site</span><strong>solybat18.fr</strong></p>
 
-<!-- ============ PAGE 2 — L'OFFRE ============ -->
-<section class="page">
-  <div class="entete-courante">
-    <span>Soly'bat — Plaquette de présentation</span>
-    <span class="entete-courante__folio">02</span>
-  </div>
+    <p class="dos__zone">Rénovation &amp; mise en location à Vierzon et dans les communes alentour — Bourges, Issoudun, Romorantin-Lanthenay (Cher, Centre-Val de Loire).</p>
+  </section>
 
-  <h2 class="titre-page">Ce que nous prenons en charge</h2>
-  <p class="chapo">Soly'bat prend en charge l'intégralité des travaux nécessaires pour rendre un bien prêt à louer. Un seul interlocuteur, un chantier coordonné, un devis détaillé poste par poste — pour vos biens à remettre en location comme pour vos clients investisseurs.</p>
+  <!-- Volet 2 — pourquoi nous -->
+  <section class="volet">
+    <h2 class="volet__titre"><span class="volet__surtitre">Ce que ça vous apporte</span>Pourquoi Soly'bat</h2>
+    <div class="volet__filet"></div>
 
-  <div class="bloc">
-    <p class="surtitre">Tous corps de métier</p>
-    <ul class="metiers">
-      <li>Maçonnerie <span>Ouverture de mur, cloisons, chape</span></li>
-      <li>Plomberie <span>Sanitaires, cuisine, salle de bain</span></li>
-      <li>Menuiserie intérieure <span>Portes, placards</span></li>
-      <li>Plâtrerie <span>Cloisons placo, faux plafonds</span></li>
-      <li>Chauffage <span>Chaudière, radiateurs</span></li>
-      <li>Peinture &amp; finitions</li>
-      <li>Électricité <span>Mise aux normes, tableau</span></li>
-      <li>Climatisation <span>Pose par nos partenaires certifiés RGE</span></li>
-      <li>Sols &amp; carrelage</li>
-    </ul>
-  </div>
-
-  <div class="bloc">
-    <p class="surtitre">Notre process</p>
-    <div class="frise">
-      <div class="frise__etape">
-        <p class="frise__numero">01</p>
-        <p class="frise__titre">Diagnostic</p>
-        <p class="frise__texte">Visite du bien, évaluation des travaux nécessaires et des contraintes techniques.</p>
-        <p class="frise__delai">Sous 5 jours ouvrés après votre demande.</p>
-      </div>
-      <div class="frise__etape">
-        <p class="frise__numero">02</p>
-        <p class="frise__titre">Devis</p>
-        <p class="frise__texte">Devis détaillé par poste de travaux, délai d'exécution estimé.</p>
-        <p class="frise__delai">Sous 10 jours ouvrés après le diagnostic.</p>
-      </div>
-      <div class="frise__etape">
-        <p class="frise__numero">03</p>
-        <p class="frise__titre">Chantier</p>
-        <p class="frise__texte">Coordination de l'ensemble des corps de métier, suivi régulier communiqué.</p>
-        <p class="frise__delai">Durée estimée dans le devis, selon l'ampleur des travaux.</p>
-      </div>
-      <div class="frise__etape">
-        <p class="frise__numero">04</p>
-        <p class="frise__titre">Remise des clés</p>
-        <p class="frise__texte">Réception des travaux, bien prêt à louer ou à vivre.</p>
-        <p class="frise__delai">État des lieux en main propre.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="bloc">
-    <p class="surtitre">Pourquoi travailler avec Soly'bat</p>
     <ul class="raisons">
       <li>
         <strong>Réactivité sur volume</strong>
-        <p>Même réactivité que vous ayez un bien ou plusieurs chantiers en parallèle.</p>
+        <p>Même réactivité que vous ayez un bien ou plusieurs chantiers à mener en parallèle.</p>
       </li>
       <li>
         <strong>Reporting régulier</strong>
-        <p>Un point d'avancement à chaque étape, sans avoir à relancer.</p>
+        <p>Un point d'avancement communiqué à chaque étape, sans avoir à relancer.</p>
       </li>
       <li>
         <strong>Facturation adaptée</strong>
-        <p>Conditions simplifiées pour les prestataires récurrents.</p>
+        <p>Conditions simplifiées pour les agences et gestionnaires qui nous confient plusieurs chantiers.</p>
       </li>
       <li>
         <strong>Chantier garanti</strong>
-        <p>Décennale et responsabilité civile professionnelle sur l'ensemble des travaux.</p>
+        <p>Assurance décennale et responsabilité civile professionnelle sur l'ensemble des travaux réalisés.</p>
+      </li>
+      <li>
+        <strong>Un seul interlocuteur</strong>
+        <p>Du diagnostic à la remise des clés, la coordination de tous les corps de métier est à notre charge.</p>
       </li>
     </ul>
-  </div>
 
-  <p class="pied-page">Soly'bat — solybat18.fr</p>
-</section>
+    <p class="volet__pied">Soly'bat — solybat18.fr</p>
+  </section>
 
-<!-- ============ PAGE 3 — LA PREUVE CHIFFRÉE ============ -->
-<section class="page">
-  <div class="entete-courante">
-    <span>Soly'bat — Plaquette de présentation</span>
-    <span class="entete-courante__folio">03</span>
-  </div>
+  <!-- Volet 3 — COUVERTURE : le volet visible quand la plaquette est pliee -->
+  <section class="volet volet--sombre volet--bord-droit couverture">
+    <img class="couverture__sceau" src="../src/images/logo-solybat.png" alt="Soly'bat">
 
-  <h2 class="titre-page">8 opérations, chiffrées de bout en bout</h2>
-  <p class="chapo">Huit opérations d'investissement locatif réelles, menées à Vierzon, financées à 100 % (apport 0 €), travaux réalisés par Soly'bat clé en main. Chiffres de l'achat à la mise en location.</p>
-
-  <div class="bloc chiffres">
-    <div class="chiffre">
-      <p class="chiffre__valeur">8</p>
-      <p class="chiffre__label">Opérations livrées et mises en location</p>
+    <div>
+      <h1 class="couverture__titre">Un bien à rénover.<br><em>Un bien loué.</em><br>Un seul interlocuteur.</h1>
+      <div class="couverture__filet"></div>
+      <p class="couverture__objet">Plaquette de présentation<br>Agences &amp; gestionnaires de biens</p>
     </div>
-    <div class="chiffre">
-      <p class="chiffre__valeur">8/8</p>
-      <p class="chiffre__label">En cash-flow positif, avec un DSCR supérieur à 1</p>
-    </div>
-    <div class="chiffre">
-      <p class="chiffre__valeur">12,1 %</p>
-      <p class="chiffre__label">Rentabilité brute moyenne, de 9,75 % à 16,08 %</p>
-    </div>
-    <div class="chiffre">
-      <p class="chiffre__valeur">410 200 €</p>
-      <p class="chiffre__label">De travaux réalisés sur ces opérations</p>
-    </div>
-  </div>
 
-  <div class="bloc">
-    <p class="surtitre">Les trois opérations les plus rentables</p>
-    <table class="operations">
-      <thead>
-        <tr>
-          <th>Bien</th>
-          <th class="num">Coût total</th>
-          <th class="num">Loyer</th>
-          <th class="num">Cash-flow</th>
-          <th class="num">DSCR</th>
-          <th class="num">Rentabilité brute</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Studio 24 m² à rénover intégralement</td>
-          <td class="num">29 860 €</td>
-          <td class="num">400 €/mois</td>
-          <td class="num">73 €/mois</td>
-          <td class="num">1,38</td>
-          <td class="num fort">16,08 %</td>
-        </tr>
-        <tr>
-          <td>T2 48 m² à réhabiliter</td>
-          <td class="num">44 560 €</td>
-          <td class="num">540 €/mois</td>
-          <td class="num">90 €/mois</td>
-          <td class="num">1,33</td>
-          <td class="num fort">14,54 %</td>
-        </tr>
-        <tr>
-          <td>Maison de ville T3, 75 m²</td>
-          <td class="num">69 580 €</td>
-          <td class="num">760 €/mois</td>
-          <td class="num">138 €/mois</td>
-          <td class="num">1,27</td>
-          <td class="num fort">13,11 %</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="note">Cas réels, chiffres réels. Pour préserver la confidentialité de nos clients, les prénoms ont été changés. Hypothèses communes : vacance locative 5 %, cash-flow exprimé net avant impôt (régime fiscal non pris en compte). Le détail des huit opérations est publié sur solybat18.fr/retour-client.</p>
-  </div>
+    <p class="couverture__signature">Rénovation &amp; mise en location</p>
+  </section>
+</div>
 
-  <div class="contact">
-    <p class="contact__titre">Un chantier à nous confier ?</p>
-    <div class="contact__lignes">
-      <p><span>Téléphone</span>06 14 59 13 74</p>
-      <p><span>Email</span>solybat@gmail.com</p>
-      <p><span>Site</span>solybat18.fr</p>
-    </div>
-  </div>
-</section>
+<!-- ==================== VERSO (interieur, se deplie en 3 volets) ====================
+     [ volet 4 : corps de metier ] [ volet 5 : process ] [ volet 6 : operations ] -->
+<div class="feuille">
+
+  <!-- Volet 4 — tous corps de metier -->
+  <section class="volet volet--bord-gauche">
+    <h2 class="volet__titre"><span class="volet__surtitre">Ce que nous faisons</span>Tous corps de métier</h2>
+    <div class="volet__filet"></div>
+
+    <ul class="metiers">
+      <li>Maçonnerie <span>Ouverture de mur, cloisons, chape</span></li>
+      <li>Plâtrerie <span>Cloisons placo, faux plafonds</span></li>
+      <li>Électricité <span>Mise aux normes, tableau</span></li>
+      <li>Plomberie <span>Sanitaires, cuisine, salle de bain</span></li>
+      <li>Chauffage <span>Chaudière, radiateurs</span></li>
+      <li>Climatisation <span>Pose par nos partenaires certifiés RGE</span></li>
+      <li>Menuiserie intérieure <span>Portes, placards</span></li>
+      <li>Peinture &amp; finitions</li>
+      <li>Sols &amp; carrelage</li>
+    </ul>
+
+    <p class="renvoi">Soly'bat prend en charge <strong>l'intégralité des travaux</strong> nécessaires pour rendre un bien prêt à louer : un seul chantier, un seul interlocuteur, un devis détaillé poste par poste.</p>
+  </section>
+
+  <!-- Volet 5 — notre process -->
+  <section class="volet">
+    <h2 class="volet__titre"><span class="volet__surtitre">Comment ça se passe</span>Notre process</h2>
+    <div class="volet__filet"></div>
+
+    <ul class="etapes">
+      <li>
+        <strong><b>01</b> Diagnostic</strong>
+        <p>Visite du bien, évaluation des travaux nécessaires et des contraintes techniques.</p>
+        <em>Sous 5 jours ouvrés après votre demande.</em>
+      </li>
+      <li>
+        <strong><b>02</b> Devis</strong>
+        <p>Devis détaillé par poste de travaux, délai d'exécution estimé.</p>
+        <em>Sous 10 jours ouvrés après le diagnostic.</em>
+      </li>
+      <li>
+        <strong><b>03</b> Chantier</strong>
+        <p>Coordination de l'ensemble des corps de métier, suivi régulier communiqué.</p>
+        <em>Durée estimée dans le devis, selon l'ampleur des travaux.</em>
+      </li>
+      <li>
+        <strong><b>04</b> Remise des clés</strong>
+        <p>Réception des travaux, bien prêt à louer ou à vivre.</p>
+        <em>État des lieux en main propre.</em>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Volet 6 — la preuve chiffree -->
+  <section class="volet volet--bord-droit">
+    <h2 class="volet__titre"><span class="volet__surtitre">Ce que ça donne</span>8 opérations chiffrées</h2>
+    <div class="volet__filet"></div>
+
+    <ul class="chiffres">
+      <li><strong>8</strong><span>Opérations livrées et mises en location</span></li>
+      <li><strong>8/8</strong><span>En cash-flow positif, DSCR supérieur&nbsp;à&nbsp;1</span></li>
+      <li><strong>12,1&nbsp;%</strong><span>Rentabilité brute moyenne, de 9,75&nbsp;% à 16,08&nbsp;%</span></li>
+      <li><strong>410&nbsp;200&nbsp;€</strong><span>De travaux réalisés sur ces opérations</span></li>
+    </ul>
+
+    <ul class="operations">
+      <li>
+        <p class="operations__bien">Studio 24 m² à rénover intégralement <span class="operations__rendement">16,08&nbsp;%</span></p>
+        <p class="operations__detail">29&nbsp;860&nbsp;€ tout compris · loyer 400&nbsp;€/mois · cash-flow +73&nbsp;€/mois</p>
+      </li>
+      <li>
+        <p class="operations__bien">T2 48 m² à réhabiliter <span class="operations__rendement">14,54&nbsp;%</span></p>
+        <p class="operations__detail">44&nbsp;560&nbsp;€ tout compris · loyer 540&nbsp;€/mois · cash-flow +90&nbsp;€/mois</p>
+      </li>
+      <li>
+        <p class="operations__bien">Maison de ville T3, 75 m² <span class="operations__rendement">13,11&nbsp;%</span></p>
+        <p class="operations__detail">69&nbsp;580&nbsp;€ tout compris · loyer 760&nbsp;€/mois · cash-flow +138&nbsp;€/mois</p>
+      </li>
+    </ul>
+
+    <p class="note">Opérations réelles menées à Vierzon, financées à 100 % (apport 0 €), travaux Soly'bat clé en main. Prénoms des clients changés par confidentialité. Hypothèses : vacance locative 5 %, cash-flow net avant impôt. Détail des huit opérations sur solybat18.fr/retour-client.</p>
+  </section>
+</div>
 
 </body>
 </html>
