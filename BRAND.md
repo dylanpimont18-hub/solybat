@@ -8,7 +8,7 @@ Ce document sert de référence unique pour le développement du site (contenu, 
 
 **Nom** : Soly'bat
 **Activité** : Entreprise de BTP / rénovation de biens immobiliers (maison, appartement, immeuble)
-**Zone d'intervention** : rayon d'environ 50 km autour de Vierzon (Cher, Centre-Val de Loire)
+**Zone d'intervention** : Vierzon et les communes alentour (Cher, Centre-Val de Loire) — aucun rayon en kilomètres n'est annoncé sur le site (retiré le 2026-08-24 à la demande du client)
 
 ### Le service phare
 
