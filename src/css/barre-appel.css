@@ -2,7 +2,9 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+/* Même palier que header.css : dès que le lien téléphone du header est replié
+   dans le menu burger, la barre d'appel prend le relais. */
+@media (max-width: 1100px) {
   body {
     padding-bottom: calc(60px + env(safe-area-inset-bottom));
   }

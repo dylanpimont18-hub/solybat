@@ -54,11 +54,19 @@
 .header__nav {
   display: flex;
   align-items: center;
-  gap: var(--espace-md);
+  /* Le nav complet (9 entrées, dont le téléphone et le CTA) ne tient pas dans
+     les 1200px du conteneur avec un écart fixe de 2rem : les liens se
+     compressaient et cassaient chacun en 2 lignes. L'écart se resserre avec la
+     largeur, sans jamais descendre sous 0.9rem. */
+  gap: clamp(0.9rem, 1.5vw, 1.5rem);
+  font-size: var(--texte-sm);
 }
 
 .header__nav a {
   text-decoration: none;
+  /* Garde-fou : un lien compressé couperait son libellé en 2 lignes
+     (« Notre service », « Cas chiffrés », le numéro de téléphone…). */
+  white-space: nowrap;
   color: var(--couleur-anthracite);
   padding-bottom: 4px;
   border-bottom: 2px solid transparent;
@@ -77,7 +85,7 @@
 
 .header__nav a.header__cta {
   color: var(--couleur-creme-claire);
-  padding-bottom: var(--espace-xs);
+  padding: var(--espace-xs) var(--espace-sm);
   border-bottom: none;
 }
 
@@ -99,7 +107,10 @@
   color: var(--couleur-terracotta);
 }
 
-@media (max-width: 768px) {
+/* Palier du menu burger : le nav desktop complet réclame ~935px à côté du logo,
+   il est replié en dessous. Le même palier vaut dans barre-appel.css, pour que
+   la barre d'appel prenne le relais du lien téléphone dès qu'il est replié. */
+@media (max-width: 1100px) {
   .header__menu-toggle {
     display: block;
   }
