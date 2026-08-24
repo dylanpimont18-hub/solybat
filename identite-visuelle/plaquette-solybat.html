@@ -7,36 +7,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Plaquette Soly'bat — DEPLIANT 3 VOLETS, PLI ROULE.
-     A4 paysage recto-verso (2 pages PDF, pas une de plus : c'est UNE feuille
-     imprimee des deux cotes), pliee en 3 en roulant apres impression.
+  /* Plaquette Soly'bat — 3 sections par page, sur 2 pages A4 paysage.
 
-     GEOMETRIE DU PLI ROULE — le volet qui rentre a l'interieur doit etre plus
-     etroit, sinon il bute contre la pliure et fait gondoler la plaquette :
+     Les contraintes d'impression (pli roule, volet rentrant plus etroit, marges
+     de securite autour des pliures) ont ete ecartees a la demande du client le
+     2026-08-24 : les trois sections sont donc d'egale largeur, 99mm chacune, et
+     la premiere page est composee symetriquement — sombre / clair / sombre.
+     Si l'impression pliee revient au programme, il faudra retablir le volet
+     rentrant a 97mm et l'inverser d'une face a l'autre (voir l'historique git,
+     commit « passe la plaquette en pli roule »).
 
-       face INTERIEURE (page 2) : [ 100mm ] [ 100mm ] [ 97mm <- rentrant ]
-       face EXTERIEURE (page 1) : [ 97mm rentrant -> ] [ 100mm ] [ 100mm ]
-
-     Le rentrant est a DROITE a l'interieur et a GAUCHE a l'exterieur : c'est le
-     meme volet physique, et retourner la feuille inverse l'ordre. Total 297mm des
-     deux cotes. Chaque volet garde 8mm de marge de part et d'autre d'une pliure ;
-     rien d'important ne doit traverser un pli.
-
-     ORDRE DE LECTURE (roulage par la droite) :
-       ferme, on voit la COUVERTURE (volet droit de l'exterieur) ;
-       on ouvre le rabat : apparaissent le volet 97mm et le corps de metier ;
-       tout deplie : les 3 volets interieurs se lisent de gauche a droite.
-       Le DOS (contact) est au milieu de l'exterieur : c'est la face qu'on lit
-       en retournant la plaquette fermee.
-
-     Si l'imprimeur roule par la gauche au lieu de la droite, tout est a mettre
-     en miroir : voir identite-visuelle/README.md.
+     Page 1 : [ contact ] [ pourquoi nous ] [ COUVERTURE ]
+     Page 2 : [ corps de metier ] [ process ] [ operations chiffrees ]
 
      Source de src/documents/plaquette-solybat.pdf. Le PDF n'est pas produit par
      npm run build : commande de regeneration dans identite-visuelle/README.md.
-     Les chiffres du volet des operations viennent de src/_data/retoursClients.json
+     Les chiffres des operations viennent de src/_data/retoursClients.json
      (agreges par lib/synthese-rentabilite.cjs) et sont ecrits en dur ;
-     tests/plaquette.test.js echoue s'ils se periment. */
+     tests/plaquette.test.js echoue s'ils se periment.
+
+     Regle editoriale : le NOMBRE d'operations ne doit pas apparaitre (demande du
+     client) — ni dans les titres, ni dans les chiffres agreges, ni dans les
+     renvois. D'ou « 100 % » plutot que « 8/8 ». Un test le verifie. */
 
   :root {
     --terracotta: #B5502E;
@@ -68,21 +60,17 @@
 
   .feuille {
     display: grid;
+    grid-template-columns: 99mm 99mm 99mm;
     width: 297mm;
     height: 210mm;
     overflow: hidden;
   }
 
-  /* Le volet rentrant (97mm) est a gauche a l'exterieur, a droite a l'interieur :
-     meme volet physique, ordre inverse par le retournement de la feuille. */
-  .feuille--exterieur { grid-template-columns: 97mm 100mm 100mm; }
-  .feuille--interieur { grid-template-columns: 100mm 100mm 97mm; }
-
   .feuille + .feuille { page-break-before: always; }
   .feuille:last-child { page-break-after: avoid; }
 
-  /* Un volet = une colonne de 99mm. Le padding tient le contenu a distance des
-     plis : 8mm cote pli, 12mm cote bord exterieur de la feuille. */
+  /* Une section = une colonne de 99mm. Marge plus large sur les bords exterieurs
+     de la page que sur les separations internes, pour que la page respire. */
   .volet {
     position: relative;
     padding: 15mm 8mm;
@@ -345,14 +333,14 @@
   .chiffres li {
     background: var(--anthracite-profond);
     color: var(--creme-claire);
-    padding: 13px 11px 14px;
+    padding: 9px 9px 10px;
   }
 
   .chiffres strong {
     display: block;
     font-family: var(--display);
     font-weight: 700;
-    font-size: 23px;
+    font-size: 18px;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: var(--terracotta-clair);
@@ -366,10 +354,10 @@
     color: rgba(246, 241, 231, 0.82);
   }
 
-  .operations { list-style: none; margin-top: 14px; }
+  .operations { list-style: none; margin-top: 12px; }
 
   .operations li {
-    padding: 11px 0;
+    padding: 6px 0;
     border-bottom: 1px solid var(--filet);
   }
 
@@ -380,7 +368,8 @@
     justify-content: space-between;
     align-items: baseline;
     gap: 6px;
-    font-size: 10px;
+    font-size: 9.5px;
+    line-height: 1.35;
     font-weight: 600;
   }
 
@@ -388,13 +377,13 @@
     flex: none;
     font-family: var(--display);
     font-weight: 700;
-    font-size: 13px;
+    font-size: 11.5px;
     color: var(--terracotta);
   }
 
   .operations__detail {
-    margin-top: 3px;
-    font-size: 9px;
+    margin-top: 2px;
+    font-size: 8px;
     color: var(--bois-brule);
   }
 
@@ -427,13 +416,25 @@
 </head>
 <body>
 
-<!-- ==================== FACE EXTERIEURE ====================
-     [ 97mm rentrant : pourquoi nous ] [ 100mm : dos/contact ] [ 100mm : COUVERTURE ] -->
-<div class="feuille feuille--exterieur">
+<!-- ==================== PAGE 1 ====================
+     [ contact ] [ pourquoi nous ] [ COUVERTURE ] — sombre / clair / sombre -->
+<div class="feuille">
 
-  <!-- Volet rentrant (97mm) : c'est lui qui roule a l'interieur, et le premier
-       qu'on decouvre en ouvrant le rabat de couverture. -->
-  <section class="volet volet--bord-gauche">
+  <!-- Contact : ancre sombre de gauche. -->
+  <section class="volet volet--sombre volet--bord-gauche dos">
+    <p class="dos__titre">Un chantier<br>à nous confier ?</p>
+    <div class="dos__filet"></div>
+
+    <p class="dos__ligne"><span>Téléphone</span><strong>06 14 59 13 74</strong></p>
+    <p class="dos__ligne"><span>Email</span><strong>solybat@gmail.com</strong></p>
+    <p class="dos__ligne"><span>Site</span><strong>solybat18.fr</strong></p>
+
+    <p class="dos__zone">Rénovation &amp; mise en location à Vierzon et dans les communes alentour — Bourges, Issoudun, Romorantin-Lanthenay (Cher, Centre-Val de Loire).</p>
+  </section>
+
+  <!-- Section centrale, claire : c'est elle qui fait respirer la page entre
+       les deux blocs sombres. -->
+  <section class="volet">
     <h2 class="volet__titre"><span class="volet__surtitre">Ce que ça vous apporte</span>Pourquoi Soly'bat</h2>
     <div class="volet__filet"></div>
 
@@ -463,20 +464,7 @@
     <p class="volet__pied">Soly'bat — solybat18.fr</p>
   </section>
 
-  <!-- Dos : au milieu de la face exterieure, donc la face qu'on lit en
-       retournant la plaquette fermee. -->
-  <section class="volet volet--sombre dos">
-    <p class="dos__titre">Un chantier<br>à nous confier ?</p>
-    <div class="dos__filet"></div>
-
-    <p class="dos__ligne"><span>Téléphone</span><strong>06 14 59 13 74</strong></p>
-    <p class="dos__ligne"><span>Email</span><strong>solybat@gmail.com</strong></p>
-    <p class="dos__ligne"><span>Site</span><strong>solybat18.fr</strong></p>
-
-    <p class="dos__zone">Rénovation &amp; mise en location à Vierzon et dans les communes alentour — Bourges, Issoudun, Romorantin-Lanthenay (Cher, Centre-Val de Loire).</p>
-  </section>
-
-  <!-- COUVERTURE : volet droit de l'exterieur, le seul visible plaquette fermee. -->
+  <!-- Couverture : ancre sombre de droite, symetrique du bloc contact. -->
   <section class="volet volet--sombre volet--bord-droit couverture">
     <img class="couverture__sceau" src="../src/images/logo-solybat.png" alt="Soly'bat">
 
@@ -492,7 +480,7 @@
 
 <!-- ==================== FACE INTERIEURE ====================
      [ 100mm : corps de metier ] [ 100mm : process ] [ 97mm rentrant : operations ] -->
-<div class="feuille feuille--interieur">
+<div class="feuille">
 
   <!-- Corps de metier : premier volet decouvert en depliant. -->
   <section class="volet volet--bord-gauche">
@@ -543,36 +531,57 @@
     </ul>
   </section>
 
-  <!-- Preuve chiffree : volet rentrant (97mm), le plus etroit des six. -->
+  <!-- Operations chiffrees. REGLE EDITORIALE : ne jamais annoncer combien il y en a
+       (demande du client) — d'ou « 100 % » et non « 8/8 », et un renvoi sans compte.
+       Un test verifie qu'aucun total ne se glisse ici. -->
   <section class="volet volet--bord-droit">
-    <h2 class="volet__titre"><span class="volet__surtitre">Ce que ça donne</span>8 opérations chiffrées</h2>
+    <h2 class="volet__titre"><span class="volet__surtitre">Ce que ça donne</span>Des opérations chiffrées</h2>
     <div class="volet__filet"></div>
 
     <ul class="chiffres">
-      <li><strong>8</strong><span>Opérations livrées et mises en location</span></li>
-      <li><strong>8/8</strong><span>En cash-flow positif, DSCR supérieur&nbsp;à&nbsp;1</span></li>
+      <li><strong>100&nbsp;%</strong><span>En cash-flow positif, DSCR supérieur&nbsp;à&nbsp;1</span></li>
+      <li><strong>0&nbsp;€</strong><span>D'apport : opérations financées à 100&nbsp;%</span></li>
       <li><strong>12,1&nbsp;%</strong><span>Rentabilité brute moyenne, de 9,75&nbsp;% à 16,08&nbsp;%</span></li>
-      <li><strong>410&nbsp;200&nbsp;€</strong><span>De travaux réalisés sur ces opérations</span></li>
+      <li><strong>410&nbsp;200&nbsp;€</strong><span>De travaux réalisés</span></li>
     </ul>
 
     <ul class="operations">
       <li>
-        <p class="operations__bien">Studio 24 m² à rénover intégralement <span class="operations__rendement">16,08&nbsp;%</span></p>
-        <p class="operations__detail">29&nbsp;860&nbsp;€ tout compris · loyer 400&nbsp;€/mois · cash-flow +73&nbsp;€/mois</p>
+        <p class="operations__bien">Studio 24 m² à rénover intégralement <span class="operations__rendement">16,08 %</span></p>
+        <p class="operations__detail">29 860 € tout compris · loyer 400 €/mois · cash-flow +73 €/mois</p>
       </li>
       <li>
-        <p class="operations__bien">T2 48 m² à réhabiliter <span class="operations__rendement">14,54&nbsp;%</span></p>
-        <p class="operations__detail">44&nbsp;560&nbsp;€ tout compris · loyer 540&nbsp;€/mois · cash-flow +90&nbsp;€/mois</p>
+        <p class="operations__bien">T2 48 m² à réhabiliter <span class="operations__rendement">14,54 %</span></p>
+        <p class="operations__detail">44 560 € tout compris · loyer 540 €/mois · cash-flow +90 €/mois</p>
       </li>
       <li>
-        <p class="operations__bien">Maison de ville T3, 75 m² <span class="operations__rendement">13,11&nbsp;%</span></p>
-        <p class="operations__detail">69&nbsp;580&nbsp;€ tout compris · loyer 760&nbsp;€/mois · cash-flow +138&nbsp;€/mois</p>
+        <p class="operations__bien">Maison de ville T3, 75 m² <span class="operations__rendement">13,11 %</span></p>
+        <p class="operations__detail">69 580 € tout compris · loyer 760 €/mois · cash-flow +138 €/mois</p>
+      </li>
+      <li>
+        <p class="operations__bien">Maison T4, 100 m², rénovation lourde <span class="operations__rendement">11,71 %</span></p>
+        <p class="operations__detail">88 120 € tout compris · loyer 860 €/mois · cash-flow +192 €/mois</p>
+      </li>
+      <li>
+        <p class="operations__bien">Immeuble de rapport 2 lots (studio + T2), 95 m² <span class="operations__rendement">10,87 %</span></p>
+        <p class="operations__detail">102 640 € tout compris · loyer 930 €/mois · cash-flow +99 €/mois</p>
+      </li>
+      <li>
+        <p class="operations__bien">T3 68 m² à restructurer <span class="operations__rendement">10,52 %</span></p>
+        <p class="operations__detail">77 560 € tout compris · loyer 680 €/mois · cash-flow +121 €/mois</p>
+      </li>
+      <li>
+        <p class="operations__bien">Maison T5, 130 m², gros œuvre <span class="operations__rendement">9,88 %</span></p>
+        <p class="operations__detail">114 800 € tout compris · loyer 945 €/mois · cash-flow +168 €/mois</p>
+      </li>
+      <li>
+        <p class="operations__bien">Immeuble de rapport 4 lots (studio + 2×T2 + T3), 220 m² <span class="operations__rendement">9,75 %</span></p>
+        <p class="operations__detail">209 300 € tout compris · loyer 1 700 €/mois · cash-flow +102 €/mois</p>
       </li>
     </ul>
 
-    <p class="note">Opérations réelles menées à Vierzon, financées à 100 % (apport 0 €), travaux Soly'bat clé en main. Prénoms des clients changés par confidentialité. Hypothèses : vacance locative 5 %, cash-flow net avant impôt. Détail des huit opérations sur solybat18.fr/retour-client.</p>
-  </section>
-</div>
+    <p class="note">Opérations réelles menées à Vierzon, travaux Soly'bat clé en main. Prénoms des clients changés par confidentialité. Hypothèses : vacance locative 5 %, cash-flow net avant impôt. Le détail de chaque opération est publié sur solybat18.fr/retour-client.</p>
+  </div>
 
 </body>
 </html>

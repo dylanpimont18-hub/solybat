@@ -10,19 +10,10 @@ Générées le 2026-07-30, à partir de `logo-solybat.png` (recadré/détouré e
 
 - `plaquette-solybat.html` — **source** de `src/documents/plaquette-solybat.pdf` (**dépliant 3 volets** : A4 paysage recto-verso, soit 2 pages PDF, plié en 3 après impression ; lié en téléchargement depuis `/espace-pro/`). Écrite le 2026-08-24 pour pouvoir régénérer la plaquette : le PDF original du 2026-07-30 avait été produit à partir d'un HTML jamais versionné, et il a fallu la refaire pour en retirer la mention « rayon d'environ 50 km » (paragraphe de couverture **et** carte-chiffre « 50 km », remplacée par « 9 corps de métier », le compte exact de la liste de `/renovation-location/`). Toute modification future passe par ce fichier, plus par le PDF.
 - Refonte du 2026-08-24 (rendu jugé pas assez haut de gamme).
-- **Pli roulé** (confirmé par le client le 2026-08-24), roulage par la droite.
-- **Géométrie — les volets ne font pas tous la même largeur.** En pli roulé, le volet qui rentre à l'intérieur doit être plus étroit, sinon il bute contre la pliure et fait gondoler la plaquette :
-
-```
-face EXTÉRIEURE (page 1) : [ 97mm rentrant ] [ 100mm dos ] [ 100mm COUVERTURE ]
-face INTÉRIEURE (page 2) : [ 100mm métiers ] [ 100mm process ] [ 97mm rentrant ]
-```
-
-  **Le rentrant est à droite à l'intérieur et à gauche à l'extérieur** : c'est le même volet physique, et retourner la feuille inverse l'ordre. C'est l'erreur classique — mettre le volet étroit du même côté sur les deux faces donne une plaquette dont le contenu ne tombe pas en face des plis. Total 297 mm des deux côtés (`.feuille--exterieur` / `.feuille--interieur` dans le HTML).
-- Chaque volet garde **8 mm de marge de part et d'autre d'une pliure** ; rien d'important ne doit traverser un pli. C'est la contrainte qui commande toute la mise en page : le tableau à 6 colonnes de la version précédente ne tenait pas dans 97 mm, il a fallu le passer en lignes compactes.
-- **Ordre de lecture** : fermée, on voit la couverture (volet droit de l'extérieur) ; on retourne, on lit le dos (volet du milieu) ; on ouvre le rabat, le volet 97 mm apparaît ; tout déplié, les 3 volets intérieurs se lisent de gauche à droite.
-- **Si l'imprimeur roule par la gauche** et non par la droite, tout est à mettre en miroir : permuter les colonnes de chaque face et échanger les deux `grid-template-columns`.
-- **Les chiffres du volet 6 sont écrits en dur** et vérifiés par `tests/plaquette.test.js` : si `retoursClients.json` bouge, `npm test` échoue et rappelle de regénérer le PDF.
+- **Les contraintes d'impression ont été écartées** par le client le 2026-08-24 : les 3 sections de chaque page font désormais la **même largeur (99 mm)** et la page 1 est composée symétriquement — sombre / clair / sombre. Si l'impression pliée revient au programme, la géométrie de pli roulé (volet rentrant à 97 mm, inversé d'une face à l'autre) est récupérable dans l'historique git, commit « passe la plaquette en pli roulé ».
+- **Règle éditoriale** : le **nombre d'opérations ne doit jamais apparaître** (demande du client) — ni en titre, ni en ratio « 8/8 », ni en renvoi « les huit opérations ». D'où « 100 % » pour le cash-flow positif et le DSCR. `tests/plaquette.test.js` vérifie qu'aucun compte ne se glisse dans le texte imprimé — il retire d'abord le bloc `<style>` et les commentaires HTML, qui eux documentent la règle et citent donc les tournures interdites.
+- **Toutes les opérations de `retoursClients.json` sont listées**, pas seulement les trois meilleures : en ajouter une fait échouer `npm test` tant qu'elle n'est pas reportée dans la plaquette.
+- **Les chiffres sont écrits en dur** et vérifiés par `tests/plaquette.test.js` : si `retoursClients.json` bouge, `npm test` échoue et rappelle de regénérer le PDF.
 - **Remplissage des volets mesuré** au navigateur avant chaque tirage (`.volet` : `scrollHeight` vs `clientHeight`) : les volets sont en `overflow: hidden`, donc un dépassement serait **rogné sans aucun avertissement**. Au dernier contrôle : 93 % de remplissage sur 5 volets, 69 % sur le dos (centré, volontaire), 0 rognage.
 - Régénération (le PDF n'est pas produit par `npm run build`, il faut relancer la commande à la main) :
 
