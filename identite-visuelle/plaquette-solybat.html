@@ -7,25 +7,36 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Plaquette Soly'bat — DEPLIANT 3 VOLETS.
-     A4 paysage recto-verso (2 pages, pas une de plus : c'est UNE feuille imprimee
-     des deux cotes), pliee en 3 apres impression.
+  /* Plaquette Soly'bat — DEPLIANT 3 VOLETS, PLI ROULE.
+     A4 paysage recto-verso (2 pages PDF, pas une de plus : c'est UNE feuille
+     imprimee des deux cotes), pliee en 3 en roulant apres impression.
 
-     Geometrie : 297mm / 3 = 99mm par volet. Chaque volet garde 8mm de marge de
-     part et d'autre du pli — rien d'important ne doit traverser une pliure.
-     Pli suppose : ACCORDEON (zigzag), volets d'egale largeur. Un pli roule
-     demanderait de rétrécir le volet rentrant d'environ 3mm et de permuter
-     l'ordre des volets : voir identite-visuelle/README.md.
+     GEOMETRIE DU PLI ROULE — le volet qui rentre a l'interieur doit etre plus
+     etroit, sinon il bute contre la pliure et fait gondoler la plaquette :
 
-     Ordre de lecture (accordeon, couverture = volet droit du recto) :
-       RECTO  : [1 dos/contact] [2 pourquoi nous] [3 COUVERTURE]
-       VERSO  : [4 corps de metier] [5 process] [6 operations chiffrees]
+       face INTERIEURE (page 2) : [ 100mm ] [ 100mm ] [ 97mm <- rentrant ]
+       face EXTERIEURE (page 1) : [ 97mm rentrant -> ] [ 100mm ] [ 100mm ]
+
+     Le rentrant est a DROITE a l'interieur et a GAUCHE a l'exterieur : c'est le
+     meme volet physique, et retourner la feuille inverse l'ordre. Total 297mm des
+     deux cotes. Chaque volet garde 8mm de marge de part et d'autre d'une pliure ;
+     rien d'important ne doit traverser un pli.
+
+     ORDRE DE LECTURE (roulage par la droite) :
+       ferme, on voit la COUVERTURE (volet droit de l'exterieur) ;
+       on ouvre le rabat : apparaissent le volet 97mm et le corps de metier ;
+       tout deplie : les 3 volets interieurs se lisent de gauche a droite.
+       Le DOS (contact) est au milieu de l'exterieur : c'est la face qu'on lit
+       en retournant la plaquette fermee.
+
+     Si l'imprimeur roule par la gauche au lieu de la droite, tout est a mettre
+     en miroir : voir identite-visuelle/README.md.
 
      Source de src/documents/plaquette-solybat.pdf. Le PDF n'est pas produit par
      npm run build : commande de regeneration dans identite-visuelle/README.md.
-     Les chiffres du volet 6 viennent de src/_data/retoursClients.json (agreges par
-     lib/synthese-rentabilite.cjs) et sont ecrits en dur ; tests/plaquette.test.js
-     echoue s'ils se perimen. */
+     Les chiffres du volet des operations viennent de src/_data/retoursClients.json
+     (agreges par lib/synthese-rentabilite.cjs) et sont ecrits en dur ;
+     tests/plaquette.test.js echoue s'ils se periment. */
 
   :root {
     --terracotta: #B5502E;
@@ -57,11 +68,15 @@
 
   .feuille {
     display: grid;
-    grid-template-columns: 99mm 99mm 99mm;
     width: 297mm;
     height: 210mm;
     overflow: hidden;
   }
+
+  /* Le volet rentrant (97mm) est a gauche a l'exterieur, a droite a l'interieur :
+     meme volet physique, ordre inverse par le retournement de la feuille. */
+  .feuille--exterieur { grid-template-columns: 97mm 100mm 100mm; }
+  .feuille--interieur { grid-template-columns: 100mm 100mm 97mm; }
 
   .feuille + .feuille { page-break-before: always; }
   .feuille:last-child { page-break-after: avoid; }
@@ -412,24 +427,13 @@
 </head>
 <body>
 
-<!-- ==================== RECTO (face exterieure) ====================
-     [ volet 1 : dos ] [ volet 2 : pourquoi nous ] [ volet 3 : COUVERTURE ] -->
-<div class="feuille">
+<!-- ==================== FACE EXTERIEURE ====================
+     [ 97mm rentrant : pourquoi nous ] [ 100mm : dos/contact ] [ 100mm : COUVERTURE ] -->
+<div class="feuille feuille--exterieur">
 
-  <!-- Volet 1 — dos : ce qu'on voit au dos une fois plie -->
-  <section class="volet volet--sombre volet--bord-gauche dos">
-    <p class="dos__titre">Un chantier<br>à nous confier ?</p>
-    <div class="dos__filet"></div>
-
-    <p class="dos__ligne"><span>Téléphone</span><strong>06 14 59 13 74</strong></p>
-    <p class="dos__ligne"><span>Email</span><strong>solybat@gmail.com</strong></p>
-    <p class="dos__ligne"><span>Site</span><strong>solybat18.fr</strong></p>
-
-    <p class="dos__zone">Rénovation &amp; mise en location à Vierzon et dans les communes alentour — Bourges, Issoudun, Romorantin-Lanthenay (Cher, Centre-Val de Loire).</p>
-  </section>
-
-  <!-- Volet 2 — pourquoi nous -->
-  <section class="volet">
+  <!-- Volet rentrant (97mm) : c'est lui qui roule a l'interieur, et le premier
+       qu'on decouvre en ouvrant le rabat de couverture. -->
+  <section class="volet volet--bord-gauche">
     <h2 class="volet__titre"><span class="volet__surtitre">Ce que ça vous apporte</span>Pourquoi Soly'bat</h2>
     <div class="volet__filet"></div>
 
@@ -459,7 +463,20 @@
     <p class="volet__pied">Soly'bat — solybat18.fr</p>
   </section>
 
-  <!-- Volet 3 — COUVERTURE : le volet visible quand la plaquette est pliee -->
+  <!-- Dos : au milieu de la face exterieure, donc la face qu'on lit en
+       retournant la plaquette fermee. -->
+  <section class="volet volet--sombre dos">
+    <p class="dos__titre">Un chantier<br>à nous confier ?</p>
+    <div class="dos__filet"></div>
+
+    <p class="dos__ligne"><span>Téléphone</span><strong>06 14 59 13 74</strong></p>
+    <p class="dos__ligne"><span>Email</span><strong>solybat@gmail.com</strong></p>
+    <p class="dos__ligne"><span>Site</span><strong>solybat18.fr</strong></p>
+
+    <p class="dos__zone">Rénovation &amp; mise en location à Vierzon et dans les communes alentour — Bourges, Issoudun, Romorantin-Lanthenay (Cher, Centre-Val de Loire).</p>
+  </section>
+
+  <!-- COUVERTURE : volet droit de l'exterieur, le seul visible plaquette fermee. -->
   <section class="volet volet--sombre volet--bord-droit couverture">
     <img class="couverture__sceau" src="../src/images/logo-solybat.png" alt="Soly'bat">
 
@@ -473,11 +490,11 @@
   </section>
 </div>
 
-<!-- ==================== VERSO (interieur, se deplie en 3 volets) ====================
-     [ volet 4 : corps de metier ] [ volet 5 : process ] [ volet 6 : operations ] -->
-<div class="feuille">
+<!-- ==================== FACE INTERIEURE ====================
+     [ 100mm : corps de metier ] [ 100mm : process ] [ 97mm rentrant : operations ] -->
+<div class="feuille feuille--interieur">
 
-  <!-- Volet 4 — tous corps de metier -->
+  <!-- Corps de metier : premier volet decouvert en depliant. -->
   <section class="volet volet--bord-gauche">
     <h2 class="volet__titre"><span class="volet__surtitre">Ce que nous faisons</span>Tous corps de métier</h2>
     <div class="volet__filet"></div>
@@ -497,7 +514,7 @@
     <p class="renvoi">Soly'bat prend en charge <strong>l'intégralité des travaux</strong> nécessaires pour rendre un bien prêt à louer : un seul chantier, un seul interlocuteur, un devis détaillé poste par poste.</p>
   </section>
 
-  <!-- Volet 5 — notre process -->
+  <!-- Process : volet central de la face interieure. -->
   <section class="volet">
     <h2 class="volet__titre"><span class="volet__surtitre">Comment ça se passe</span>Notre process</h2>
     <div class="volet__filet"></div>
@@ -526,7 +543,7 @@
     </ul>
   </section>
 
-  <!-- Volet 6 — la preuve chiffree -->
+  <!-- Preuve chiffree : volet rentrant (97mm), le plus etroit des six. -->
   <section class="volet volet--bord-droit">
     <h2 class="volet__titre"><span class="volet__surtitre">Ce que ça donne</span>8 opérations chiffrées</h2>
     <div class="volet__filet"></div>

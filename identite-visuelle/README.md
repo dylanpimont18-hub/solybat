@@ -10,9 +10,18 @@ Générées le 2026-07-30, à partir de `logo-solybat.png` (recadré/détouré e
 
 - `plaquette-solybat.html` — **source** de `src/documents/plaquette-solybat.pdf` (**dépliant 3 volets** : A4 paysage recto-verso, soit 2 pages PDF, plié en 3 après impression ; lié en téléchargement depuis `/espace-pro/`). Écrite le 2026-08-24 pour pouvoir régénérer la plaquette : le PDF original du 2026-07-30 avait été produit à partir d'un HTML jamais versionné, et il a fallu la refaire pour en retirer la mention « rayon d'environ 50 km » (paragraphe de couverture **et** carte-chiffre « 50 km », remplacée par « 9 corps de métier », le compte exact de la liste de `/renovation-location/`). Toute modification future passe par ce fichier, plus par le PDF.
 - Refonte du 2026-08-24 (rendu jugé pas assez haut de gamme).
-- **Géométrie du pli** : 297 mm / 3 = **99 mm par volet**, et chaque volet garde **8 mm de marge de part et d'autre d'une pliure** — rien d'important ne doit traverser un pli. C'est la contrainte qui commande toute la mise en page : un tableau large ou un titre qui enjambe une pliure devient illisible une fois plié.
-- **Pli supposé : accordéon (zigzag), volets d'égale largeur.** Si l'imprimeur fait un **pli roulé**, deux choses changent : le volet rentrant doit être rétréci d'environ 3 mm (99/99/96) sinon il gondole, et l'ordre des volets doit être permuté. À confirmer avec l'imprimeur avant tirage.
-- **Ordre de lecture actuel** — recto : `[1 dos/contact] [2 pourquoi nous] [3 COUVERTURE]` ; verso : `[4 corps de métier] [5 process] [6 opérations chiffrées]`. Le volet 3 est celui qu'on voit plaquette fermée, le volet 1 celui du dos.
+- **Pli roulé** (confirmé par le client le 2026-08-24), roulage par la droite.
+- **Géométrie — les volets ne font pas tous la même largeur.** En pli roulé, le volet qui rentre à l'intérieur doit être plus étroit, sinon il bute contre la pliure et fait gondoler la plaquette :
+
+```
+face EXTÉRIEURE (page 1) : [ 97mm rentrant ] [ 100mm dos ] [ 100mm COUVERTURE ]
+face INTÉRIEURE (page 2) : [ 100mm métiers ] [ 100mm process ] [ 97mm rentrant ]
+```
+
+  **Le rentrant est à droite à l'intérieur et à gauche à l'extérieur** : c'est le même volet physique, et retourner la feuille inverse l'ordre. C'est l'erreur classique — mettre le volet étroit du même côté sur les deux faces donne une plaquette dont le contenu ne tombe pas en face des plis. Total 297 mm des deux côtés (`.feuille--exterieur` / `.feuille--interieur` dans le HTML).
+- Chaque volet garde **8 mm de marge de part et d'autre d'une pliure** ; rien d'important ne doit traverser un pli. C'est la contrainte qui commande toute la mise en page : le tableau à 6 colonnes de la version précédente ne tenait pas dans 97 mm, il a fallu le passer en lignes compactes.
+- **Ordre de lecture** : fermée, on voit la couverture (volet droit de l'extérieur) ; on retourne, on lit le dos (volet du milieu) ; on ouvre le rabat, le volet 97 mm apparaît ; tout déplié, les 3 volets intérieurs se lisent de gauche à droite.
+- **Si l'imprimeur roule par la gauche** et non par la droite, tout est à mettre en miroir : permuter les colonnes de chaque face et échanger les deux `grid-template-columns`.
 - **Les chiffres du volet 6 sont écrits en dur** et vérifiés par `tests/plaquette.test.js` : si `retoursClients.json` bouge, `npm test` échoue et rappelle de regénérer le PDF.
 - **Remplissage des volets mesuré** au navigateur avant chaque tirage (`.volet` : `scrollHeight` vs `clientHeight`) : les volets sont en `overflow: hidden`, donc un dépassement serait **rogné sans aucun avertissement**. Au dernier contrôle : 93 % de remplissage sur 5 volets, 69 % sur le dos (centré, volontaire), 0 rognage.
 - Régénération (le PDF n'est pas produit par `npm run build`, il faut relancer la commande à la main) :
