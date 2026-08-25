@@ -7,6 +7,16 @@
   user-select: none;
 }
 
+/* Les seules vraies photos avant/apres dont on dispose sont en portrait
+   (675x1200 et 900x1200). Dans le cadre 4/3 par defaut, `object-fit: cover`
+   n'en montre qu'une bande horizontale : cette variante leur rend un cadre a
+   leur format. */
+.slider-avant-apres--portrait {
+  aspect-ratio: 3 / 4;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
 .slider-avant-apres__calque {
   position: absolute;
   inset: 0;

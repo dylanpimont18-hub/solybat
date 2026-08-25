@@ -1,0 +1,28 @@
+---
+layout: layouts/base.njk
+titre: "Faire analyser la rentabilité de mon projet"
+description: "Soumettez votre projet d'investissement locatif : rentabilité brute, cash-flow et DSCR calculés avec notre partenaire Spark Cash Flow."
+---
+{% from "composants/sceau.njk" import sceau %}
+<section class="conteneur devis">
+  <div class="devis__formulaire">
+    <h1>Faire analyser mon projet</h1>
+    <p>Décrivez le bien que vous envisagez d'acheter : nous le chiffrons avec notre partenaire <strong>Spark Cash Flow</strong> et vous renvoyons rentabilité brute, cash-flow net avant impôt et DSCR, travaux compris.</p>
+    {% include "composants/formulaire-analyse.njk" %}
+  </div>
+
+  <aside class="devis__reassurance">
+    <div class="entete-page">
+      {{ sceau(32, decoratif=true) }}
+      <h2>Ce que vous recevez</h2>
+    </div>
+    <ul>
+      <li>La rentabilité brute du bien, travaux inclus</li>
+      <li>Le cash-flow net avant impôt, mois par mois</li>
+      <li>Le DSCR, soit la capacité du loyer à couvrir la mensualité</li>
+      <li>La même méthode que celle des <a href="{{ '/retour-client/' | url }}">opérations déjà publiées</a></li>
+    </ul>
+    <p class="devis__appel">Vous préférez écrire directement ? <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p class="devis__appel">Besoin d'un devis travaux plutôt qu'une analyse ? <a href="{{ '/devis/' | url }}">Demander un devis</a></p>
+  </aside>
+</section>

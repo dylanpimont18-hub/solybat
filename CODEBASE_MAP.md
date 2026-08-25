@@ -121,6 +121,18 @@ Accueil : **hero 3D** (`composants/hero-3d.njk`, maquette WebGL + titre en 3 lig
 ## src/renovation-location.njk
 Hero-photos (sous-titre citant explicitement les corps de métier, CTA devis + appel — absent avant, ajouté pour cohérence conversion avec les autres heros) + section "Tous corps de métier, un seul interlocuteur" (`.liste-corps-de-metier`, 9 corps de métier dont maçonnerie/plâtrerie/climatisation) + présentation de l'offre avec onglets par profil (agence/investisseur/particulier), pattern ARIA Tabs complet (voir `js/onglets.js`). Climatisation ajoutée (pose via partenaires certifiés RGE) suite à une demande client de mise en avant de ce nouveau service. Le panneau investisseur pointe vers `/retour-client/` ("Voir des cas chiffrés").
 
+## src/analyse-rentabilite.njk
+Formulaire de demande d'analyse de rentabilité (partenaire Spark Cash Flow). Poste sur le **même** `traiter-devis.php` que le devis, distingué par un champ caché `type=analyse` : un seul point d'entrée PHP, donc un seul honeypot et un seul nettoyage anti-injection d'en-têtes à garder corrects. Réutilise la classe `.formulaire-devis` (même apparence, pas de CSS en double). Champs exigés : nom, email, ville, bien, prix d'achat — ni profil ni message, contrairement au devis.
+
+## src/_includes/composants/formulaire-analyse.njk
+Le formulaire ci-dessus. Le champ `type` en `<input type="hidden">` est ce qui aiguille tout le backend.
+
+## src/js/form-analyse.js
+`validerAnalyse(donnees)` pure + `initFormAnalyse()`. Module séparé de `form-devis.js` : les deux formulaires n'exigent pas les mêmes champs, et fusionner les règles rendrait chacune plus difficile à vérifier. Gère aussi `?erreur=envoi`, renvoyé quand `mail()` échoue côté serveur.
+
+## src/_includes/composants/slider-avant-apres.njk
+Macro `sliderAvantApres(avant, apres, titre, prioritaire, variante)`, extraite de `realisations/projet.njk` le 2026-08-25 pour servir aussi sur l'accueil. Le `clip-path` initial est écrit en dur dans le style inline pour que le curseur soit au milieu **avant même que le JS tourne**. Variante `slider-avant-apres--portrait` : les seules vraies photos avant/après disponibles sont en portrait (675×1200, 900×1200), et le cadre 4/3 par défaut n'en montrait qu'une bande horizontale via `object-fit: cover`.
+
 ## src/retour-client.njk
 Se termine par l'encart **partenaire Spark Cash Flow** (`.partenaire`), seule invitation à agir de la page — elle n'en avait aucune, alors que c'est la page la plus convaincante du site. Son lien `mailto:` porte un **objet et un corps pré-remplis distincts** de ceux des autres contacts, pour qu'une demande d'analyse arrive identifiable à la réception. Ils passent par le filtre Nunjucks `urlencode` (et `trim` sur le corps) : échapper à la main casserait le lien en silence dès le premier accent ou retour à la ligne.
 

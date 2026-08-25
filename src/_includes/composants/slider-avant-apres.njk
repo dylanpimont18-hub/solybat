@@ -1,0 +1,17 @@
+{#
+  Comparateur avant/après. Extrait de realisations/projet.njk le 2026-08-25 pour
+  servir aussi sur l'accueil : le balisage est délicat (clip-path initial en dur
+  pour que le curseur soit au milieu avant même que le JS tourne) et le
+  dupliquer aurait fait diverger les deux copies.
+
+  `prioritaire` ne doit être vrai que si le slider est l'image LCP de la page.
+#}
+{% macro sliderAvantApres(avant, apres, titre, prioritaire=false, variante="") %}
+{% set dimAvant = ('/images/realisations/' + avant) | dimensionsImage %}
+{% set dimApres = ('/images/realisations/' + apres) | dimensionsImage %}
+<div class="slider-avant-apres {{ variante }}" data-slider-avant-apres>
+  <img class="slider-avant-apres__calque" src="{{ ('/images/realisations/' + avant) | url }}" alt="{{ titre }} — avant" {% if dimAvant %}width="{{ dimAvant.largeur }}" height="{{ dimAvant.hauteur }}"{% endif %} {% if prioritaire %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+  <img class="slider-avant-apres__calque" data-slider-apres src="{{ ('/images/realisations/' + apres) | url }}" alt="{{ titre }} — après" {% if dimApres %}width="{{ dimApres.largeur }}" height="{{ dimApres.hauteur }}"{% endif %} {% if not prioritaire %}loading="lazy"{% endif %} style="clip-path: inset(0 0 0 50%);" decoding="async">
+  <div class="slider-avant-apres__curseur" data-slider-curseur tabindex="0" role="slider" aria-orientation="horizontal" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></div>
+</div>
+{% endmacro %}

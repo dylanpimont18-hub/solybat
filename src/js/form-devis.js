@@ -53,6 +53,16 @@ export function initFormDevis() {
   });
 
   const parametres = new URLSearchParams(window.location.search);
+
+  /* L'envoi du mail a echoue cote serveur : on le dit, plutot que de laisser
+     croire a un succes, et on donne l'adresse de repli. */
+  if (parametres.get('erreur') === 'envoi') {
+    zoneErreurs.hidden = false;
+    zoneErreurs.textContent =
+      "L'envoi a échoué. Merci de nous écrire directement à contact@solybat18.fr, nous vous répondrons aussi vite.";
+    return;
+  }
+
   if (parametres.get('erreur') === '1') {
     const profil = parametres.get('profil');
     if (profil) selectionnerProfil(profil);

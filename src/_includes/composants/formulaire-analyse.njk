@@ -1,0 +1,45 @@
+{# Formulaire de demande d'analyse de rentabilité. Il poste sur le même
+   traiter-devis.php que le formulaire de devis, distingué par le champ caché
+   `type` : un seul point d'entrée PHP, donc un seul honeypot et un seul
+   nettoyage anti-injection d'en-têtes à garder corrects.
+   Il réutilise volontairement la classe .formulaire-devis : même apparence,
+   aucun CSS en double à maintenir. #}
+<form class="formulaire-devis" data-formulaire-analyse method="POST" action="{{ '/traiter-devis.php' | url }}" novalidate>
+  <input type="hidden" name="type" value="analyse">
+
+  <p class="formulaire-devis__erreurs" data-formulaire-erreurs hidden></p>
+
+  <label for="analyse-nom">Nom</label>
+  <input type="text" id="analyse-nom" name="nom" required>
+
+  <label for="analyse-email">Email</label>
+  <input type="email" id="analyse-email" name="email" required>
+
+  <label for="analyse-telephone">Téléphone (facultatif)</label>
+  <input type="tel" id="analyse-telephone" name="telephone">
+
+  <label for="analyse-ville">Ville ou secteur du bien</label>
+  <input type="text" id="analyse-ville" name="ville" required>
+
+  <label for="analyse-bien">Type et surface du bien</label>
+  <input type="text" id="analyse-bien" name="bien" placeholder="T2, 48 m²" required>
+
+  <label for="analyse-prix_achat">Prix d'achat envisagé</label>
+  <input type="text" id="analyse-prix_achat" name="prix_achat" placeholder="45 000 €" required>
+
+  <label for="analyse-travaux">Travaux à prévoir (facultatif)</label>
+  <input type="text" id="analyse-travaux" name="travaux" placeholder="Estimation, ou description rapide">
+
+  <label for="analyse-loyer">Loyer attendu (facultatif)</label>
+  <input type="text" id="analyse-loyer" name="loyer" placeholder="540 €/mois">
+
+  <label for="analyse-message">Précisions (facultatif)</label>
+  <textarea id="analyse-message" name="message"></textarea>
+
+  <div style="display:none" aria-hidden="true">
+    <label for="analyse-site-web">Laisser ce champ vide</label>
+    <input type="text" id="analyse-site-web" name="site_web" tabindex="-1" autocomplete="off">
+  </div>
+
+  <button type="submit" class="bouton bouton--principal">Envoyer ma demande d'analyse</button>
+</form>

@@ -19,6 +19,7 @@ photosPreuve:
 {% from "composants/hero-3d.njk" import hero3d %}
 {% from "composants/bande-photos.njk" import bandePhotos %}
 {% from "composants/bloc-rentabilite.njk" import blocRentabilite %}
+{% from "composants/slider-avant-apres.njk" import sliderAvantApres %}
 
 {% set lignesTitre = [
   { texte: "Un bien à rénover." },
@@ -45,6 +46,22 @@ photosPreuve:
     <p>Pas de photothèque, pas de rendu d'agence : des pièces que nous avons livrées, telles qu'elles sont le jour de la réception.</p>
   </div>
   {{ bandePhotos(photosPreuve) }}
+</section>
+
+{# Un vrai chantier Soly'bat, photographie avant et apres. Les deux prises de
+   vue n'ont pas le meme cadrage — carrelage en cours de pose d'un cote, piece
+   finie de l'autre : c'est ce dont on dispose en photos reelles, et mieux vaut
+   ca qu'un rendu genere. #}
+<section class="conteneur">
+  <div class="section__entete" data-reveal>
+    <p class="surtitre">Avant / après</p>
+    <h2>Le même chantier, avant et après nos travaux</h2>
+    <p>Salle de bain refaite intégralement à Mehun-sur-Yèvre. Faites glisser le curseur.</p>
+  </div>
+  <div data-reveal>
+    {{ sliderAvantApres("mehun-sur-yevre-avant.jpg", "mehun-sur-yevre-apres.jpg", "Salle de bain à Mehun-sur-Yèvre", variante="slider-avant-apres--portrait") }}
+  </div>
+  <p class="section__pied" data-reveal><a href="{{ '/realisations/maison-mitoyenne-mehun-sur-yevre/' | url }}">Voir cette réalisation &rarr;</a></p>
 </section>
 
 {{ blocRentabilite(syntheseRentabilite, "/retour-client/") }}
