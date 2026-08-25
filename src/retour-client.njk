@@ -39,4 +39,34 @@ description: "8 opérations réelles d'investissement locatif à Vierzon, chiffr
   </div>
 
   <p class="retour-client__disclaimer">Ces opérations sont réelles, mais ne constituent pas une garantie d'obtention de financement à 100 % pour votre propre projet : chaque banque évalue le dossier de l'emprunteur, pas seulement le DSCR du bien.</p>
+
+  {#
+    Objet et corps distincts de ceux des autres liens de contact du site : une
+    demande d'analyse arrive ainsi identifiable dès la boîte de réception, sans
+    être confondue avec une demande de devis travaux. On passe par `urlencode`
+    plutôt que d'échapper à la main, sinon les accents et les retours à la ligne
+    cassent le lien silencieusement.
+  #}
+  {% set sujetAnalyse = "Analyse de rentabilité — Spark Cash Flow" %}
+  {%- set corpsAnalyse -%}
+Bonjour,
+
+Je souhaite faire analyser la rentabilité d'un projet d'investissement locatif.
+
+Bien concerné (ville, type, surface) :
+Prix d'achat envisagé :
+Travaux à prévoir :
+Loyer estimé :
+
+Merci de me recontacter.
+  {%- endset -%}
+
+  <aside class="partenaire" data-reveal>
+    <p class="partenaire__mention">Analyse réalisée avec notre partenaire <strong>Spark Cash Flow</strong></p>
+    <p>Chaque opération est chiffrée puis vérifiée avec eux : rentabilité brute, cash-flow net avant impôt et DSCR suivent la même méthode d'un dossier à l'autre. Vous pouvez leur soumettre le vôtre.</p>
+    <p class="partenaire__action">
+      <a class="bouton bouton--principal" href="mailto:{{ site.email }}?subject={{ sujetAnalyse | urlencode }}&amp;body={{ corpsAnalyse | trim | urlencode }}">Faire analyser mon projet</a>
+      <span>ou écrivez à <a href="mailto:{{ site.email }}">{{ site.email }}</a></span>
+    </p>
+  </aside>
 </section>

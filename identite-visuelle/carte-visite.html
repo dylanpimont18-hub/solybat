@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Carte de visite — Soly'bat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Carte de visite Soly'bat — recto + verso, 1004x650 px (85x55 mm a 300 dpi,
+     sans fond perdu : l'imprimeur l'ajoute si besoin).
+
+     Cette source a ete ecrite le 2026-08-25 : les PNG du 2026-07-30 avaient ete
+     produits a partir d'un HTML jamais versionne, et la carte est restee
+     perimee — elle affichait encore « rayon de 50 km » et l'ancienne adresse
+     gmail, en contradiction avec le site. Ne plus jamais retoucher les PNG
+     directement : editer ce fichier et regenerer (commande dans README.md).
+
+     Carte volontairement generique : ni nom de personne, ni adresse postale. */
+
+  :root {
+    --terracotta: #B5502E;
+    --terracotta-clair: #E08A63;
+    --bois-brule: #6B4A32;
+    --creme-sable: #EDE4D3;
+    --creme-claire: #F6F1E7;
+    --anthracite: #2B2723;
+    --display: 'Fraunces', Georgia, serif;
+    --texte: 'Inter', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #fff;
+    font-family: var(--texte);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .carte {
+    position: relative;
+    width: 1004px;
+    height: 650px;
+    overflow: hidden;
+  }
+
+  /* ---------------- Recto : le sceau, rien d'autre ---------------- */
+
+  .recto {
+    background: var(--creme-sable);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .recto img {
+    display: block;
+    width: 470px;
+    height: auto;
+  }
+
+  /* ---------------- Verso : les coordonnees ---------------- */
+
+  .verso {
+    background: var(--anthracite);
+    color: var(--creme-claire);
+    padding: 56px 64px;
+  }
+
+  .verso__entete {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .verso__sceau {
+    display: block;
+    width: 64px;
+    height: auto;
+  }
+
+  .verso__nom {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 31px;
+    letter-spacing: -0.022em;
+  }
+
+  .verso__baseline {
+    margin-top: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracotta-clair);
+  }
+
+  .verso__coordonnees {
+    margin-top: 62px;
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    row-gap: 20px;
+    align-items: baseline;
+  }
+
+  .verso__coordonnees dt {
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--terracotta-clair);
+  }
+
+  .verso__coordonnees dd {
+    margin: 0;
+    font-size: 21px;
+  }
+
+  .verso__zone {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(246, 241, 231, 0.2);
+    font-size: 14px;
+    color: rgba(246, 241, 231, 0.7);
+  }
+</style>
+</head>
+<body>
+
+<section class="carte recto">
+  <img src="../src/images/logo-solybat.png" alt="Soly'bat">
+</section>
+
+<section class="carte verso">
+  <div class="verso__entete">
+    <img class="verso__sceau" src="../src/images/logo-solybat.png" alt="">
+    <div>
+      <p class="verso__nom">Soly'bat</p>
+      <p class="verso__baseline">Rénovation &amp; mise en location</p>
+    </div>
+  </div>
+
+  <dl class="verso__coordonnees">
+    <dt>Tél.</dt>
+    <dd>06 14 59 13 74</dd>
+    <dt>Email</dt>
+    <dd>contact@solybat18.fr</dd>
+    <dt>Site</dt>
+    <dd>solybat18.fr</dd>
+  </dl>
+
+  <p class="verso__zone">Vierzon et les communes alentour (Cher)</p>
+</section>
+
+</body>
+</html>

@@ -104,3 +104,38 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Encart partenaire, en fin de page : la seule invitation à agir de /retour-client,
+   qui n'en avait aucune alors que c'est la page la plus convaincante du site. */
+.partenaire {
+  margin-top: var(--espace-lg);
+  padding: var(--espace-md);
+  border-radius: var(--rayon-surface);
+  border-top: 4px solid var(--couleur-terracotta);
+  background: var(--couleur-creme-claire);
+}
+
+.partenaire__mention {
+  margin: 0 0 var(--espace-xs);
+  font-family: var(--police-display);
+  font-size: var(--texte-xl);
+  line-height: 1.3;
+  letter-spacing: var(--interlettrage-titre);
+}
+
+.partenaire__mention strong { color: var(--couleur-terracotta-sur-creme); }
+
+.partenaire p { margin: 0 0 var(--espace-sm); max-width: var(--largeur-max-texte); }
+
+.partenaire__action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace-sm);
+  margin-bottom: 0;
+}
+
+.partenaire__action span {
+  color: var(--couleur-bois-brule);
+  font-size: 0.9rem;
+}

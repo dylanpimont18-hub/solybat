@@ -2,10 +2,11 @@
 require __DIR__ . '/devis-validation.php';
 
 // Adresse de contact Soly'bat (cohérente avec src/_data/site.json > email).
-// TEMPORAIRE (test local avant mise en prod) : redirigé vers dylan.pimont@orange.fr
-// au lieu de solybat@gmail.com le temps de valider le pipeline PHP. À remettre à
-// 'solybat@gmail.com' avant toute mise en ligne réelle.
-$adresseContact = 'dylan.pimont@orange.fr';
+// Adresse de réception des demandes de devis. Elle est sur le même domaine que
+// l'en-tête From ci-dessous et hébergée chez le même prestataire : la remise est
+// donc locale, le cas le plus fiable. Ne pas y remettre une adresse externe
+// (gmail, orange) sans vérifier SPF/DKIM, sous peine de finir en indésirables.
+$adresseContact = 'contact@solybat18.fr';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: /devis/');

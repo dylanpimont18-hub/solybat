@@ -2,9 +2,10 @@
 
 Générées le 2026-07-30, à partir de `logo-solybat.png` (recadré/détouré en transparent depuis le sceau original). Carte de visite générique (pas de nom de personne, pas d'adresse postale — voir `CLAUDE.md` pour le contexte).
 
+- `carte-visite.html` — **source** des deux PNG ci-dessous, écrite le 2026-08-25. Les PNG du 2026-07-30 avaient été produits à partir d'un HTML jamais versionné, et la carte était restée périmée : elle affichait encore « rayon de 50 km » et l'ancienne adresse gmail, en contradiction avec le site. **Ne plus retoucher les PNG directement.** Régénération : `msedge --headless=new --force-device-scale-factor=1 --window-size=1004,1300 --screenshot=cartes.png file:///.../carte-visite.html`, puis découper en deux à la moitié (0–650 = recto, 650–1300 = verso).
 - `carte-visite-recto.png` / `carte-visite-verso.png` — 1004×650 px (300 dpi, format 85×55 mm sans fond perdu). À donner tel quel à un imprimeur, qui ajoutera le fond perdu si besoin.
 - `signature-email-solybat.html` — bloc HTML à coller dans l'éditeur de signature du client mail (Gmail : Paramètres > Signature > éditeur HTML). Référence l'image `src/images/signature-sceau.png` via l'URL `https://www.solybat18.fr/images/signature-sceau.png` — ne fonctionnera qu'une fois le site déployé sur ce domaine (avant ça, l'image n'apparaîtra pas chez les destinataires).
-- `signature-email-apercu.png` — rendu visuel de la signature, pour vérification rapide sans avoir à la coller dans un client mail.
+- `signature-email-apercu.png` — rendu visuel de la signature, pour vérification rapide sans avoir à la coller dans un client mail. **Le générer avec une copie temporaire du HTML dont l'URL du sceau pointe vers `../src/images/signature-sceau.png`** : telle quelle, la signature référence l'image sur `solybat18.fr`, et l'aperçu sortirait avec une image cassée tant que le site n'est pas en ligne.
 
 ## Plaquette de présentation
 
