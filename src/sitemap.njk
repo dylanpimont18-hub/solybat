@@ -2,11 +2,33 @@
 permalink: "/sitemap.xml"
 eleventyExcludeFromCollections: true
 ---
-<?xml version="1.0" encoding="UTF-8"?>
+{#
+  Sitemap XML.
+
+  Attention : on ne peut PAS se contenter de `collections.all`. Les fiches
+  projet sont produites par un unique template pagine
+  (`realisations/projet.njk`, `size: 1`), et 11ty ne place dans les
+  collections que la premiere page de la pagination. Les 5 autres fiches
+  seraient donc absentes du sitemap alors qu'elles existent bien dans
+  `_site/`. On enumere les realisations depuis `_data/realisations.json`,
+  et on ecarte les entrees paginees de `collections.all` pour ne pas
+  dupliquer la premiere fiche.
+
+  Les pages `noindex` (404, devis-merci) portent deja
+  `eleventyExcludeFromCollections: true` : elles ne remontent pas ici.
+#}<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {%- for entree in collections.all %}
+{%- if not entree.data.pagination %}
   <url>
     <loc>{{ site.url }}{{ entree.url }}</loc>
+    <lastmod>{{ entree.date | dateISO }}</lastmod>
+  </url>
+{%- endif %}
+{%- endfor %}
+{%- for projet in realisations %}
+  <url>
+    <loc>{{ site.url }}/realisations/{{ projet.slug }}/</loc>
   </url>
 {%- endfor %}
 </urlset>

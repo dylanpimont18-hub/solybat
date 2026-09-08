@@ -88,6 +88,11 @@ module.exports = function (eleventyConfig) {
   // Dimensions natives d'une image, pour réserver sa place avant chargement.
   eleventyConfig.addFilter("dimensionsImage", dimensionsImage);
 
+  // Date au format ISO court (AAAA-MM-JJ), attendu par <lastmod> du sitemap.
+  eleventyConfig.addFilter("dateISO", (date) =>
+    new Date(date).toISOString().slice(0, 10),
+  );
+
   eleventyConfig.addGlobalData("modulesJs", () => listerModulesJs());
 
   // Agregats des operations chiffrees, recalcules a chaque build : un « 8/8 »
