@@ -383,3 +383,6 @@ Handler POST du formulaire de devis, copié tel quel vers `_site/`. Rejette le h
 
 ## tests/sitemap.test.js
 7 tests sur `_site/sitemap.xml` (nécessite `npm run build` au préalable, sinon le premier test échoue explicitement). Verrouille : déclaration XML en tout premier caractère, présence des 6 fiches projet paginées (le bug d'origine), présence des 10 pages principales, exclusion des pages `noindex`, absence de doublon, et déclaration dans `robots.txt`.
+
+## outils/deployer-ftp.py
+Téléverse `_site/` sur l'hébergeur en **FTPS** (jamais en FTP clair : le mot de passe passerait en clair sur le réseau). Alternative au `.zip` de `faire-archive.py`, qu'il appelle d'abord pour garantir une sortie propre. **Aucun identifiant dans le dépôt** — les trois variables `SOLYBAT_FTP_HOTE` / `_UTILISATEUR` / `_MOTDEPASSE` viennent de l'environnement (hPanel Hostinger > Fichiers > Comptes FTP), et `SOLYBAT_FTP_RACINE` surcharge le dossier web (`public_html` chez Hostinger, `www` chez OVH). **Tourne à blanc par défaut**, `--envoyer` déclenche le transfert réel : un déploiement est difficile à annuler, donc le défaut est le mode qui ne casse rien.
