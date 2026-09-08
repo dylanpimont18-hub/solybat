@@ -1,8 +1,21 @@
 # Soly'bat — configuration Apache (Hostinger/OVH)
 
-# --- HTTPS forcé ---
+# --- HTTPS + domaine canonique (www) ---
+# Les deux regles menent a https://www.solybat18.fr, qui est la forme declaree
+# par site.json, les <link rel="canonical">, le sitemap et robots.txt.
+#
+# La premiere regle traite d'un coup le domaine nu ET l'absence de HTTPS :
+# elle reecrit vers l'hote canonique en dur, sans reutiliser %{HTTP_HOST}.
+# Passer par deux redirections enchainees (http->https puis nu->www) ferait
+# perdre a Google une partie du signal de lien a chaque saut.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Domaine nu (avec ou sans HTTPS) -> www en HTTPS, en un seul saut.
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteRule ^ https://www.solybat18.fr%{REQUEST_URI} [L,R=301]
+
+  # Deja en www mais en clair -> HTTPS.
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
